@@ -50,7 +50,7 @@ function CityPreview() {
 
   return (
     <div className="w-full mt-12">
-      <h2 className="text-2xl font-semibold mb-8 text-center">Popular Cities</h2>
+      <h2 className="text-2xl font-semibold mb-8 ">Popular Cities</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
         {cities.map((city) => (
           <div
