@@ -1,43 +1,113 @@
-import { RadialBarChart, RadialBar, Legend, ResponsiveContainer } from 'recharts';
-
-const data = [
-  { name: 'Internet Speed', value: 89, fill: '#8884d8' },
-  { name: 'Safety', value: 82, fill: '#83a6ed' },
-  { name: 'Nightlife', value: 83, fill: '#8dd1e1' },
-  { name: 'Wellness', value: 74, fill: '#82ca9d' },
-  { name: 'Cost', value: 91, fill: '#a4de6c' },
-  { name: 'Community', value: 66, fill: '#d0ed57' },
-];
+ 
 
 function LifestyleMeter() {
+  const data = [
+    { name: 'Internet Speed', value: 89, icon: '🌐' },
+    { name: 'Safety', value: 82, icon: '🛡️' },
+    { name: 'Nightlife', value: 83, icon: '🌃' },
+    { name: 'Wellness', value: 74, icon: '🧘' },
+    { name: 'Cost', value: 91, icon: '💰' },
+    { name: 'Community', value: 66, icon: '👥' },
+  ];
+
   return (
-    <div className="mt-8 bg-white text-black rounded-xl p-6 shadow-md">
-      <h2 className="text-2xl font-semibold mb-4">Lifestyle Score Meter</h2>
-      <div className="h-64">
-        <ResponsiveContainer width="100%" height="100%">
-          <RadialBarChart 
-            innerRadius="10%" 
-            outerRadius="80%" 
-            data={data}
-            startAngle={180} 
-            endAngle={0}
-          >
-            <RadialBar
-              minAngle={15}
-              label={{ position: 'insideStart', fill: '#fff' }}
-              background
-              clockWise
-              dataKey="value"
-            />
-            <Legend 
-              iconSize={10} 
-              layout="horizontal" 
-              verticalAlign="bottom" 
-              align="center"
-            />
-          </RadialBarChart>
-        </ResponsiveContainer>
+    <div className="lifestyle-meter-container">
+      <h2 className="lifestyle-meter-title">Lifestyle Score Meter</h2>
+      
+      <div className="scores-container">
+        {data.map((item) => (
+          <div key={item.name} className="score-item">
+            <div className="score-circle">
+              <div className="score-icon">{item.icon}</div>
+              <div className="score-value">{item.value}</div>
+            </div>
+            <div className="score-label">{item.name}</div>
+          </div>
+        ))}
       </div>
+
+      {/* CSS inside the same file */}
+      <style jsx>{`
+        .lifestyle-meter-container {
+          margin-top: 2rem;
+          background-color: #000;
+          color: white;
+          border-radius: 1rem;
+          padding: 1.5rem;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          width:70%;
+           margin-left: auto;
+          margin-right: auto;
+          // text-align: center;
+        }
+
+        .lifestyle-meter-title {
+                  font-size: 2.5rem;
+
+          font-weight: 600;
+          margin-bottom: 1.5rem;
+          color: White; /* Aqua color */
+        }
+
+        .scores-container {
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 1rem;
+        }
+
+        .score-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          flex: 1;
+          min-width: 80px;
+        }
+
+        .score-circle {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          background-color: #222;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 0.5rem;
+          border: 2px solid #00ffff;
+        }
+
+        .score-icon {
+          font-size: 1.5rem;
+          color: #00ffff;
+          margin-bottom: 0.25rem;
+        }
+
+        .score-value {
+          font-size: 1.4rem;
+          font-weight: bold;
+          color: white;
+        }
+
+        .score-label {
+          font-size: 0.8rem;
+          color: #aaa;
+          text-align: center;
+        }
+
+        @media (max-width: 640px) {
+          .scores-container {
+            justify-content: center;
+          }
+          .score-item {
+            min-width: 70px;
+          }
+          .score-circle {
+            width: 70px;
+            height: 70px;
+          }
+        }
+      `}</style>
     </div>
   );
 }
