@@ -1,7 +1,5 @@
- 
 
 import { useState } from 'react';
-
 function CityPreview() {
   const [selectedCity, setSelectedCity] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -51,14 +49,13 @@ function CityPreview() {
       <style>
         {`
           .container {
-            width: 100%;
-             margin: 2rem auto;
+            width: 90%;
+            margin: 2rem auto;
             padding: 0 1rem;
           }
 
           .section-title {
-                    font-size: 2.5rem;
-
+            font-size: 2.5rem;
             font-weight: 600;
             margin-bottom: 2rem;
           }
@@ -78,14 +75,13 @@ function CityPreview() {
           .city-card {
             background-color: white;
             color: black;
-          
             border-radius: 0.5rem;
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             cursor: pointer;
             transition: all 0.3s;
             position: relative;
-            width:100%;
+            width: 100%;
           }
 
           .city-card:hover {
@@ -147,21 +143,33 @@ function CityPreview() {
           .modal {
             background-color: white;
             border-radius: 1rem;
-            max-width: 28rem;
-            width: 100%;
+            width: 70vw; /* 70% of viewport width */
+            max-width: 1200px; /* Maximum width */
+            height: 70vh; /* 70% of viewport height */
+            max-height: 800px; /* Maximum height */
             overflow: hidden;
             box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+          }
+
+          .modal-image-container {
+            height: 40%;
+            overflow: hidden;
           }
 
           .modal-image {
             width: 100%;
-            height: 12rem;
+            height: 100%;
             object-fit: cover;
           }
 
           .modal-content {
             padding: 1.5rem;
             color: black;
+            height: 60%;
+            display: flex;
+            flex-direction: column;
           }
 
           .modal-header {
@@ -172,12 +180,13 @@ function CityPreview() {
           }
 
           .modal-title {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
           }
 
           .modal-tagline {
             color: #444;
+            font-size: 1.1rem;
           }
 
           .modal-close-button {
@@ -186,38 +195,62 @@ function CityPreview() {
             font-size: 1.5rem;
             color: #444;
             cursor: pointer;
+            padding: 0.5rem;
           }
 
           .modal-details {
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
+            gap: 1rem;
+            flex-grow: 1;
+            padding: 1rem 0;
           }
 
           .modal-detail {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
+            font-size: 1.1rem;
           }
 
           .detail-label {
-            font-weight: 500;
+            font-weight: 600;
+            min-width: 140px;
           }
 
           .modal-close-button-main {
-            margin-top: 1.5rem;
+            margin-top: auto;
             width: 100%;
             background-color: #3B82F6;
             color: white;
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1rem;
             border: none;
             border-radius: 0.5rem;
             transition: background-color 0.3s;
             cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 500;
           }
 
           .modal-close-button-main:hover {
             background-color: #2563EB;
+          }
+
+          @media (max-width: 768px) {
+            .modal {
+              width: 90vw;
+              height: 80vh;
+            }
+            
+            .modal-detail {
+              flex-direction: column;
+              align-items: flex-start;
+              gap: 0.25rem;
+            }
+            
+            .detail-label {
+              min-width: unset;
+            }
           }
         `}
       </style>
@@ -252,11 +285,13 @@ function CityPreview() {
         {isModalOpen && selectedCity && (
           <div className="modal-backdrop">
             <div className="modal">
-              <img
-                src={selectedCity.image}
-                alt={selectedCity.name}
-                className="modal-image"
-              />
+              <div className="modal-image-container">
+                <img
+                  src={selectedCity.image}
+                  alt={selectedCity.name}
+                  className="modal-image"
+                />
+              </div>
               <div className="modal-content">
                 <div className="modal-header">
                   <div>
