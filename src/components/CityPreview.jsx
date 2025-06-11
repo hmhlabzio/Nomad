@@ -211,7 +211,8 @@ function CityPreview() {
           .feedback-form textarea { resize: vertical; min-height: 6rem; }
           .feedback-form button {
             align-self: flex-end;
-            background: linear-gradient(90deg, #8b5cf6, #6366f1);
+            background: #3B82F6;
+            margin-bottom: 2.5rem;
             color: white;
             padding: 0.75rem 1.5rem;
             border: none;
@@ -230,13 +231,23 @@ function CityPreview() {
             color: white;
             padding: 0.75rem 1rem;
             border: none;
+            margin-top:1 rem;
             border-radius: 0.5rem;
             transition: background-color 0.3s;
             cursor: pointer;
             font-size: 1.1rem;
             font-weight: 500;
           }
-          .modal-close-button-main:hover { background-color: #2563EB; }
+          .modal-close-button-main:hover {
+           background-color: #2563EB;
+            
+           }
+
+           .btn{
+            color:red;
+          
+           }
+
 
           @media (max-width: 768px) {
             .modal { width: 90vw; height: 80vh; }
@@ -346,7 +357,7 @@ function CityPreview() {
                       placeholder="Tell us about your situation..."
                       required
                     />
-                    <button type="submit">Send Inquiry</button>
+                    <button className="btn" type="submit">Send Inquiry</button>
                   </form>
                 </div>
 
