@@ -1,83 +1,154 @@
- 
+ import { useState } from "react";
 
+function SafetyTrustScore() {
+  const [selectedCity, setSelectedCity] = useState("Tokyo");
 
-import React from 'react';
+  const cityData = {
+    Tokyo: {
+      score: 92,
+      reason: "Strong Police Presence, Low Incidents",
+      flagged: 1,
+      news: "Tokyo ranked safest city in Asia for solo travelers.",
+    },
+    Bali: {
+      score: 78,
+      reason: "Tourist-friendly, Some petty theft",
+      flagged: 4,
+      news: "Tourist reported wallet theft near beach clubs.",
+    },
+    Goa: {
+      score: 70,
+      reason: "Nightlife areas with higher noise & crowd",
+      flagged: 3,
+      news: "Local police increased patrolling after night incidents.",
+    },
+    Delhi: {
+      score: 58,
+      reason: "Traffic & pickpocketing zones in central areas",
+      flagged: 5,
+      news: "Delhi metro increases security in peak hours.",
+    },
+    Paris: {
+      score: 82,
+      reason: "Safe with pickpocket hotspots",
+      flagged: 2,
+      news: "Paris launches safety app for tourists.",
+    },
+  };
 
-function SafetyScore() {
-  return (<div> 
-      <h2 className='title' >Safety Trust Score</h2>
-      <div className="aqua-bar"></div>
-    <div className="safety-score-container">
-      <div className="safety-score-chart">
-        <p className="safety-score-chart-text">Chart Coming Soon</p>
+  const handleCityChange = (e) => {
+    setSelectedCity(e.target.value);
+  };
+
+  const { score, reason, flagged, news } = cityData[selectedCity];
+
+  return (
+    <div className="safety-box">
+      <h2 className="title">Safety Trust Score</h2>
+
+      <div className="dropdown">
+        <label htmlFor="city-select" className="label">Select City:</label>
+        <select id="city-select" value={selectedCity} onChange={handleCityChange}>
+          {Object.keys(cityData).map((city) => (
+            <option key={city} value={city}>{city}</option>
+          ))}
+        </select>
       </div>
-      <div className="safety-score-footer">
-        <p>Safety ratings based on nomad community feedback</p>
+
+      <div className="score-display">
+        <div className="score-circle">
+          <span>{score}</span>
+        </div>
+        <p className="reason">🛡️ {reason}</p>
       </div>
 
-      {/* CSS inside the same file */}
-      <style jsx>{`
-        .safety-score-container {
-          background-color: white;
-          color: black;
-          border-radius: 0.5rem;
+      <div className="extra-info">
+        <p className="flagged">🚨 {flagged} people flagged this area today</p>
+        <p className="news">📰 Recent News: {news}</p>
+      </div>
+
+      <style>{`
+        .safety-box {
+          background: white;
+          color: #111827;
           padding: 1.5rem;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-          width: 80%;
-          margin: 2rem auto;
-          position: relative;
+          border-radius: 1rem;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+          width: 90%;
+          margin: auto;
         }
 
-         .title {
-          font-size: 2.5rem;
+        .title {
+          font-size: 2rem;
           font-weight: 600;
-          margin-left:100px;
-          // margin: 0 0 1rem 0;
-          color: white;
-          text-align: left;
+          margin-bottom: 1.5rem;
         }
 
-        .aqua-bar {
-         margin-left:100px;
-                  margin-right:100px;
-border-radius:5px;
-          height: 10px;
-          background-color: #00ffff; /* Aqua color */
-          // margin: 1rem 0;
+        .dropdown {
+          display: flex;
+          
+          color:rgb(255, 255, 255);
+          align-items: center;
+          gap: 0.5rem;
+          margin-bottom: 1.2rem;
+        }
+         .label {
+            font-size: 1rem;
+            font-weight: 50;
+            color: #111827; /* dark gray for visibility */
+}
+
+        select {
+          padding: 0.4rem 0.75rem;
+          font-size: 1rem;
+          border-radius: 0.5rem;
+          border: 1px solid #ccc;
+          background-color:rgb(0, 0, 1);
+          color:rgb(255, 255, 255);
         }
 
-        .safety-score-chart {
+        .score-display {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-bottom: 1rem;
+        }
+
+        .score-circle {
+          width: 80px;
+          height: 80px;
+          background-color: #16a34a;
+          border-radius: 50%;
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 150px;
-          background-color: #f8f9fa;
-          border-radius: 0.25rem;
-          margin: 1rem 0;
+          font-size: 1.8rem;
+          font-weight: bold;
+          color: white;
+          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        .safety-score-chart-text {
-          color: #6b7280;
+        .reason {
           font-size: 1rem;
+          color: #374151;
         }
 
-        .safety-score-footer {
-          margin-top: 1.5rem;
-          font-size: 0.875rem;
-          color: #6b7280;
-          text-align: center;
+        .extra-info p {
+          margin-top: 0.4rem;
+          font-size: 0.95rem;
+          color: #4b5563;
         }
 
-        @media (max-width: 768px) {
-          .safety-score-container {
-            width: 90%;
-            padding: 1.25rem;
-          }
+        .flagged {
+          color: #b91c1c;
+        }
+
+        .news {
+          color: #1d4ed8;
         }
       `}</style>
-    </div>
     </div>
   );
 }
 
-export default SafetyScore;
+export default SafetyTrustScore;
