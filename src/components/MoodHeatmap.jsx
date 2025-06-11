@@ -1,6 +1,3 @@
- 
-
-
 import { useState } from "react";
 
 function MoodHeatmap() {
@@ -34,82 +31,96 @@ function MoodHeatmap() {
           <option>Monthly</option>
         </select>
       </div>
-      <div className="mood-heatmap-grid">
-        {moods.map((mood) => (
-          <div key={mood.city} className="mood-heatmap-card">
-            <h3 className="mood-heatmap-card-title">{mood.city}</h3>
-            <div className="mood-heatmap-emoji">{mood.emoji}</div>
-            <p className="mood-heatmap-percentage">{mood.percentage}% felt positive</p>
-          </div>
-        ))}
+
+      <div className="mood-scroll-wrapper">
+        <div className="mood-row">
+          {moods.map((mood) => (
+            <div key={mood.city} className="mood-card">
+              <h3 className="mood-city">{mood.city}</h3>
+              <div className="mood-emoji">{mood.emoji}</div>
+              <p className="mood-percentage">{mood.percentage}% felt positive</p>
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* CSS inside the same file */}
-      <style>{`
+      <style jsx>{`
         .mood-heatmap-container {
           margin-top: 4rem;
-          padding: 0 1rem;
-           margin-left: auto;
-          margin-right: auto;
+          padding: 1.5rem 1rem;
           color: white;
-          height:100%;
-           width: 80%;
+          background: #000;
+          border-radius: 1rem;
+          width: 100%;
+          max-width: 1000px;
+          margin-left: auto;
+          margin-right: auto;
         }
 
         .mood-heatmap-header {
           display: flex;
-          align-items: center;
           justify-content: space-between;
-          margin-bottom: 1rem;
-         }
+          align-items: center;
+          margin-bottom: 1.5rem;
+        }
 
         .mood-heatmap-title {
-                   font-size: 2.5rem;
-
-          font-weight: 600;
+          font-size: 2rem;
+          font-weight: bold;
         }
 
         .mood-heatmap-select {
+          padding: 0.4rem 0.75rem;
+          border-radius: 0.4rem;
+          font-size: 1rem;
+          background: #111;
           color: white;
-          padding: 0.25rem 0.5rem;
-          border-radius: 0.25rem;
+          border: 1px solid #444;
         }
 
-        .mood-heatmap-grid {
-          display: grid;
-          grid-template-columns: 1fr;
+        .mood-scroll-wrapper {
+          overflow-x: auto;
+          white-space: nowrap;
+          padding-bottom: 0.5rem;
+        }
+
+        .mood-row {
+          display: inline-flex;
           gap: 1rem;
         }
 
-        @media (min-width: 768px) {
-          .mood-heatmap-grid {
-            grid-template-columns: repeat(3, 1fr);
-          }
-        }
-
-        .mood-heatmap-card {
+        .mood-card {
+          flex-shrink: 0;
           background-color: white;
           color: black;
           border-radius: 1rem;
           padding: 1rem;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          width: 180px;
           text-align: center;
         }
 
-        .mood-heatmap-card-title {
-          font-size: 1.125rem;
+        .mood-city {
+          font-size: 1.2rem;
           font-weight: bold;
           margin-bottom: 0.5rem;
         }
 
-        .mood-heatmap-emoji {
+        .mood-emoji {
           font-size: 2rem;
           margin-bottom: 0.5rem;
         }
 
-        .mood-heatmap-percentage {
-          font-size: 0.875rem;
-          color: #6b7280;
+        .mood-percentage {
+          font-size: 0.95rem;
+          color: #333;
+        }
+
+        .mood-scroll-wrapper::-webkit-scrollbar {
+          display: none;
+        }
+
+        .mood-scroll-wrapper {
+          scrollbar-width: none;
         }
       `}</style>
     </div>
@@ -117,4 +128,5 @@ function MoodHeatmap() {
 }
 
 export default MoodHeatmap;
+
 
