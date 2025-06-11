@@ -1,5 +1,7 @@
+ 
 
-import { useState } from 'react';
+import { useState } from "react";
+
 function CityPreview() {
   const [selectedCity, setSelectedCity] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,176 +50,179 @@ function CityPreview() {
     <>
       <style>
         {`
-          .container {
-            width: 90%;
-            margin: 2rem auto;
-            padding: 0 1rem;
-          }
+          /* your existing styles… */
+          .container { 
+          width: 90%; 
+          margin: 2rem auto;
+           padding: 0 1rem;
+           }
 
           .section-title {
-            font-size: 2.5rem;
-            font-weight: 600;
-            margin-bottom: 2rem;
-          }
-
-          .city-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 4.5rem;
-          }
-
-          @media (min-width: 600px) {
-            .city-grid {
-              grid-template-columns: repeat(3, 1fr);
+           font-size: 2.5rem; 
+           font-weight: 600; 
+           margin-bottom: 2rem;
             }
-          }
-
+          .city-grid { 
+          display: grid;
+           grid-template-columns: 1fr;
+            gap: 4.5rem;
+             }
+          @media (min-width: 600px) {
+           .city-grid { 
+           grid-template-columns: repeat(3, 1fr);
+            } 
+           }
           .city-card {
-            background-color: white;
-            color: black;
-            border-radius: 0.5rem;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            cursor: pointer;
-            transition: all 0.3s;
+           background-color: white; 
+           color: black; 
+           border-radius: 0.5rem; 
+           overflow: hidden; 
+           box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            cursor: pointer; 
+            transition: all 0.3s; 
             position: relative;
-            width: 100%;
+             width: 100%;
+              }
+          .city-card:hover { 
+          box-shadow: 0 8px 12px rgba(0,0,0,0.15); 
           }
-
-          .city-card:hover {
-            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
-          }
-
           .city-image-container {
-            position: relative;
-          }
-
+           position: relative;
+            }
           .city-image {
-            width: 100%;
-            height: 12rem;
-            object-fit: cover;
-            transition: all 0.3s;
-          }
-
-          .overlay {
-            position: absolute;
-            inset: 0;
-            background-color: rgba(0,0,0,0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-          }
-
-          .overlay-text {
-            color: white;
-            font-weight: bold;
-            font-size: 1.125rem;
-          }
-
+           width: 100%; 
+           height: 12rem; 
+           object-fit: cover; 
+           transition: all 0.3s;
+            }
+          .overlay { 
+          position: absolute;
+           inset: 0; 
+           background-color: rgba(0,0,0,0.4); 
+           display: flex; align-items: center;
+            justify-content: center; 
+            transition: all 0.3s; 
+            }
+          .overlay-text { 
+          color: white; 
+          font-weight: bold;
+           font-size: 1.125rem;
+            }
           .city-info {
-            padding: 1rem;
-          }
-
+           padding: 1rem;
+            }
           .city-name {
-            font-size: 1.25rem;
+           font-size: 1.25rem;
             font-weight: bold;
-          }
-
+             }
           .city-tagline {
-            font-size: 0.875rem;
-            color: #666;
-          }
-
+           font-size: 0.875rem;
+            color: #666; 
+            }
           .modal-backdrop {
-            position: fixed;
-            inset: 0;
+           position: fixed;
+            inset: 0; 
             background-color: rgba(0,0,0,0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            z-index: 50;
-          }
-
+             display: flex; 
+             align-items: center; 
+             justify-content: center; 
+             padding: 1rem;
+              z-index: 50;
+               }
           .modal {
-            background-color: white;
+           background-color: white;
             border-radius: 1rem;
-            width: 70vw; /* 70% of viewport width */
-            max-width: 1200px; /* Maximum width */
-            height: 70vh; /* 70% of viewport height */
-            max-height: 800px; /* Maximum height */
-            overflow: hidden;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            display: flex;
-            flex-direction: column;
-          }
-
+             width: 70vw; 
+             max-width: 1200px;
+              height: 90vh;
+               max-height: 800px; 
+               overflow: hidden;
+                box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+                 display: flex; 
+                 flex-direction: column;
+                  }
           .modal-image-container {
-            height: 40%;
-            overflow: hidden;
-          }
-
-          .modal-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-          }
-
+           height: 40%; 
+           overflow: hidden;
+            }
+          .modal-image { 
+          width: 100%; 
+          height: 100%; 
+          object-fit: cover;
+           }
           .modal-content {
-            padding: 1.5rem;
-            color: black;
-            height: 60%;
+           padding: 1.5rem;
+            color: black; 
+            height: 60%; 
             display: flex;
-            flex-direction: column;
-          }
-
+             flex-direction: column;
+              overflow-y: auto;
+               }
           .modal-header {
-            display: flex;
+           display: flex;
             justify-content: space-between;
-            align-items: start;
-            margin-bottom: 1rem;
-          }
-
-          .modal-title {
-            font-size: 1.8rem;
-            font-weight: bold;
-          }
-
-          .modal-tagline {
-            color: #444;
-            font-size: 1.1rem;
-          }
-
+             align-items: start; 
+             margin-bottom: 1rem; 
+             }
+          .modal-title { 
+          font-size: 1.8rem;
+           font-weight: bold; 
+           }
+          .modal-tagline { 
+          color: #444; 
+          font-size: 1.1rem;
+           }
           .modal-close-button {
-            background: none;
+           background: none;
             border: none;
-            font-size: 1.5rem;
-            color: #444;
-            cursor: pointer;
-            padding: 0.5rem;
-          }
-
+             font-size: 1.5rem; 
+             color: #444; 
+             cursor: pointer; 
+             padding: 0.5rem;
+              }
           .modal-details {
-            display: flex;
+           display: flex;
             flex-direction: column;
-            gap: 1rem;
-            flex-grow: 1;
-            padding: 1rem 0;
-          }
-
+             gap: 1rem; 
+             flex-grow: 0; 
+             }
           .modal-detail {
-            display: flex;
+           display: flex;
             align-items: center;
-            gap: 0.75rem;
-            font-size: 1.1rem;
-          }
-
+             gap: 0.75rem;
+              font-size: 1.1rem; 
+              }
           .detail-label {
-            font-weight: 600;
-            min-width: 140px;
+           font-weight: 600;
+            min-width: 140px; 
+            }
+          
+          /* — NEW: feedback form styles — */
+          .feedback-form { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+          .feedback-form input,
+          .feedback-form select,
+          .feedback-form textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 0.5rem;
           }
-
+          .feedback-form textarea { resize: vertical; min-height: 6rem; }
+          .feedback-form button {
+            align-self: flex-end;
+            background: linear-gradient(90deg, #8b5cf6, #6366f1);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity 0.2s;
+          }
+          .feedback-form button:hover { opacity: 0.9; }
+          
           .modal-close-button-main {
             margin-top: auto;
             width: 100%;
@@ -231,26 +236,12 @@ function CityPreview() {
             font-size: 1.1rem;
             font-weight: 500;
           }
-
-          .modal-close-button-main:hover {
-            background-color: #2563EB;
-          }
+          .modal-close-button-main:hover { background-color: #2563EB; }
 
           @media (max-width: 768px) {
-            .modal {
-              width: 90vw;
-              height: 80vh;
-            }
-            
-            .modal-detail {
-              flex-direction: column;
-              align-items: flex-start;
-              gap: 0.25rem;
-            }
-            
-            .detail-label {
-              min-width: unset;
-            }
+            .modal { width: 90vw; height: 80vh; }
+            .modal-detail { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+            .detail-label { min-width: unset; }
           }
         `}
       </style>
@@ -305,20 +296,64 @@ function CityPreview() {
 
                 <div className="modal-details">
                   <div className="modal-detail">
-                    <span className="detail-label">Cafes:</span> {selectedCity.cafes}
+                    <span className="detail-label">Cafes:</span>{" "}
+                    {selectedCity.cafes}
                   </div>
                   <div className="modal-detail">
-                    <span className="detail-label">Coworking Cost:</span> {selectedCity.coworkingCost}
+                    <span className="detail-label">Coworking Cost:</span>{" "}
+                    {selectedCity.coworkingCost}
                   </div>
                   <div className="modal-detail">
-                    <span className="detail-label">Safety:</span> {selectedCity.safety}
+                    <span className="detail-label">Safety:</span>{" "}
+                    {selectedCity.safety}
                   </div>
                   <div className="modal-detail">
-                    <span className="detail-label">WiFi Speed:</span> {selectedCity.wifiSpeed}
+                    <span className="detail-label">WiFi Speed:</span>{" "}
+                    {selectedCity.wifiSpeed}
                   </div>
                 </div>
 
-                <button onClick={closeModal} className="modal-close-button-main">
+                {/* — NEW: Feedback Form — */}
+                <div>
+                  <form
+                    className="feedback-form"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      alert("Thanks for your feedback!");
+                    }}
+                  >
+                    <h1 className="fa fa-feed">Feedback Form</h1>
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Your Name"
+                      required
+                    />
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Your Email"
+                      required
+                    />
+                    <select name="country" required>
+                      <option value="">Current Country</option>
+                      <option value="jp">Japan</option>
+                      <option value="id">Indonesia</option>
+                      <option value="in">India</option>
+                    </select>
+                    <textarea
+                      name="message"
+                      placeholder="Tell us about your situation..."
+                      required
+                    />
+                    <button type="submit">Send Inquiry</button>
+                  </form>
+                </div>
+
+                <button
+                  onClick={closeModal}
+                  className="modal-close-button-main"
+                >
                   Close
                 </button>
               </div>

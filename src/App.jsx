@@ -7,6 +7,7 @@ import CostForecaster from "./components/CostForecaster";
 import LifestyleMeter from "./components/LifestyleMeter";
 import SparkHeader from './components/SparkHeader';
 import Footer from './components/Footer';
+import CitiesSection from "./components/CitiesSection";
 function App() {
   return (
     <div className="bg-black text-white min-h-screen flex flex-col items-center">
