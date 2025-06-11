@@ -88,9 +88,9 @@ export const LifestyleMeter = () => {
   return (
     <Container>
       <Title>Lifestyle Score Meter</Title>
-      <Description>
+      {/* <Description>
         Nomad is our smart companion for digital nomad city exploration. Discover the best destinations with real time data on lifestyle, internet, safety, and more.
-      </Description>
+      </Description> */}
 
       <div style={{ width: '100%', height: 400 }}>
         <ResponsiveContainer>
