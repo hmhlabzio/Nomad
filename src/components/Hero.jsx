@@ -1,7 +1,4 @@
- 
-
-
-import React from 'react';
+ import React from 'react';
 function Hero() {
   const scrollToPopularCities = () => {
     const popularCitiesSection = document.getElementById('popular-cities');
