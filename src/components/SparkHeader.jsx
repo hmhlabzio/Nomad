@@ -4,8 +4,8 @@ function SparkHeader({ onContactClick, onBrowseClick }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="bg-black shadow-sm fixed w-full z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header className="bg-black shadow-sm w-full z-50 fixed top-0 left-0 w-full">
+      <div className="max-w-8xl mx-auto px-10 sm:px-10 lg:px-15">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0 flex items-center">
             <img
@@ -97,4 +97,5 @@ function SparkHeader({ onContactClick, onBrowseClick }) {
 }
 
 export default SparkHeader;
+
 
