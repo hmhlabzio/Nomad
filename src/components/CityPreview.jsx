@@ -14,6 +14,12 @@ function CityPreview() {
       coworkingCost: "$300-500/month",
       safety: "Very Safe (9.2/10)",
       wifiSpeed: "100 Mbps average",
+      ratings: {
+        cost: 80,
+        internet: 90,
+        safety: 95,
+        liked: 70,
+      },
     },
     {
       name: "Bali 🌴",
@@ -23,6 +29,12 @@ function CityPreview() {
       coworkingCost: "$150-300/month",
       safety: "Generally Safe (7.8/10)",
       wifiSpeed: "35 Mbps average",
+      ratings: {
+        cost: 50,
+        internet: 35,
+        safety: 78,
+        liked: 60,
+      },
     },
     {
       name: "Goa 🌊",
@@ -32,6 +44,12 @@ function CityPreview() {
       coworkingCost: "$100-250/month",
       safety: "Moderately Safe (7.0/10)",
       wifiSpeed: "25 Mbps average",
+      ratings: {
+        cost: 40,
+        internet: 25,
+        safety: 70,
+        liked: 55,
+      },
     },
   ];
 
@@ -46,34 +64,40 @@ function CityPreview() {
 
   return (
     <>
-      <style>
-        {`
-          .container {
-            width: 95%;
+      <style>{`
+        // .container {
+        //   padding: 2rem;
+        // }
+         .container {
+//             width: 95%;
             margin: 2rem auto;
             padding: 0 1rem;
           }
+        .section-title {
+          font-size: 2rem;
+          font-weight: bold;
+          margin-bottom: 1rem;
+        }
+        .city-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+          gap: 1.5rem;
+        }
 
-          .section-title {
-            font-size: 2.5rem;
-            font-weight: 600;
-            margin-bottom: 2rem;
-                color: black;
-          }
+          //         .city-grid {
+          //   display: grid;
+          //   grid-template-columns: 1fr;
+          //   gap: 1.5rem;
+          // }
+        // .city-card {
+        //   cursor: pointer;
+        //   border: 1px solid #ddd;
+        //   border-radius: 0.75rem;
+        //   overflow: hidden;
+        //   transition: transform 0.2s;
+        // }
 
-          .city-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 4.5rem;
-          }
-
-          @media (min-width: 600px) {
-            .city-grid {
-              grid-template-columns: repeat(3, 1fr);
-            }
-          }
-
-          .city-card {
+         .city-card {
             background-color: white;
             color: black;
             border-radius: 0.5rem;
@@ -84,231 +108,191 @@ function CityPreview() {
             position: relative;
             width: 100%;
           }
-
-          .city-card:hover {
-            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
-          }
-
-          .city-image-container {
-            position: relative;
-            overflow: hidden;
-          }
-
-          .city-image {
-            width: 100%;
-            height: 12rem;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-          }
-
-          .city-card:hover .city-image {
-            transform: scale(1.08);
-          }
-
-          .overlay {
-            position: absolute;
-            inset: 0;
-            background-color: rgba(0,0,0,0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-          }
-
-          .city-card:hover .overlay {
-            opacity: 1;
-          }
-
-          .overlay-text {
-            color: white;
-            font-weight: bold;
-            font-size: 1.125rem;
-          }
-
-          .city-info {
-            padding: 1rem;
-          }
-
-          .city-name {
-            font-size: 1.25rem;
-            font-weight: bold;
-          }
-
-          .city-tagline {
-            font-size: 0.875rem;
-            color: #666;
-          }
-
-          .modal-backdrop {
-            position: fixed;
-            inset: 0;
-            background-color: rgba(0,0,0,0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            z-index: 50;
-          }
-
-          .modal {
-            background-color: white;
-            border-radius: 1rem;
-            width: 70vw;
-            max-width: 1200px;
-            height: 90vh;
-            max-height: 800px;
-            overflow: hidden;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            display: flex;
-            flex-direction: column;
-          }
-
-          .modal-image-container {
-            height: 40%;
-            overflow: hidden;
-          }
-
-          .modal-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-          }
-
-          .modal-content {
-            padding: 1.5rem;
-            color: black;
-            height: 60%;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-          }
-
-          .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 1rem;
-          }
-
-          .modal-title {
-            font-size: 1.8rem;
-            font-weight: bold;
-          }
-
-          .modal-tagline {
-            color: #444;
-            font-size: 1.1rem;
-          }
-
-          .modal-close-button {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: #444;
-            cursor: pointer;
-            padding: 0.5rem;
-          }
-
-          .modal-details {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            flex-grow: 0;
-          }
-
-          .modal-detail {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 1.1rem;
-          }
-
-          .detail-label {
-            font-weight: 600;
-            min-width: 140px;
-          }
-
-          .feedback-form {
-            margin-top: 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-          }
-
-          .feedback-form input,
-          .feedback-form select,
-          .feedback-form textarea {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            font-size: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 0.5rem;
-          }
-
-          .feedback-form textarea {
-            resize: vertical;
-            min-height: 6rem;
-          }
-
-          .feedback-form button {
-            align-self: flex-end;
-            background: #3B82F6;
-            margin-bottom: 2.5rem;
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 0.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-          }
-
-          .feedback-form button:hover {
-            background-color: #2563EB;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-          }
-
+        .city-card:hover {
+          transform: scale(1.02);
+        }
+        .city-image-container {
+          position: relative;
+        }
+        .city-image {
+          width: 100%;
+          height: 160px;
+          object-fit: cover;
+        }
+        .overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.4);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-weight: bold;
+        }
+        .city-info {
+          padding: 1rem;
+        }
+        .city-name {
+          font-size: 1.25rem;
+          font-weight: bold;
+        }
+        .city-tagline {
+          color: #555;
+        }
+        .modal-backdrop {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+        }
+        .modal {
+          background: white;
+          width: 90%;
+          max-width: 800px;
+          border-radius: 0.75rem;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          max-height: 90vh;
+          overflow-y: auto;
+          color:black;
+        }
+        .modal-image-container img {
+          width: 100%;
+          height: 200px;
+          object-fit: cover;
+        }
+        .modal-content {
+          padding: 1.5rem;
+        }
+        .modal-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .modal-title {
+          font-size: 1.75rem;
+          font-weight: bold;
+        }
+        .modal-tagline {
+          color: #666;
+        }
+        .modal-detail {
+          margin-top: 0.5rem;
+        }
+        .detail-label {
+          font-weight: bold;
+        }
+        .modal-close-button,
+        .modal-close-button-main {
+          background: none;
+          border: none;
+          font-size: 1.25rem;
+          cursor: pointer;
+        }
+        .ratings-card {
+          background-color: #fff;
+          border-radius: 0.75rem;
+          padding: 1.5rem;
+          margin-top: 2rem;
+          box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .ratings-title {
+          font-size: 1.5rem;
+          font-weight: 600;
+          margin-bottom: 1rem;
+        }
+        .bar-row {
+          display: flex;
+          align-items: center;
+          margin-bottom: 0.75rem;
+        }
+        .bar-label {
+          flex: 0 0 100px;
+          font-weight: 500;
+        }
+        .bar-track {
+          flex: 1;
+          height: 0.5rem;
+          background: #e5e7eb;
+          border-radius: 0.25rem;
+          overflow: hidden;
+          margin-right: 0.75rem;
+        }
+        .bar-fill {
+          height: 100%;
+          border-radius: 0.25rem;
+        }
+        .bar-value {
+          min-width: 2.5rem;
+          text-align: right;
+          font-size: 0.9rem;
+        }
+        .feedback-form {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          margin-top: 2rem;
+          
+        }
+        .feedback-form input,
+        .feedback-form select,
+        .feedback-form textarea {
+          padding: 0.75rem;
+          border: 1px solid #ccc;
+          border-radius: 0.5rem;
+           background-color:white;
+        }
+        .btn {
+          background-color: #2563eb;
+          color: white;
+          border: none;
+          padding: 0.75rem 1.5rem;
+          border-radius: 0.5rem;
+          cursor: pointer;
+          margin-bottom:1rem;
+        }
           .modal-close-button-main {
-            margin-top: auto;
-            width: 100%;
-            background-color: #3B82F6;
-            color: white;
-            padding: 0.75rem 1rem;
-            border: none;
-            border-radius: 0.5rem;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            cursor: pointer;
-            font-size: 1.1rem;
-            font-weight: 500;
-          }
+   background-color: #2563eb;
+          color: white;
+          border: none;
+          padding: 0.75rem 1.5rem;
+          border-radius: 15.5rem;
+          cursor: pointer;
+}
 
-          .modal-close-button-main:hover {
-            background-color: #2563EB;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-          }
+.modal-close-button-main:hover {
+  background-color: #ef4444; /*red-500 */
+}
 
-          @media (max-width: 768px) {
-            .modal {
-              width: 90vw;
-              height: 80vh;
-            }
+.feedback-heading {
+  font-size: 1.8rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #2563eb;
+  margin-bottom: 0.5rem;
+  border-bottom: 2px solid #2563eb;
+  padding-bottom: 0.4rem;
+}
+.feedback-heading i {
+  font-size: 1.5rem;
+  color: #2563eb;
+}
 
-            .modal-detail {
-              flex-direction: column;
-              align-items: flex-start;
-              gap: 0.25rem;
-            }
 
-            .detail-label {
-              min-width: unset;
-            }
-          }
-        `}
-      </style>
+
+      `}</style>
 
       <div id="popular-cities" className="container">
         <h2 className="section-title">Popular Cities</h2>
@@ -360,19 +344,51 @@ function CityPreview() {
 
                 <div className="modal-details">
                   <div className="modal-detail">
-                    <span className="detail-label">Cafes:</span> {selectedCity.cafes}
+                    <span className="detail-label">Cafes:</span>{" "}
+                    {selectedCity.cafes}
                   </div>
                   <div className="modal-detail">
                     <span className="detail-label">Coworking Cost:</span>{" "}
                     {selectedCity.coworkingCost}
                   </div>
                   <div className="modal-detail">
-                    <span className="detail-label">Safety:</span> {selectedCity.safety}
+                    <span className="detail-label">Safety:</span>{" "}
+                    {selectedCity.safety}
                   </div>
                   <div className="modal-detail">
                     <span className="detail-label">WiFi Speed:</span>{" "}
                     {selectedCity.wifiSpeed}
                   </div>
+                </div>
+
+                <div className="ratings-card">
+                  <div className="ratings-title">Living Costs & Quality</div>
+                  {Object.entries(selectedCity.ratings).map(([key, val]) => {
+                    const color = {
+                      cost: "#10B981",
+                      internet: "#3B82F6",
+                      safety: "#10B981",
+                      liked: "#EF4444",
+                    }[key];
+                    const label = {
+                      cost: "Cost",
+                      internet: "Internet",
+                      safety: "Safety",
+                      liked: "Liked",
+                    }[key];
+                    return (
+                      <div className="bar-row" key={key}>
+                        <div className="bar-label">{label}</div>
+                        <div className="bar-track">
+                          <div
+                            className="bar-fill"
+                            style={{ width: `${val}%`, background: color }}
+                          />
+                        </div>
+                        <div className="bar-value">{val}%</div>
+                      </div>
+                    );
+                  })}
                 </div>
 
                 <form
@@ -382,9 +398,23 @@ function CityPreview() {
                     alert("Thanks for your feedback!");
                   }}
                 >
-                  <h1>Feedback Form</h1>
-                  <input type="text" name="name" placeholder="Your Name" required />
-                  <input type="email" name="email" placeholder="Your Email" required />
+                  {/* <h1>Feedback Form</h1> */}
+                  <h1 className="feedback-heading">
+  <i className="fas fa-comment-dots"></i> Feedback Form
+</h1>
+
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Your Name"
+                    required
+                  />
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Your Email"
+                    required
+                  />
                   <select name="country" required>
                     <option value="">Current Country</option>
                     <option value="jp">Japan</option>
@@ -396,10 +426,15 @@ function CityPreview() {
                     placeholder="Tell us about your situation..."
                     required
                   />
-                  <button className="btn" type="submit">Send Inquiry</button>
+                  <button className="btn" type="submit">
+                    Send Inquiry
+                  </button>
                 </form>
 
-                <button onClick={closeModal} className="modal-close-button-main">
+                <button
+                  onClick={closeModal}
+                  className="modal-close-button-main"
+                >
                   Close
                 </button>
               </div>
