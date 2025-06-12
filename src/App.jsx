@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Hero from "./components/Hero";
 import CityPreview from "./components/CityPreview";
 import MoodHeatmap from "./components/MoodHeatmap";
@@ -7,7 +8,6 @@ import CostForecaster from "./components/CostForecaster";
 import LifestyleMeter from "./components/LifestyleMeter";
 import SparkHeader from './components/SparkHeader';
 import Footer from './components/Footer';
-import CitiesSection from "./components/CitiesSection";
 
 function App() {
   const [showContactForm, setShowContactForm] = useState(false);
