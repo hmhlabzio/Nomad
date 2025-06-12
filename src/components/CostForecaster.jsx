@@ -121,8 +121,8 @@ function CostForecaster() {
           margin-left: 0.5rem;
           padding: 0.4rem;
           border-radius: 0.5rem;
-          background-color: rgb(0, 3, 5);
-          color: white;
+      background-color: #ffffff;
+          color: #000000;
         }
 
         .slider-box,

@@ -48,20 +48,23 @@ function MoodHeatmap() {
         .mood-heatmap-container {
           margin-top: 4rem;
           padding: 1.5rem 1rem;
-          color: white;
-          background: #000;
+          color: #0f172a;
+          background: white;
           border-radius: 1rem;
           width: 100%;
           max-width: 1000px;
           margin-left: auto;
           margin-right: auto;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
         .mood-heatmap-header {
           display: flex;
-          justify-content: space-between;
+          flex-direction: column;
           align-items: center;
+          gap: 0.75rem;
           margin-bottom: 1.5rem;
+          text-align: center;
         }
 
         .mood-heatmap-title {
@@ -73,9 +76,9 @@ function MoodHeatmap() {
           padding: 0.4rem 0.75rem;
           border-radius: 0.4rem;
           font-size: 1rem;
-          background: #111;
-          color: white;
-          border: 1px solid #444;
+          background: #f1f5f9;
+          color: #0f172a;
+          border: 1px solid #cbd5e1;
         }
 
         .mood-scroll-wrapper {
@@ -91,12 +94,13 @@ function MoodHeatmap() {
 
         .mood-card {
           flex-shrink: 0;
-          background-color: white;
-          color: black;
+          background-color: #f9fafb;
+          color: #0f172a;
           border-radius: 1rem;
           padding: 1rem;
           width: 180px;
           text-align: center;
+          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
         }
 
         .mood-city {
@@ -112,7 +116,7 @@ function MoodHeatmap() {
 
         .mood-percentage {
           font-size: 0.95rem;
-          color: #333;
+          color: #475569;
         }
 
         .mood-scroll-wrapper::-webkit-scrollbar {
@@ -128,5 +132,3 @@ function MoodHeatmap() {
 }
 
 export default MoodHeatmap;
-
-

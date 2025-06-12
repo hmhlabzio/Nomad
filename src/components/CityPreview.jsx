@@ -58,6 +58,7 @@ function CityPreview() {
             font-size: 2.5rem;
             font-weight: 600;
             margin-bottom: 2rem;
+                color: black;
           }
 
           .city-grid {

@@ -1,4 +1,5 @@
- import React from 'react';
+import React from 'react';
+
 function Hero() {
   const scrollToPopularCities = () => {
     const popularCitiesSection = document.getElementById('popular-cities');
@@ -20,18 +21,13 @@ function Hero() {
         🔍 Start Exploring
       </button>
 
-      {/* Add the SmartMap component here
-      <div className="map-container">
-        <SmartMap />
-      </div> */}
-
-      {/* CSS inside the same file */}
       <style>{`
         .hero-container {
           width: 100%;
           text-align: center;
           padding-top: 3rem;
           padding-bottom: 5rem;
+          background-color: wheat;
         }
 
         @media (min-width: 600px) {
@@ -44,7 +40,7 @@ function Hero() {
         .hero-title {
           font-size: 2.25rem;
           font-weight: bold;
-          color: #00ffff; /* aqua */
+          color: #0f172a; /* slate-900 */
           max-width: 48rem;
           margin-left: auto;
           margin-right: auto;
@@ -59,7 +55,7 @@ function Hero() {
         .hero-subtitle {
           margin-top: 1rem;
           font-size: 1.125rem;
-          color: #d1d5db; /* gray-300 */
+          color: #4b5563; /* gray-600 */
         }
 
         @media (min-width: 600px) {
@@ -70,27 +66,21 @@ function Hero() {
 
         .hero-button {
           margin-top: 1.5rem;
-          background-color: black;
-          color: #00ffff;
+          background-color: #0f172a; /* slate-900 */
+          color: white;
           padding: 0.75rem 1.5rem;
           border-radius: 9px;
           font-weight: 600;
-          border: 3px solid #00ffff;
+          border: 2px solid #0ea5e9; /* sky-500 */
           cursor: pointer;
-          transition: background-color 0.3s;
+          transition: all 0.3s ease;
         }
 
         .hero-button:hover {
-          background-color: black;
+          background-color: #0ea5e9; /* sky-500 */
+          color: white;
+          border-color: #0ea5e9;
         }
-
-        // .map-container {
-        //   margin-top: 2rem;
-        //   width: 100%;
-        //   max-width: 900px;
-        //   margin-left: auto;
-        //   margin-right: auto;
-        // }
       `}</style>
     </div>
   );

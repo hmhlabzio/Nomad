@@ -103,8 +103,8 @@ function SafetyTrustScore() {
           font-size: 1rem;
           border-radius: 0.5rem;
           border: 1px solid #ccc;
-          background-color:rgb(0, 0, 1);
-          color:rgb(255, 255, 255);
+        background-color: #ffffff;
+          color: #000000;
         }
 
         .score-display {
