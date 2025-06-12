@@ -67,7 +67,7 @@ function App() {
 
   return (
     <div className="bg-black text-white min-h-screen flex flex-col items-center">
-      <div className="w-[1440px] max-w-full px-4 py-6">
+      <div className="w-full max-w-[1440px] mx-auto px-4 py-6 pt-24">
         <SparkHeader 
           onContactClick={() => setShowContactForm(true)} 
           onBrowseClick={() => setShowBrowseForm(true)} 
