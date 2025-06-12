@@ -49,7 +49,7 @@ function CityPreview() {
       <style>
         {`
           .container {
-            width: 90%;
+            width: 95%;
             margin: 2rem auto;
             padding: 0 1rem;
           }
