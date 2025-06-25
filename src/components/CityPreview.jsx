@@ -1,20 +1,20 @@
 import React from "react";
 import { useState } from "react";
 import cityData from '../../CityData.json';
-// Import FontAwesomeIcon and faStar for star ratings
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar as fasFaStar } from '@fortawesome/free-solid-svg-icons'; // Filled star
-import { faStar as farFaStar } from '@fortawesome/free-regular-svg-icons'; // Outline star
+import { faStar as fasFaStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar as farFaStar } from '@fortawesome/free-regular-svg-icons';
 
-function CityPreview({ onFeedbackSubmit }) { // Added onFeedbackSubmit prop
+function CityPreview({ onFeedbackSubmit }) {
   const [selectedCity, setSelectedCity] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hoveredCity, setHoveredCity] = useState(null);
-  const [feedbackFormInput, setFeedbackFormInput] = useState({ // State for feedback form
+  const [feedbackFormInput, setFeedbackFormInput] = useState({
     name: '',
     email: '',
     country: '',
-    message: ''
+    message: '',
+    rating: 0
   });
 
   const cities = cityData;
@@ -26,7 +26,7 @@ function CityPreview({ onFeedbackSubmit }) { // Added onFeedbackSubmit prop
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setSelectedCity(null); // Clear selected city on close
+    setSelectedCity(null);
   };
 
   const handleFeedbackFormChange = (e) => {
@@ -39,23 +39,38 @@ function CityPreview({ onFeedbackSubmit }) { // Added onFeedbackSubmit prop
     if (onFeedbackSubmit) {
       onFeedbackSubmit({ ...feedbackFormInput, city: selectedCity.name });
     }
-    setFeedbackFormInput({ name: '', email: '', country: '', message: '' }); // Clear form
-    alert('Feedback submitted!'); // Simple alert for confirmation
+    setFeedbackFormInput({ name: '', email: '', country: '', message: '', rating: 0 });
+    alert('Feedback submitted!');
     closeModal();
   };
 
-  // Helper function to render stars based on a percentage (out of 100)
-  const renderStars = (percentage) => {
+  const handleStarClick = (rating) => {
+    setFeedbackFormInput(prev => ({ ...prev, rating }));
+  };
+
+  const renderStars = (rating) => {
     const totalStars = 5;
-    // Convert percentage to a 5-star scale and round to the nearest whole star
-    const filledStars = Math.round((percentage / 100) * totalStars);
     const stars = [];
 
-    for (let i = 0; i < totalStars; i++) {
-      if (i < filledStars) {
-        stars.push(<FontAwesomeIcon key={i} icon={fasFaStar} className="text-yellow-400" />); // Filled star
+    for (let i = 1; i <= totalStars; i++) {
+      if (i <= rating) {
+        stars.push(
+          <FontAwesomeIcon
+            key={i}
+            icon={fasFaStar}
+            className="cursor-pointer text-yellow-400 star-icon"
+            onClick={() => handleStarClick(i)}
+          />
+        );
       } else {
-        stars.push(<FontAwesomeIcon key={i} icon={farFaStar} className="text-gray-300" />); // Outlined star
+        stars.push(
+          <FontAwesomeIcon
+            key={i}
+            icon={farFaStar}
+            className="cursor-pointer text-gray-300 star-icon"
+            onClick={() => handleStarClick(i)}
+          />
+        );
       }
     }
     return stars;
@@ -76,24 +91,18 @@ function CityPreview({ onFeedbackSubmit }) { // Added onFeedbackSubmit prop
         .city-grid {
           display: grid;
           gap: 1.5rem;
-          /* Default: adaptively show columns, with a minimum width of 280px */
           grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         }
-        
-        /* For screens wider than 768px (e.g., tablets), ensure at least 2 columns */
         @media (min-width: 768px) {
           .city-grid {
             grid-template-columns: repeat(2, 1fr);
           }
         }
-
-        /* For screens wider than 992px (e.g., desktops), force exactly 3 columns */
         @media (min-width: 992px) {
           .city-grid {
             grid-template-columns: repeat(3, 1fr);
           }
         }
-
         .city-card {
           background-color: white;
           color: black;
@@ -161,7 +170,7 @@ function CityPreview({ onFeedbackSubmit }) { // Added onFeedbackSubmit prop
           flex-direction: column;
           max-height: 90vh;
           overflow-y: auto;
-          color:black;
+          color: black;
         }
         .modal-content {
           padding: 1.5rem;
@@ -186,45 +195,28 @@ function CityPreview({ onFeedbackSubmit }) { // Added onFeedbackSubmit prop
           font-size: 1.25rem;
           cursor: pointer;
         }
-        
-        .ratings-grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .rating-card {
-          background-color: #f9fafb;
+        .modal-close-button-main {
+          background-color: #2563eb;
+          color: white;
+          border: none;
+          padding: 0.75rem 1.5rem;
           border-radius: 0.5rem;
-          padding: 0.8rem;
-          box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 0.4rem;
+          cursor: pointer;
+          margin-top: 1.5rem;
+          transition: all 0.2s ease;
         }
-        .rating-label {
-          font-weight: 500;
-          color: #333;
-          font-size: 0.95rem;
-          margin-bottom: 0;
-          flex: none;
+        .modal-close-button-main:hover {
+          background-color: #1d4ed8;
+          transform: translateY(-1px);
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        .stars-container {
-          display: flex;
-          gap: 0.2rem;
-        }
-        
         .feedback-section-wrapper {
-          background-color: #fff;
+          background-color: #f9fafb;
           border-radius: 0.75rem;
           padding: 1.5rem;
           margin-top: 2rem;
           box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-
         .feedback-section-header {
           display: flex;
           align-items: center;
@@ -233,33 +225,45 @@ function CityPreview({ onFeedbackSubmit }) { // Added onFeedbackSubmit prop
           border-bottom: 1px solid #eee;
           padding-bottom: 1rem;
         }
-
         .feedback-city-image {
           width: 150px;
           height: 150px;
           object-fit: cover;
           border-radius: 0.5rem;
         }
-
         .feedback-city-details {
           flex-grow: 1;
         }
-
         .feedback-city-name {
           font-size: 1.5rem;
           font-weight: bold;
           margin-bottom: 0.2rem;
           color: #0f172a;
         }
-
+        .feedback-rating-container {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-top: 1rem;
+          margin-bottom: 1.5rem;
+        }
         .feedback-ratings-title {
           font-size: 1.2rem;
           font-weight: 600;
-          margin-top: 1rem;
-          margin-bottom: 0.8rem;
           color: #333;
+          white-space: nowrap;
         }
-
+        .stars-container {
+          display: flex;
+          gap: 0.2rem;
+        }
+        .star-icon {
+          font-size: 1.8rem;
+          transition: transform 0.2s;
+        }
+        .star-icon:hover {
+          transform: scale(1.2);
+        }
         .feedback-form {
           display: flex;
           flex-direction: column;
@@ -268,9 +272,17 @@ function CityPreview({ onFeedbackSubmit }) { // Added onFeedbackSubmit prop
         }
         .feedback-form input, .feedback-form select, .feedback-form textarea {
           padding: 0.75rem;
-          border: 1px solid #ccc;
+          border: 1px solid #ddd;
           border-radius: 0.5rem;
-          background-color:white;
+          background-color: white;
+          transition: border-color 0.2s;
+        }
+        .feedback-form input:focus, 
+        .feedback-form select:focus, 
+        .feedback-form textarea:focus {
+          outline: none;
+          border-color: #2563eb;
+          box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
         }
         .btn {
           background-color: #2563eb;
@@ -279,19 +291,14 @@ function CityPreview({ onFeedbackSubmit }) { // Added onFeedbackSubmit prop
           padding: 0.75rem 1.5rem;
           border-radius: 0.5rem;
           cursor: pointer;
-          margin-bottom:1rem;
+          margin-bottom: 1rem;
+          font-weight: 500;
+          transition: all 0.2s ease;
         }
-        .modal-close-button-main {
-          background-color: #2563eb;
-          color: white;
-          border: none;
-          padding: 0.75rem 1.5rem;
-          border-radius: 15.5rem;
-          cursor: pointer;
-          margin-top: 1.5rem;
-        }
-        .modal-close-button-main:hover {
-          background-color: #ef4444;
+        .btn:hover {
+          background-color: #1d4ed8;
+          transform: translateY(-1px);
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .feedback-heading {
           font-size: 1.8rem;
@@ -303,10 +310,6 @@ function CityPreview({ onFeedbackSubmit }) { // Added onFeedbackSubmit prop
           margin-bottom: 0.5rem;
           border-bottom: 2px solid #2563eb;
           padding-bottom: 0.4rem;
-        }
-        .feedback-heading i {
-          font-size: 1.5rem;
-          color: #2563eb;
         }
       `}</style>
       <div id="popular-cities" className="container">
@@ -322,7 +325,7 @@ function CityPreview({ onFeedbackSubmit }) { // Added onFeedbackSubmit prop
             >
               <div className="city-image-container">
                 <img
-                  src={city.image} // Assuming city.image holds the URL
+                  src={city.image}
                   alt={city.name}
                   className="city-image"
                   loading="lazy"
@@ -353,7 +356,6 @@ function CityPreview({ onFeedbackSubmit }) { // Added onFeedbackSubmit prop
 
                 <p>{selectedCity.description}</p>
 
-                {/* New combined feedback section */}
                 <div className="feedback-section-wrapper">
                   <div className="feedback-section-header">
                     <img
@@ -368,23 +370,16 @@ function CityPreview({ onFeedbackSubmit }) { // Added onFeedbackSubmit prop
                     </div>
                   </div>
                   
-                  <h3 className="feedback-ratings-title">Nomad Ratings: ⭐⭐⭐⭐⭐</h3>
-                  {/* New container for ratings to make them side-by-side in cards */}
-                  <div className="ratings-grid-container">
-                    {selectedCity.ratings &&
-                      Object.entries(selectedCity.ratings).map(([key, value]) => (
-                        <div className="rating-card" key={key}>
-                          <span className="rating-label">{key.replace(/([A-Z])/g, ' $1').trim()}:</span>
-                          <div className="stars-container">
-                            {renderStars(value)}
-                          </div>
-                        </div>
-                      ))}
+                  <div className="feedback-rating-container">
+                    <h3 className="feedback-ratings-title">Nomad Ratings</h3>
+                    <div className="stars-container">
+                      {renderStars(feedbackFormInput.rating)}
+                    </div>
                   </div>
 
                   <form className="feedback-form" onSubmit={handleFeedbackFormSubmit}>
                     <h1 className="feedback-heading">
-                      <i className="fas fa-comment-dots"></i> Your Feedback
+                      Your Feedback
                     </h1>
 
                     <input
@@ -424,12 +419,8 @@ function CityPreview({ onFeedbackSubmit }) { // Added onFeedbackSubmit prop
                   </form>
                 </div>
 
-                <button
-                  onClick={closeModal}
-                  className="modal-close-button-main"
-                >
-                  Close
-                </button>
+                
+                 
               </div>
             </div>
           </div>
@@ -438,5 +429,5 @@ function CityPreview({ onFeedbackSubmit }) { // Added onFeedbackSubmit prop
     </>
   );
 }
- 
+
 export default React.memo(CityPreview);
