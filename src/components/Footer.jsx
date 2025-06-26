@@ -4,65 +4,53 @@ function Footer({ onContactClick }) {
   const navigate = useNavigate();
 
   return (
-    <footer className="bg-black text-white px-20 py-8"> {/* Reduced py-12 to py-8 */}
-      <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6"> {/* Changed to 4 columns */}
-        {/* About Section */}
-        <div id="about-section" className="col-span-2 lg:col-span-1"> {/* Adjusted column span */}
-          <h3 className="text-2xl font-bold mb-3">NomadNetwork</h3>
-          <p className="text-gray-400 text-sm leading-relaxed">
-            Your trusted network for digital nomad visa programs worldwide.
+    <footer className="bg-black text-gray-300 px-6 sm:px-10 lg:px-20 py-14">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+        {/* About */}
+        <div>
+          <h3 className="text-2xl font-bold text-white mb-2">NomadNetwork</h3>
+          <p className="text-sm leading-relaxed text-gray-400">
+            Your companion for digital nomad life — from visas to lifestyle, trust and cost insights.
           </p>
         </div>
 
-
-        {/* Nomad Insights */}
+        {/* Discover */}
         <div>
-          <h4 className="text-white font-semibold mb-3">Nomad Insights</h4>
-          <ul className="text-gray-400 text-sm space-y-1">
-            <li>
-              <a onClick={() => navigate('/mood-heatmap')} className="hover:text-white cursor-pointer">
-                Mood Heatmap
-              </a>
-            </li>
-            <li>
-              <a onClick={() => navigate('/safety-score')} className="hover:text-white cursor-pointer">
-                Safety Trust Score
-              </a>
-            </li>
-            <li>
-              <a onClick={() => navigate('/cost-calculator')} className="hover:text-white cursor-pointer">
-                Cost Calculator
-              </a>
-            </li>
-            <li>
-              <a onClick={() => navigate('/explore-world')} className="hover:text-white cursor-pointer">
-                Explore World
-              </a>
-            </li>
+          <h4 className="text-white font-semibold text-lg mb-2">Discover</h4>
+          <ul className="text-sm space-y-2">
+            <li className="cursor-pointer hover:text-indigo-400 transition" onClick={() => navigate('/explore-world')}>Explore World</li>
+            <li className="cursor-pointer hover:text-indigo-400 transition" onClick={() => navigate('/cost-calculator')}>Cost Calculator</li>
+            <li className="cursor-pointer hover:text-indigo-400 transition" onClick={() => navigate('/mood-heatmap')}>Mood Heatmap</li>
+            <li className="cursor-pointer hover:text-indigo-400 transition" onClick={() => navigate('/safety-score')}>Safety Score</li>
           </ul>
         </div>
-        
+
         {/* Resources */}
         <div>
-          <h4 className="text-white font-semibold mb-3">Resources</h4>
-          <ul className="text-gray-400 text-sm space-y-1">
-            <li><a href="#" className="hover:text-white">Visa Guide</a></li>
-            <li><a href="#" className="hover:text-white">Blog</a></li>
-            <li><a href="#" className="hover:text-white">Community</a></li>
-            <li><a href="#" className="hover:text-white">Support</a></li>
+          <h4 className="text-white font-semibold text-lg mb-2">Resources</h4>
+          <ul className="text-sm space-y-2">
+            <li className="hover:text-indigo-400 cursor-pointer transition">Visa Guide</li>
+            <li className="hover:text-indigo-400 cursor-pointer transition">Blog</li>
+            <li className="hover:text-indigo-400 cursor-pointer transition">Community</li>
+            <li className="hover:text-indigo-400 cursor-pointer transition">Support</li>
+          </ul>
+        </div>
+
+        {/* Quick Links */}
+        <div>
+          <h4 className="text-white font-semibold text-lg mb-2">Quick Links</h4>
+          <ul className="text-sm space-y-2">
+            <li className="hover:text-indigo-400 cursor-pointer transition">Privacy Policy</li>
+            <li className="hover:text-indigo-400 cursor-pointer transition">Terms of Service</li>
+            <li className="hover:text-indigo-400 cursor-pointer transition" onClick={onContactClick}>Contact</li>
+            <li className="hover:text-indigo-400 cursor-pointer transition">Follow us</li>
           </ul>
         </div>
       </div>
 
-      {/* Bottom section - unchanged */}
-      <div className="mt-8 border-t border-gray-700 pt-6 text-sm flex flex-col md:flex-row justify-between items-center text-gray-400">
-        <p>© 2025 Nomad. All rights reserved.</p>
-        <div className="flex gap-4 mt-3 md:mt-0">
-          <a href="#" className="hover:text-white">Privacy Policy</a>
-          <a href="#" className="hover:text-white">Terms of Service</a>
-          <a onClick={onContactClick} className="hover:text-white cursor-pointer">Contact</a>
-          <a href="#" className="hover:text-white">Follow us</a>
-        </div>
+      <div className="mt-12 border-t border-gray-700 pt-6 text-center text-sm text-gray-500">
+        © 2025 NomadNetwork. All rights reserved.
       </div>
     </footer>
   );

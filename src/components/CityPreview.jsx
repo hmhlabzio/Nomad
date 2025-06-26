@@ -312,6 +312,137 @@ function CityPreview({ onFeedbackSubmit }) {
           padding-bottom: 0.4rem;
         }
       `}</style>
+      <section className="filter-section">
+  <div className="filter-toolbar">
+    <span className="filter-label">🔍 Filters:</span>
+
+    <select className="filter-dropdown">
+      <option>All Regions</option>
+      <option>Europe</option>
+      <option>Asia</option>
+      <option>Americas</option>
+      <option>Africa</option>
+    </select>
+
+    <select className="filter-dropdown">
+      <option>Cost of Living</option>
+      <option>Low to High</option>
+      <option>High to Low</option>
+    </select>
+
+    <select className="filter-dropdown">
+      <option>Internet Speed</option>
+      <option>Fastest First</option>
+      <option>Slowest First</option>
+    </select>
+
+    <select className="filter-dropdown">
+      <option>Visa Duration</option>
+      <option>Short to Long</option>
+      <option>Long to Short</option>
+    </select>
+
+    <button className="filter-button search">Search</button>
+    <button className="filter-button reset">Reset</button>
+  </div>
+
+  <style>{`
+    .filter-section {
+      width: 100%;
+      background-color: #f8fafc;
+      padding: 0.75rem 0.5rem;
+      margin-top: 0rem;
+    }
+      .section-title {
+          font-size: 2rem;
+          font-weight: bold;
+          margin-bottom: 1rem;
+          color: black; /* Add this line */
+        }
+
+    .filter-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      max-width: 1400px;
+      margin: auto;
+      padding: 0 1rem;
+    }
+
+    .filter-label {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0f172a;
+      white-space: nowrap;
+    }
+
+    .filter-dropdown {
+      flex: 1 1 160px;
+      padding: 0.55rem 0.75rem;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      font-size: 1rem;
+      background-color: white;
+      color: #0f172a;
+      transition: border-color 0.3s;
+    }
+
+    .filter-dropdown:focus {
+      border-color: #2563eb;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+    }
+
+    .filter-button {
+      padding: 0.55rem 1.2rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .filter-button.search {
+      background-color: #2563eb;
+      color: white;
+    }
+
+    .filter-button.search:hover {
+      background-color: #1d4ed8;
+      transform: translateY(-1px);
+    }
+
+    .filter-button.reset {
+      background-color: #e2e8f0;
+      color: #1e293b;
+    }
+
+    .filter-button.reset:hover {
+      background-color: #cbd5e1;
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 640px) {
+      .filter-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .filter-button {
+        width: 100%;
+      }
+        .container {
+  margin: 1rem auto; /* reduced from 2rem */
+  padding: 0 1rem;
+}
+
+    }
+  `}</style>
+</section>
+
       <div id="popular-cities" className="container">
         <h2 className="section-title">Popular Cities for Digital Nomads</h2>
         <div className="city-grid">
