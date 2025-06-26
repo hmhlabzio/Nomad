@@ -30,109 +30,140 @@ function CostForecaster() {
     <div className="cost-container">
       <style>{`
         .cost-container {
-          background-color: white;
-          color: black;
-          border-radius: 1rem;
-          padding: 1.5rem;
-          width: 80%;
+          background: linear-gradient(to right, #e0f7fa, #ffffff);
+          color: #1f2937;
+          border-radius: 1.5rem;
+          padding: 2rem;
+          width: 85%;
+          max-width: 800px;
           margin: 2rem auto;
-          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-          height: 500px;
-          overflow: hidden;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+          font-family: 'Segoe UI', sans-serif;
         }
 
         .title {
-          font-size: 1.5rem;
-          font-weight: 600;
-          margin-bottom: 0.5rem;
-          color: #1a202c;
+          font-size: 2rem;
+          font-weight: 700;
+          text-align: center;
+          margin-bottom: 1.5rem;
+          color: #0f172a;
         }
 
         .scroll-area {
-          overflow-y: auto;
-          height: calc(100% - 2.5rem);
-          padding-right: 0.5rem;
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
         }
 
-        .dropdown-section {
-          margin-bottom: 1rem;
+        .dropdown-section,
+        .slider-box,
+        .toggle-box {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
         }
 
         .label {
-          font-size: 1rem;
-          font-weight: 500;
-          color: #111827;
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: #1e293b;
+        }
+
+        .select,
+        .slider,
+        .checkbox {
+          margin-left: 1rem;
         }
 
         .select {
           font-size: 1rem;
-          margin-left: 0.5rem;
-          padding: 0.4rem;
+          padding: 0.5rem;
           border-radius: 0.5rem;
-          background-color: #ffffff;
-          color: #000000;
           border: 1px solid #cbd5e1;
+          background-color: #f9fafb;
         }
 
-        .slider-box,
-        .toggle-box {
-          margin-bottom: 1rem;
+        .slider {
+          width: 60%;
         }
 
-        input[type="range"] {
-          width: 100%;
+        input[type="range"]::-webkit-slider-thumb {
+          background-color: #3b82f6;
+          border: none;
+        }
+
+        .checkbox {
+          width: 20px;
+          height: 20px;
         }
 
         .cost-breakdown {
-          border-top: 1px solid #e2e8f0;
-          padding-top: 1rem;
-          margin-top: 1.5rem;
+          background-color: #f8fafc;
+          border: 1px solid #e2e8f0;
+          border-radius: 1rem;
+          padding: 1rem;
+          margin-top: 1rem;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
         }
 
         .cost-breakdown p {
           display: flex;
           justify-content: space-between;
-          margin-bottom: 0.5rem;
-          font-size: 1rem;
-          color: #2d3748;
+          font-size: 1.1rem;
+          margin: 0.5rem 0;
         }
 
         .total-cost {
           font-weight: bold;
           font-size: 1.25rem;
-          color: #000000;
+          color: #2563eb;
         }
 
         .tips-section {
-          margin-top: 1.5rem;
-          padding: 0.8rem;
-          background-color: #e6fffa;
-          border-radius: 0.5rem;
-          color: #2d3748;
+          margin-top: 2rem;
+          background-color: #ecfdf5;
+          border-left: 4px solid #10b981;
+          padding: 1rem 1.25rem;
+          border-radius: 0.75rem;
         }
 
         .tips-section h3 {
-          font-size: 1.1rem;
-          font-weight: 600;
-          margin-bottom: 0.5rem;
-          color: #1a202c;
+          font-size: 1.2rem;
+          font-weight: 700;
+          margin-bottom: 0.75rem;
+          color: #065f46;
         }
 
         .tips-section ul {
-          list-style: disc;
           padding-left: 1.25rem;
         }
 
         .tips-section li {
-          font-size: 0.95rem;
-          margin-bottom: 0.25rem;
+          font-size: 1rem;
+          margin-bottom: 0.4rem;
+          color: #065f46;
+        }
+
+        .back-button {
+          margin-bottom: 1rem;
+          background-color: #3b82f6;
+          color: white;
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
+          font-weight: 500;
+          border: none;
+          cursor: pointer;
+        }
+
+        .back-button:hover {
+          background-color: #2563eb;
         }
       `}</style>
 
       {showBackButton && (
         <button
           onClick={() => (window.location.href = '/')}
-          className="mb-4 text-white bg-blue-600 px-4 py-1 rounded hover:bg-blue-700"
+          className="back-button"
         >
           ← Back to Home
         </button>
@@ -142,46 +173,40 @@ function CostForecaster() {
         <h2 className="title">Cost Forecaster</h2>
 
         <div className="dropdown-section">
-          <label className="label">
-            Place:
-            <select
-              value={place}
-              onChange={(e) => setPlace(e.target.value)}
-              className="select"
-            >
-              {Object.keys(baseRates).map((p) => (
-                <option key={p} value={p}>
-                  {p}
-                </option>
-              ))}
-            </select>
-          </label>
+          <label className="label">Place:</label>
+          <select
+            value={place}
+            onChange={(e) => setPlace(e.target.value)}
+            className="select"
+          >
+            {Object.keys(baseRates).map((p) => (
+              <option key={p} value={p}>
+                {p}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="slider-box">
-          <label className="label">
-            Days: {days}
-            <input
-              type="range"
-              min="1"
-              max="30"
-              value={days}
-              onChange={(e) => setDays(parseInt(e.target.value))}
-              className="slider"
-            />
-          </label>
+          <label className="label">Days: {days}</label>
+          <input
+            type="range"
+            min="1"
+            max="30"
+            value={days}
+            onChange={(e) => setDays(parseInt(e.target.value))}
+            className="slider"
+          />
         </div>
 
         <div className="toggle-box">
-          <label className="label">
-            Show hidden fees:
-            <input
-              type="checkbox"
-              checked={showFees}
-              onChange={(e) => setShowFees(e.target.checked)}
-              className="ml-2"
-            />
-          </label>
+          <label className="label">Show hidden fees:</label>
+          <input
+            type="checkbox"
+            checked={showFees}
+            onChange={(e) => setShowFees(e.target.checked)}
+            className="checkbox"
+          />
         </div>
 
         <div className="cost-breakdown">

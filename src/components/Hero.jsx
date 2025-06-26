@@ -2,87 +2,71 @@ import React from 'react';
 
 function Hero() {
   const scrollToPopularCities = () => {
-    const popularCitiesSection = document.getElementById('popular-cities');
-    if (popularCitiesSection) {
-      popularCitiesSection.scrollIntoView({ behavior: 'smooth' });
+    const section = document.getElementById('popular-cities');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <div className="hero-container">
-      <h1 className="hero-title">Explore Cities Smarter</h1>
+    <section className="hero-banner">
+      <h1 className="hero-title">
+        Find your next country to work remotely with a Digital Nomad Visa.
+      </h1>
       <p className="hero-subtitle">
-        AI-powered companion for digital nomads 🌍✨
+        Smart tools & global insights for modern nomads 🌍✨
       </p>
-      <button 
-        onClick={scrollToPopularCities}
-        className="hero-button"
-      >
-        🔍 Start Exploring
+      <button onClick={scrollToPopularCities} className="hero-button">
+        🌐 Browse Countries
       </button>
 
-      <style>{`
-        .hero-container {
-          width: 100%;
-          text-align: center;
-          padding-top: 3rem;
-          padding-bottom: 5rem;
-          background-color: wheat;
-        }
+<style>{`
+  .hero-banner {
+    width: 100%;
+    padding: 2rem 1rem;
+    background: linear-gradient(to right,rgb(165, 198, 233),rgb(111, 177, 224),rgb(11, 134, 223));
+    text-align: center;
+    margin-top: 80px; /* 👈 this ensures it starts just below the sticky header */
+  }
 
-        @media (min-width: 600px) {
-          .hero-container {
-            padding-top: 5rem;
-            padding-bottom: 5rem;
-          }
-        }
+  .hero-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #0f172a;
+    max-width: 1000px;
+    margin: 0 auto 0.8rem;
+  }
 
-        .hero-title {
-          font-size: 2.25rem;
-          font-weight: bold;
-          color: #0f172a; /* slate-900 */
-          max-width: 48rem;
-          margin-left: auto;
-          margin-right: auto;
-        }
+  @media (min-width: 768px) {
+    .hero-title {
+      font-size: 2.4rem;
+    }
+  }
 
-        @media (min-width: 600px) {
-          .hero-title {
-            font-size: 3.75rem;
-          }
-        }
+  .hero-subtitle {
+    font-size: 1rem;
+    color: #4b5563;
+    margin-bottom: 1.5rem;
+  }
 
-        .hero-subtitle {
-          margin-top: 1rem;
-          font-size: 1.125rem;
-          color: #4b5563; /* gray-600 */
-        }
+  .hero-button {
+    background-color: #0f172a;
+    color: white;
+    padding: 0.6rem 1.25rem;
+    border-radius: 8px;
+    font-weight: 600;
+    border: 2px solid #0ea5e9;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
 
-        @media (min-width: 600px) {
-          .hero-subtitle {
-            font-size: 1.25rem;
-          }
-        }
+  .hero-button:hover {
+    background-color: #0ea5e9;
+    border-color: #0ea5e9;
+  }
+`}</style>
 
-        .hero-button {
-          margin-top: 1.5rem;
-          background-color: #0f172a; /* slate-900 */
-          color: white;
-          padding: 0.75rem 1.5rem;
-          border-radius: 9px;
-          font-weight: 600;
-          border: 2px solid #0ea5e9; /* sky-500 */
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-
-        .hero-button:hover {
-          background-color: #0ea5e9; /* sky-500 */
-          color: white;
-          border-color: #0ea5e9;
-        }
-      `}</style>
-    </div>
+    </section>
   );
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react"; // Combined and corrected import
+import React, { useState } from "react";
 import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShieldAlt } from '@fortawesome/free-solid-svg-icons';
@@ -78,31 +78,31 @@ function SafetyTrustScore() {
 
   const currentCity = cityData[selectedCity];
 
-  // Utility to get color based on score
   const getScoreColor = (score) => {
-    if (score > 90) return 'bg-green-500';
-    if (score > 75) return 'bg-yellow-500';
-    return 'bg-red-500';
+    if (score > 90) return '#22c55e';
+    if (score > 75) return '#eab308';
+    return '#ef4444';
   };
 
-  // Utility to get bar color based on percentage
   const getBarColor = (percentage) => {
-    if (percentage > 85) return 'bg-green-500';
-    if (percentage > 70) return 'bg-yellow-500';
-    return 'bg-red-500';
+    if (percentage > 85) return '#22c55e';
+    if (percentage > 70) return '#eab308';
+    return '#ef4444';
   };
 
   return (
     <div className="safety-container">
       <style>{`
         .safety-container {
-          background-color: white;
-          color: black;
-          border-radius: 1rem;
-          padding: 1.5rem;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-          width: 80%;
+          background: linear-gradient(to right, #f0fdfa, #fefce8);
+          color: #111827;
+          border-radius: 1.5rem;
+          padding: 2rem;
+          width: 90%;
+          max-width: 900px;
           margin: 2rem auto;
+          font-family: 'Segoe UI', sans-serif;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
         }
 
         .safety-header {
@@ -114,133 +114,148 @@ function SafetyTrustScore() {
 
         .safety-title {
           font-size: 2rem;
-          font-weight: bold;
-          color: #1a202c;
+          font-weight: 700;
+          background: linear-gradient(to right, #2563eb, #9333ea);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
         }
 
         .city-select {
-          padding: 0.4rem 0.75rem;
-          border-radius: 0.4rem;
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
           font-size: 1rem;
-          background: #f1f5f9;
-          color: #0f172a;
-          border: 1px solid #cbd5e1;
+          background: #f3f4f6;
+          border: 1px solid #d1d5db;
         }
 
         .score-display {
           text-align: center;
-          margin-bottom: 1.5rem;
+          margin: 1.5rem 0;
         }
 
         .score-circle {
-          display: inline-flex;
+          margin: auto;
+          width: 120px;
+          height: 120px;
+          border-radius: 50%;
+          display: flex;
           align-items: center;
           justify-content: center;
-          width: 100px;
-          height: 100px;
-          border-radius: 50%;
           font-size: 2.5rem;
           font-weight: bold;
           color: white;
-          margin-bottom: 0.5rem;
+          transition: background-color 0.4s ease;
         }
 
         .score-reason {
-          font-size: 1.1rem;
-          color: #4b5563;
+          margin-top: 0.8rem;
+          font-size: 1rem;
+          color: #475569;
+        }
+
+        .flagged {
+          margin-top: 0.5rem;
+          font-size: 1rem;
+          color: #dc2626;
+          font-weight: 600;
         }
 
         .info-bars-grid {
           display: grid;
-          grid-template-columns: 1fr; /* Default to single column */
-          gap: 1.5rem;
-          margin-bottom: 2rem;
+          grid-template-columns: 1fr;
+          gap: 1.2rem;
+          margin: 2rem 0;
         }
 
         @media (min-width: 600px) {
           .info-bars-grid {
-            grid-template-columns: repeat(2, 1fr); /* Two columns on larger screens */
+            grid-template-columns: repeat(2, 1fr);
           }
         }
 
         .info-bar-item {
-          background-color: #f9fafb;
-          border-radius: 0.5rem;
+          background: white;
+          border-radius: 0.75rem;
           padding: 1rem;
-          box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
         }
 
         .info-bar-label {
-          font-size: 0.9rem;
-          margin-bottom: 0.3rem;
-          color: #4b5563;
+          margin-bottom: 0.5rem;
+          font-weight: 500;
+          color: #334155;
         }
 
         .bar-background {
-          height: 24px;
           background-color: #e5e7eb;
-          border-radius: 12px;
+          border-radius: 1rem;
+          height: 20px;
           position: relative;
-          overflow: hidden;
         }
 
         .bar-fill {
           height: 100%;
-          border-radius: 12px;
+          border-radius: 1rem;
           transition: width 0.5s ease;
         }
 
         .bar-value {
           position: absolute;
-          right: 8px;
+          right: 10px;
           top: 50%;
           transform: translateY(-50%);
           color: white;
           font-size: 0.8rem;
           font-weight: bold;
-          text-shadow: 0 0 2px rgba(0,0,0,0.5);
-        }
-
-        .extra-info p {
-          margin-top: 0.4rem;
-          font-size: 0.95rem;
-          color: #4b5563;
-        }
-
-        .flagged {
-          color: #b91c1c;
-          margin-bottom: 1rem;
         }
 
         .news-section {
           background-color: #f9fafb;
-          padding: 0.8rem;
-          border-radius: 0.5rem;
+          padding: 1rem;
+          border-radius: 0.75rem;
+          margin-top: 1.5rem;
         }
 
         .news-section h3 {
-          font-size: 1.1rem;
+          font-size: 1.2rem;
           font-weight: 600;
+          color: #1f2937;
           margin-bottom: 0.5rem;
-          color: #1a202c;
         }
 
         .news-section ul {
-          list-style: disc;
-          padding-left: 1.5rem;
+          padding-left: 1.25rem;
         }
 
         .news-section li {
-          font-size: 0.9rem;
+          font-size: 0.95rem;
           color: #4b5563;
           margin-bottom: 0.3rem;
+        }
+
+        .back-button {
+          background: #2563eb;
+          color: white;
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
+          font-weight: 500;
+          border: none;
+          cursor: pointer;
+          margin-bottom: 1rem;
+        }
+
+        .back-button:hover {
+          background: #1d4ed8;
         }
       `}</style>
 
       {showBackButton && (
         <button
           onClick={() => (window.location.href = '/')}
-          className="mb-4 text-white bg-blue-600 px-4 py-1 rounded hover:bg-blue-700"
+          className="back-button"
         >
           ← Back to Home
         </button>
@@ -248,7 +263,7 @@ function SafetyTrustScore() {
 
       <div className="safety-header">
         <h2 className="safety-title">
-          <FontAwesomeIcon icon={faShieldAlt} className="mr-2" />Safety & Trust Score
+          <FontAwesomeIcon icon={faShieldAlt} /> Safety & Trust Score
         </h2>
         <select
           value={selectedCity}
@@ -256,22 +271,21 @@ function SafetyTrustScore() {
           className="city-select"
         >
           {Object.keys(cityData).map((city) => (
-            <option key={city} value={city}>
-              {city}
-            </option>
+            <option key={city} value={city}>{city}</option>
           ))}
         </select>
       </div>
 
       <div className="score-display">
-        <div className={`score-circle ${getScoreColor(currentCity.score)}`}>
+        <div
+          className="score-circle"
+          style={{ backgroundColor: getScoreColor(currentCity.score) }}
+        >
           {currentCity.score}
         </div>
         <p className="score-reason">{currentCity.reason}</p>
         {currentCity.flagged > 0 && (
-          <p className="flagged text-red-600">
-            <strong>{currentCity.flagged} recent incident(s) flagged</strong>
-          </p>
+          <p className="flagged">{currentCity.flagged} recent incident(s) flagged</p>
         )}
       </div>
 
@@ -280,10 +294,13 @@ function SafetyTrustScore() {
           <div className="info-bar-label">Healthcare Score</div>
           <div className="bar-background">
             <div
-              className={`bar-fill ${getBarColor(currentCity.healthcare)}`}
-              style={{ width: `${currentCity.healthcare}%` }}
+              className="bar-fill"
+              style={{
+                width: `${currentCity.healthcare}%`,
+                backgroundColor: getBarColor(currentCity.healthcare),
+              }}
             ></div>
-            <span className="bar-value">{currentCity.healthcare}%</span>
+            <div className="bar-value">{currentCity.healthcare}%</div>
           </div>
         </div>
 
@@ -291,10 +308,13 @@ function SafetyTrustScore() {
           <div className="info-bar-label">Nightlife Safety</div>
           <div className="bar-background">
             <div
-              className={`bar-fill ${getBarColor(currentCity.nightlife)}`}
-              style={{ width: `${currentCity.nightlife}%` }}
+              className="bar-fill"
+              style={{
+                width: `${currentCity.nightlife}%`,
+                backgroundColor: getBarColor(currentCity.nightlife),
+              }}
             ></div>
-            <span className="bar-value">{currentCity.nightlife}%</span>
+            <div className="bar-value">{currentCity.nightlife}%</div>
           </div>
         </div>
 
@@ -302,10 +322,13 @@ function SafetyTrustScore() {
           <div className="info-bar-label">WiFi Security</div>
           <div className="bar-background">
             <div
-              className={`bar-fill ${getBarColor(currentCity.wifi)}`}
-              style={{ width: `${currentCity.wifi}%` }}
+              className="bar-fill"
+              style={{
+                width: `${currentCity.wifi}%`,
+                backgroundColor: getBarColor(currentCity.wifi),
+              }}
             ></div>
-            <span className="bar-value">{currentCity.wifi}%</span>
+            <div className="bar-value">{currentCity.wifi}%</div>
           </div>
         </div>
       </div>
