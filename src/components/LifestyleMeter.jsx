@@ -20,9 +20,7 @@ const lifestyleData = [
 
 const Container = styled.div`
   padding: 2.5rem;
-  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
   border-radius: 24px;
-  box-shadow: 0 8px 40px rgba(108, 92, 231, 0.12);
   margin: 2rem auto;
   width: 95%;
   max-width: 1200px;
@@ -63,14 +61,23 @@ const ChartContainer = styled.div`
 
 const ScoreContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   margin-top: 3rem;
+   @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
 `;
+
 
 const ScoreCard = styled.div`
   padding: 1.5rem;
-  background: white;
+  width: 95%;
+  max-width: 1200px;  background: white;
   border-radius: 16px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.05);
   display: flex;
@@ -132,7 +139,7 @@ const PulseCircle = styled.div`
   z-index: 0;
 `;
 
-export const LifestyleMeter = () => {
+const LifestyleMeter = () => {
   return (
     <Container>
       <Header>
@@ -194,3 +201,5 @@ export const LifestyleMeter = () => {
     </Container>
   );
 };
+
+export default LifestyleMeter;

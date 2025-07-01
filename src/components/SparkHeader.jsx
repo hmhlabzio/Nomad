@@ -1,63 +1,47 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link
+import { Link } from 'react-router-dom';
 
 function SparkHeader({ onContactClick, onBrowseClick }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white shadow-md w-full z-50 fixed top-0 left-0">
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-10 flex justify-between items-center h-16">
-
-        {/* Logo - Navigates to Home */}
-        <Link to="/" className="flex items-center space-x-2"> {/* Changed to Link */}
-          <div className="rounded-full border-2 border-blue-500 p-[6px]">
-            <img
-              className="h-10 w-10 rounded-full"
-              src="/images/logo.svg" 
-              alt="Logo"
-            />
-          </div>
+    <header
+      className="w-full z-20 py-5"
+      style={{
+        background: 'rgba(255, 255, 255, 0.1)', // semi-transparent white
+        backdropFilter: 'blur(12px)',           // glass effect
+        WebkitBackdropFilter: 'blur(12px)',     // Safari support
+      }}
+    >
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 flex justify-between items-center h-[72px]">
+        {/* Logo */}
+        <Link to="/" className="flex items-center">
+          <img className="h-12 w-auto" src="/images/logo.svg" alt="NomadNetwork Logo" />
         </Link>
 
-        {/* Navigation - Desktop */}
-        <nav className="hidden md:flex space-x-8 items-center">
-          <Link to="/" className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium"> {/* Home Link */}
-            Home
-          </Link>
-          <a
-            onClick={onBrowseClick}
-            className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium cursor-pointer"
-          >
-            Browse Countries
-          </a>
-          <Link to="/about-us" className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium"> {/* About Us Link */}
-            About
-          </Link>
-          {/* Assuming you want these to navigate as well, if they lead to pages */}
-          {/* Example: <li><Link to="/insights" className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Insights</Link></li> */}
-          {/* Example: <li><Link to="/explore-world" className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Explore World</Link></li> */}
-          <a
-            onClick={onContactClick}
-            className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium cursor-pointer"
-          >
-            Contact
-          </a>
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex space-x-6 items-center">
+          <Link to="/" className="text-white hover:text-yellow-400 text-sm font-medium">Home</Link>
+          <a onClick={onBrowseClick} className="text-white hover:text-yellow-400 text-sm font-medium cursor-pointer">Browse Countries</a>
+          <Link to="/about-us" className="text-white hover:text-yellow-400 text-sm font-medium">About</Link>
+          <a onClick={onContactClick} className="text-white hover:text-yellow-400 text-sm font-medium cursor-pointer">Contact</a>
         </nav>
 
-        {/* Get Started CTA */}
+
+        {/* CTA Button */}
         <div className="hidden md:flex">
-          <button className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white px-5 py-2 rounded-md font-semibold whitespace-nowrap">
+          <button className="bg-yellow-400 hover:bg-indigo-700 text-white px-4 py-2 rounded-md font-semibold">
             Get Started
           </button>
         </div>
 
-        {/* Mobile menu button */}
+        {/* Mobile Menu Toggle */}
         <div className="md:hidden flex items-center">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none"
+            className="p-2 text-white hover:text-gray-300 focus:outline-none"
           >
-            <span className="sr-only">Open main menu</span>
+            <span className="sr-only">Toggle Menu</span>
             {isMenuOpen ? (
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -71,34 +55,16 @@ function SparkHeader({ onContactClick, onBrowseClick }) {
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white shadow-lg">
-          <div className="px-4 pt-2 pb-3 space-y-1">
-            <Link to="/" className="block px-3 py-2 text-gray-900 hover:text-blue-600">Home</Link> {/* Home Link Mobile */}
-            <a
-              onClick={onBrowseClick}
-              className="block px-3 py-2 text-gray-900 hover:text-blue-600 cursor-pointer"
-            >
-              Browse Countries
-            </a>
-            <Link to="/about-us" className="block px-3 py-2 text-gray-900 hover:text-blue-600">About</Link> {/* About Us Link Mobile */}
-            {/* Add other Link components for mobile if needed */}
-            <a
-              onClick={onContactClick}
-              className="block px-3 py-2 text-gray-900 hover:text-blue-600 cursor-pointer"
-            >
-              Contact
-            </a>
-
-            <div className="pt-4 pb-3 border-t border-gray-200">
-              <div className="mt-3">
-                <button className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white px-5 py-2 rounded-md font-semibold w-full">
-                  Get Started
-                </button>
-              </div>
-            </div>
-          </div>
+        <div className="md:hidden bg-black px-4 py-3">
+          <Link to="/" className="block py-2 text-white hover:text-blue-300">Home</Link>
+          <a onClick={onBrowseClick} className="block py-2 text-white hover:text-blue-300 cursor-pointer">Browse Countries</a>
+          <Link to="/about-us" className="block py-2 text-white hover:text-blue-300">About</Link>
+          <a onClick={onContactClick} className="block py-2 text-white hover:text-blue-300 cursor-pointer">Contact</a>
+          <button className="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white w-full py-2 rounded-md font-semibold">
+            Get Started
+          </button>
         </div>
       )}
     </header>
