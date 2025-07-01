@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Places } from '../utils/api';
+import { fetchPlaces } from '../utils/api';
 import './CityPreview.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
