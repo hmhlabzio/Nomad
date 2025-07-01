@@ -87,7 +87,7 @@ function CityPreview() {
             <div key={city.id} className="city-card">
               <div className="city-image-container">
                 <img
-                  src={city.image?.url ? `${API_URL}${city.image.url}` : '/fallback.jpg'}
+                  src={city.image?.url ? `${import.meta.env.VITE_PAYLOAD_API_URL}${city.image.url}` : '/fallback.jpg'}
                   alt={city.name}
                   className="city-image"
                   loading="lazy"
