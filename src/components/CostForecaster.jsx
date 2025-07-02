@@ -1,30 +1,39 @@
-import React, { useState } from "react";
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 function CostForecaster() {
   const [days, setDays] = useState(5);
   const [showFees, setShowFees] = useState(false);
   const [place, setPlace] = useState("Bali");
+  const [dailyCost, setDailyCost] = useState(0);
+  const [hiddenFees, setHiddenFees] = useState(0);
+
   const location = useLocation();
   const showBackButton = location.pathname === "/cost-calculator";
-
-  const baseRates = {
-    Bali: 1200,
-    Tokyo: 1500,
-    Goa: 900,
-    Paris: 1800,
-    Delhi: 1000,
-  };
-
-  const hiddenFee = showFees ? 600 : 0;
-  const baseCost = days * baseRates[place];
-  const totalCost = baseCost + hiddenFee;
 
   const tips = [
     "💡 Tip: Booking for 7+ days gives 10% off",
     "📅 Cheapest month: October",
     "🛏️ Try weekdays for cheaper stays",
   ];
+
+  const cityData = {
+    Bali: { cost: 1200, hidden: 600 },
+    Tokyo: { cost: 1500, hidden: 800 },
+    Goa: { cost: 900, hidden: 500 },
+    Paris: { cost: 1800, hidden: 1000 },
+    Delhi: { cost: 1000, hidden: 450 },
+  };
+
+  useEffect(() => {
+    // Simulate fetching from API without backend
+    const city = cityData[place];
+    setDailyCost(city.cost);
+    setHiddenFees(showFees ? city.hidden : 0);
+  }, [place, showFees]);
+
+  const baseCost = dailyCost * days;
+  const totalCost = baseCost + hiddenFees;
 
   return (
     <div className="cost-container">
@@ -179,10 +188,8 @@ function CostForecaster() {
             onChange={(e) => setPlace(e.target.value)}
             className="select"
           >
-            {Object.keys(baseRates).map((p) => (
-              <option key={p} value={p}>
-                {p}
-              </option>
+            {Object.keys(cityData).map((city) => (
+              <option key={city} value={city}>{city}</option>
             ))}
           </select>
         </div>
@@ -211,15 +218,15 @@ function CostForecaster() {
 
         <div className="cost-breakdown">
           <p>
-            <span>Base Cost:</span> <span>${baseCost}</span>
+            <span>Base Cost:</span> <span>₹{baseCost}</span>
           </p>
           {showFees && (
             <p>
-              <span>Hidden Fee:</span> <span>${hiddenFee}</span>
+              <span>Hidden Fee:</span> <span>₹{hiddenFees}</span>
             </p>
           )}
           <p className="total-cost">
-            <span>Total Cost:</span> <span>${totalCost}</span>
+            <span>Total Cost:</span> <span>₹{totalCost}</span>
           </p>
         </div>
 

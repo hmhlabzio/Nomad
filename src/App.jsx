@@ -198,85 +198,8 @@ function App() {
           </div>
         )}
 
-        {/* {showBrowseForm && (
-          <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
-            <div className="bg-white text-black p-6 rounded-md w-full max-w-2xl relative max-h-[90vh] overflow-y-auto">
-              <button
-                className="absolute top-2 right-3 text-2xl font-bold bg-white text-black hover:text-gray-700"
-                onClick={() => setShowBrowseForm(false)}
-              >
-                &times;
-              </button>
-              <h2 className="text-2xl font-bold mb-4">Browse Countries</h2>
-              <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block mb-1">Country Name</label>
-                  <select className="w-full px-3 py-2 border border-gray-300 rounded bg-white text-black">
-                    <option value="">Select a country</option>
-                    <option value="Tokyo">Tokyo</option>
-                    <option value="Bali">Bali</option>
-                    <option value="Paris">Paris</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block mb-1">Date of Travel</label>
-                  <input type="date" className="w-full px-3 py-2 border border-gray-300 rounded bg-white" />
-                </div>
-                <div>
-                  <label className="block mb-1">Season / Weather Preference</label>
-                  <select className="w-full px-3 py-2 border border-gray-300 rounded bg-white text-black">
-                    <option value="">Select a season</option>
-                    <option value="Summer">Summer</option>
-                    <option value="Winter">Winter</option>
-                    <option value="Rainy">Rainy</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block mb-1">Budget Range</label>
-                  <select className="w-full px-3 py-2 border border-gray-300 rounded bg-white text-black">
-                    <option value="">Select a budget</option>
-                    <option value="Low">Low</option>
-                    <option value="Medium">Medium</option>
-                    <option value="High">High</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block mb-1">Travel Type</label>
-                  <select className="w-full px-3 py-2 border border-gray-300 rounded bg-white text-black">
-                    <option value="">Select travel type</option>
-                    <option value="Solo">Solo</option>
-                    <option value="Couple">Couple</option>
-                    <option value="Family">Family</option>
-                    <option value="Group">Group</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block mb-1">Popular Activities</label>
-                  <div className="space-y-1">
-                    <label className="block"><input type="checkbox" className="mr-2" /> Adventure</label>
-                    <label className="block"><input type="checkbox" className="mr-2" /> Sightseeing</label>
-                    <label className="block"><input type="checkbox" className="mr-2" /> Relaxation</label>
-                    <label className="block"><input type="checkbox" className="mr-2" /> Wildlife</label>
-                  </div>
-                </div>
-                <div>
-                  <label className="block mb-1">Preferred Continent</label>
-                  <select className="w-full px-3 py-2 border border-gray-300 rounded bg-white text-black">
-                    <option value="">Select a continent</option>
-                    <option value="Asia">Asia</option>
-                    <option value="Europe">Europe</option>
-                    <option value="America">America</option>
-                  </select>
-                </div>
-              </form>
-              <div className="mt-4 text-right">
-                <button className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800">
-                  Explore
-                </button>
-              </div>
-            </div>
-          </div>
-        )} */}
+
+
 
         {/* Safety Score Popup */}
           {showSafetyScorePopup && (

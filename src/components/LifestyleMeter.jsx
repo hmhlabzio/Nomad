@@ -1,22 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Radar,
   RadarChart,
   PolarGrid,
   PolarAngleAxis,
   ResponsiveContainer,
-  Tooltip
+  Tooltip,
 } from 'recharts';
 import styled from 'styled-components';
 
-const lifestyleData = [
-  { metric: 'Internet', score: 89, icon: '🚀', color: '#FF6B6B', basis: 'Blazing fast 89 Mbps average' },
-  { metric: 'Safety', score: 82, icon: '🛡️', color: '#4ECDC4', basis: 'Very safe with 24/7 patrols' },
-  { metric: 'Nightlife', score: 83, icon: '🍹', color: '#FF9F1C', basis: '100+ bars & clubs rated 4.5★+' },
-  { metric: 'Wellness', score: 74, icon: '🧘', color: '#A78BFA', basis: '50+ yoga studios & spas' },
-  { metric: 'Cost', score: 91, icon: '💰', color: '#2ECC71', basis: 'Only $1,200/month avg cost' },
-  { metric: 'Community', score: 66, icon: '👥', color: '#F9C74F', basis: 'Growing expat community' },
-];
+// Static mock data per city (you can later replace with API)
+const mockCityData = {
+  Tokyo: {
+    internet: 89, internet_basis: 'Blazing fast 89 Mbps average',
+    safety: 82, safety_basis: 'Very safe with 24/7 patrols',
+    nightlife: 83, nightlife_basis: '100+ bars & clubs rated 4.5★+',
+    mental_wellness: 74, wellness_basis: '50+ yoga studios & spas',
+    cost: 91, cost_basis: 'Only $1,200/month avg cost',
+    community: 66, community_basis: 'Growing expat community'
+  },
+  Lisbon: {
+    internet: 76, internet_basis: 'Decent 76 Mbps average',
+    safety: 88, safety_basis: 'Extremely safe at night',
+    nightlife: 90, nightlife_basis: 'Vibrant and open till 4am',
+    mental_wellness: 82, wellness_basis: 'Affordable wellness centers',
+    cost: 70, cost_basis: 'Avg $1,500/month living cost',
+    community: 80, community_basis: 'Strong digital nomad scene'
+  },
+  Bali: {
+    internet: 68, internet_basis: 'Variable but improving internet',
+    safety: 70, safety_basis: 'Safe but be cautious in traffic',
+    nightlife: 85, nightlife_basis: 'Beach bars & jungle clubs',
+    mental_wellness: 90, wellness_basis: 'Spiritual retreats & yoga',
+    cost: 95, cost_basis: 'Budget-friendly, avg $900/month',
+    community: 75, community_basis: 'Friendly and open expat vibe'
+  }
+};
 
 const Container = styled.div`
   padding: 2.5rem;
@@ -52,6 +71,17 @@ const Subtitle = styled.p`
   line-height: 1.6;
 `;
 
+const CitySelector = styled.select`
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #dcdde1;
+  background: white;
+  color: #2d3436;
+  font-weight: 500;
+`;
+
 const ChartContainer = styled.div`
   width: 100%;
   height: 380px;
@@ -64,7 +94,7 @@ const ScoreContainer = styled.div`
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   margin-top: 3rem;
-   @media (max-width: 1024px) {
+  @media (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -73,11 +103,11 @@ const ScoreContainer = styled.div`
   }
 `;
 
-
 const ScoreCard = styled.div`
   padding: 1.5rem;
   width: 95%;
-  max-width: 1200px;  background: white;
+  max-width: 1200px;
+  background: white;
   border-radius: 16px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.05);
   display: flex;
@@ -85,7 +115,7 @@ const ScoreCard = styled.div`
   align-items: center;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   border: 1px solid rgba(0,0,0,0.03);
-  
+
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 20px rgba(108, 92, 231, 0.15);
@@ -140,6 +170,24 @@ const PulseCircle = styled.div`
 `;
 
 const LifestyleMeter = () => {
+  const [city, setCity] = useState('Tokyo');
+  const [lifestyleData, setLifestyleData] = useState([]);
+
+  useEffect(() => {
+    const raw = mockCityData[city];
+
+    const formatted = [
+      { metric: 'Internet', score: raw.internet, icon: '🚀', color: '#FF6B6B', basis: raw.internet_basis },
+      { metric: 'Safety', score: raw.safety, icon: '🛡️', color: '#4ECDC4', basis: raw.safety_basis },
+      { metric: 'Nightlife', score: raw.nightlife, icon: '🍹', color: '#FF9F1C', basis: raw.nightlife_basis },
+      { metric: 'Wellness', score: raw.mental_wellness, icon: '🧘', color: '#A78BFA', basis: raw.wellness_basis },
+      { metric: 'Cost', score: raw.cost, icon: '💰', color: '#2ECC71', basis: raw.cost_basis },
+      { metric: 'Community', score: raw.community, icon: '👥', color: '#F9C74F', basis: raw.community_basis },
+    ];
+
+    setLifestyleData(formatted);
+  }, [city]);
+
   return (
     <Container>
       <Header>
@@ -148,6 +196,11 @@ const LifestyleMeter = () => {
           Our vibrant rating system evaluates what truly matters for digital nomads - 
           combining hard data with community experiences
         </Subtitle>
+        <CitySelector value={city} onChange={(e) => setCity(e.target.value)}>
+          <option value="Tokyo">Tokyo</option>
+          <option value="Lisbon">Lisbon</option>
+          <option value="Bali">Bali</option>
+        </CitySelector>
       </Header>
 
       <ChartContainer>

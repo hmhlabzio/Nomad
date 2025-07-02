@@ -22,7 +22,6 @@ function SparkHeader({ onContactClick, onBrowseClick }) {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-6 items-center">
           <Link to="/" className="text-white hover:text-yellow-400 text-sm font-medium">Home</Link>
-          <a onClick={onBrowseClick} className="text-white hover:text-yellow-400 text-sm font-medium cursor-pointer">Browse Countries</a>
           <Link to="/about-us" className="text-white hover:text-yellow-400 text-sm font-medium">About</Link>
           <a onClick={onContactClick} className="text-white hover:text-yellow-400 text-sm font-medium cursor-pointer">Contact</a>
         </nav>
@@ -59,7 +58,6 @@ function SparkHeader({ onContactClick, onBrowseClick }) {
       {isMenuOpen && (
         <div className="md:hidden bg-black px-4 py-3">
           <Link to="/" className="block py-2 text-white hover:text-blue-300">Home</Link>
-          <a onClick={onBrowseClick} className="block py-2 text-white hover:text-blue-300 cursor-pointer">Browse Countries</a>
           <Link to="/about-us" className="block py-2 text-white hover:text-blue-300">About</Link>
           <a onClick={onContactClick} className="block py-2 text-white hover:text-blue-300 cursor-pointer">Contact</a>
           <button className="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white w-full py-2 rounded-md font-semibold">
