@@ -6,20 +6,14 @@ body, .city-details-container {
   color: #000000; /* Set default text color to black */
 }
 /* In SparHeader.css or global style */
-.sticky-header {
+.sticky-header-wrapper {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 30;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: transparent;
-  color: white;
-  padding-top: 6rem;
-
+  z-index: 40;
 }
+
 
 
 
@@ -33,6 +27,7 @@ body, .city-details-container {
   flex-direction: column;
   justify-content: flex-end;
   padding: 2rem;
+  padding-top: 6rem;
 }
 .hero-overlay {
   position: absolute;
