@@ -1,5 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import SparHeader from '../components/SparHeader'; // adjust path if needed
+
 import { fetchPlaces } from '../utils/api';
 import './CityDetails.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -95,6 +97,8 @@ function CityDetailsPage() {
           <p>{city.visaType}</p>
         </div>
       </div>
+      <SparHeader className="sticky-header" />
+
 
       {/* Stats Section */}
       <div className="stats-grid">
