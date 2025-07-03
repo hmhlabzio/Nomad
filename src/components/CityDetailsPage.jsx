@@ -80,6 +80,10 @@ function CityDetailsPage() {
 
   return (
     <div className="city-details-container">
+      <div className="sticky-header-wrapper">
+        <SparHeader />
+      </div>
+
       <div
         className="hero-section text-white"
         style={{
@@ -91,7 +95,6 @@ function CityDetailsPage() {
           position: 'relative',
         }}
       >
-      <SparHeader className="spar-header"/>
         <div className="back-button" onClick={() => navigate(-1)}>
           <FontAwesomeIcon icon={faArrowLeft} className="back-icon" />
           <span className="back-arrow"></span> Back to Countries
