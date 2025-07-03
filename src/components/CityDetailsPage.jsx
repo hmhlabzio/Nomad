@@ -80,6 +80,7 @@ function CityDetailsPage() {
 
   return (
     <div className="city-details-container">
+      <SparHeader className="sticky-header" />
       {/* Hero Section */}
       <div
         className="hero-section"
@@ -97,7 +98,7 @@ function CityDetailsPage() {
           <p>{city.visaType}</p>
         </div>
       </div>
-      <SparHeader className="sticky-header" />
+      
 
 
       {/* Stats Section */}
