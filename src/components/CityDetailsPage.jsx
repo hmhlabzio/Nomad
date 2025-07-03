@@ -74,11 +74,12 @@ function CityDetailsPage() {
       {/* Hero Section */}
       <div
           className="hero-section"
-          style={{
-            backgroundImage: city.image?.url
-              ? `url(http://localhost:3000${city.image.url})`
-              : `url(/fallback.jpg)`,
+         style={{
+            backgroundImage: city.image
+              ? `url(${import.meta.env.VITE_PAYLOAD_API_URL}${city.image})`
+              : `url(/fallback.webp)`,
           }}
+
         >
 
         <div className="back-button" onClick={() => navigate(-1)}>
