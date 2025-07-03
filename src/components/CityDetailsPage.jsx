@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import SparHeader from '../components/SparHeader'; // adjust path if needed
+import SparHeader from '../components/SparkHeader'; // adjust path if needed
 
 import { fetchPlaces } from '../utils/api';
 import './CityDetails.css';
