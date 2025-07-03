@@ -87,7 +87,7 @@ function CityPreview() {
             <div key={city.id} className="city-card">
               <div className="city-image-container">
                <img
-                  src={city.image ? city.image : '/fallback.jpg'}
+                  src={city.image ? city.image : '/fallback.webp'}
                   alt={city.name}
                   className="city-image"
                   loading="lazy"
