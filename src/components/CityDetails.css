@@ -5,6 +5,14 @@ body, .city-details-container {
 .city-details-container {
   color: #000000; /* Set default text color to black */
 }
+/* In SparHeader.css or global style */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: white; /* or matching theme color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
 
 
