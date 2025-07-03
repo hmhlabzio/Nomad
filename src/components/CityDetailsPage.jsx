@@ -70,13 +70,13 @@ function CityDetailsPage() {
 
   if (!city) return <div>Loading...</div>;
 
-  const resolveImageUrl = (image) => {
+const resolveImageUrl = (image) => {
   if (!image) return '/fallback.webp';
   if (image.startsWith('http') || image.startsWith('//')) return image;
   return `${import.meta.env.VITE_PAYLOAD_API_URL}${image}`;
 };
 
-  console.log('Resolved city image URL:', imageUrl);
+const imageUrl = resolveImageUrl(city.image);
 
   return (
     <div className="city-details-container">
@@ -84,7 +84,7 @@ function CityDetailsPage() {
       <div
         className="hero-section"
         style={{
-          backgroundImage: `url(${resolveImageUrl(city.image)})`
+         backgroundImage: `url(${imageUrl})`,
         }}
       >
         <div className="back-button" onClick={() => navigate(-1)}>
