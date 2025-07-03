@@ -80,14 +80,18 @@ function CityDetailsPage() {
 
   return (
     <div className="city-details-container">
-      <SparHeader className="sticky-header" />
-      {/* Hero Section */}
       <div
-        className="hero-section"
+        className="hero-section text-white"
         style={{
-          backgroundImage: `url(${imageUrl})`,
+          backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url(${imageUrl})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          minHeight: '60vh',
+          position: 'relative',
         }}
       >
+      <SparHeader className="spar-header"/>
         <div className="back-button" onClick={() => navigate(-1)}>
           <FontAwesomeIcon icon={faArrowLeft} className="back-icon" />
           <span className="back-arrow"></span> Back to Countries
