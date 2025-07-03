@@ -9,7 +9,6 @@ function CityDetailsPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [city, setCity] = useState(null);
-
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,21 +18,30 @@ function CityDetailsPage() {
 
   useEffect(() => {
     const loadCity = async () => {
-      const data = await fetchPlaces();
-      const match = data.docs.find((c) => c.id === id);
-      if (!match) {
-        console.error('City not found with ID:', id);
+      try {
+        const data = await fetchPlaces();
+        const match = data.docs.find((c) => c.id === id);
+        if (!match) {
+          console.error('City not found with ID:', id);
+        }
+        setCity(match);
+      } catch (error) {
+        console.error('Error fetching city:', error);
       }
-      setCity(match);
     };
     loadCity();
   }, [id]);
+
+  const resolveImageUrl = (image) => {
+    if (!image) return '/fallback.webp';
+    if (image.startsWith('http') || image.startsWith('//')) return image;
+    return `${import.meta.env.VITE_PAYLOAD_API_URL}${image}`;
+  };
 
   const getRatingLevel = (value) => {
     if (value >= 80) return { level: 'Excellent', color: '#22c55e' };
     if (value >= 70) return { level: 'Good', color: '#facc15' };
     if (value >= 60) return { level: 'Fair', color: '#f97316' };
-    if (value >= 50) return { level: 'Poor', color: '#ef4444' };
     return { level: 'Poor', color: '#ef4444' };
   };
 
@@ -46,20 +54,16 @@ function CityDetailsPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const payload = {
-      ...formData,
-      cityId: city.id,
-    };
+    const payload = { ...formData, cityId: city.id };
 
     try {
-      const res = await fetch('http://localhost:3000/api/inquiries', {
+      const res = await fetch(`${import.meta.env.VITE_PAYLOAD_API_URL}/api/inquiries`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
 
       if (!res.ok) throw new Error('Failed to send inquiry');
-
       alert('Inquiry sent successfully!');
       setFormData({ name: '', email: '', country: '', message: '' });
     } catch (error) {
@@ -70,13 +74,7 @@ function CityDetailsPage() {
 
   if (!city) return <div>Loading...</div>;
 
-const resolveImageUrl = (image) => {
-  if (!image) return '/fallback.webp';
-  if (image.startsWith('http') || image.startsWith('//')) return image;
-  return `${import.meta.env.VITE_PAYLOAD_API_URL}${image}`;
-};
-
-const imageUrl = resolveImageUrl(city.image);
+  const imageUrl = resolveImageUrl(city.image);
 
   return (
     <div className="city-details-container">
@@ -84,7 +82,7 @@ const imageUrl = resolveImageUrl(city.image);
       <div
         className="hero-section"
         style={{
-         backgroundImage: `url(${imageUrl})`,
+          backgroundImage: `url(${imageUrl})`,
         }}
       >
         <div className="back-button" onClick={() => navigate(-1)}>
