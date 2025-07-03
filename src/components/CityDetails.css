@@ -30,7 +30,6 @@ body, .city-details-container {
   display: flex;
   align-items: flex-end;
   color: white;
-  padding-top: 80px;
   padding: 2rem;
 }
 .back-button {
