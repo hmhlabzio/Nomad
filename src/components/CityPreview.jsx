@@ -86,12 +86,13 @@ function CityPreview() {
           {places.map((city) => (
             <div key={city.id} className="city-card">
               <div className="city-image-container">
-                <img
-                  src={city.image?.url ? `${import.meta.env.VITE_PAYLOAD_API_URL}${city.image.url}` : '/fallback.jpg'}
+               <img
+                  src={city.image ? city.image : '/fallback.jpg'}
                   alt={city.name}
                   className="city-image"
                   loading="lazy"
                 />
+
                 <div className="overlay-top">
                   <h3 className="overlay-city-name">{city.name}</h3>
                   <p className="overlay-country">{city.country}</p>
