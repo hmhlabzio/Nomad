@@ -21,6 +21,9 @@ function CityDetailsPage() {
     const loadCity = async () => {
       const data = await fetchPlaces();
       const match = data.docs.find((c) => c.id === id);
+      if (!match) {
+        console.error('City not found with ID:', id);
+      }
       setCity(match);
     };
     loadCity();
@@ -43,14 +46,13 @@ function CityDetailsPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const payload = {
       ...formData,
       cityId: city.id,
     };
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_PAYLOAD_API_URL}/api/inquiries`, {
+      const res = await fetch('http://localhost:3000/api/inquiries', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -68,10 +70,14 @@ function CityDetailsPage() {
 
   if (!city) return <div>Loading...</div>;
 
-  // ✅ Safe image URL handling
-  const imageUrl = city.image?.startsWith('http')
-    ? city.image.replace(/^https?/, 'https:')
-    : `${import.meta.env.VITE_PAYLOAD_API_URL}${city.image}`;
+  const imageUrl =
+    city.image?.startsWith('http') || city.image?.startsWith('//')
+      ? city.image
+      : city.image
+      ? `${import.meta.env.VITE_PAYLOAD_API_URL}${city.image}`
+      : '/fallback.webp';
+
+  console.log('Resolved city image URL:', imageUrl);
 
   return (
     <div className="city-details-container">
@@ -79,12 +85,12 @@ function CityDetailsPage() {
       <div
         className="hero-section"
         style={{
-          backgroundImage: `url(${imageUrl || '/fallback.webp'})`,
+          backgroundImage: `url(${imageUrl})`,
         }}
       >
         <div className="back-button" onClick={() => navigate(-1)}>
           <FontAwesomeIcon icon={faArrowLeft} className="back-icon" />
-          Back to Countries
+          <span className="back-arrow"></span> Back to Countries
         </div>
         <div className="hero-overlay"></div>
         <div className="hero-content">
