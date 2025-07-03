@@ -3,8 +3,7 @@ import { useEffect, useState } from 'react';
 import { fetchPlaces } from '../utils/api';
 import './CityDetails.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 function CityDetailsPage() {
   const { id } = useParams();
@@ -51,7 +50,7 @@ function CityDetailsPage() {
     };
 
     try {
-      const res = await fetch('http://localhost:3000/api/inquiries', {
+      const res = await fetch(`${import.meta.env.VITE_PAYLOAD_API_URL}/api/inquiries`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -69,22 +68,23 @@ function CityDetailsPage() {
 
   if (!city) return <div>Loading...</div>;
 
+  // ✅ Safe image URL handling
+  const imageUrl = city.image?.startsWith('http')
+    ? city.image.replace(/^https?/, 'https:')
+    : `${import.meta.env.VITE_PAYLOAD_API_URL}${city.image}`;
+
   return (
     <div className="city-details-container">
       {/* Hero Section */}
       <div
-          className="hero-section"
-         style={{
-            backgroundImage: city.image
-              ? `url(${import.meta.env.VITE_PAYLOAD_API_URL}${city.image})`
-              : `url(/fallback.webp)`,
-          }}
-
-        >
-
+        className="hero-section"
+        style={{
+          backgroundImage: `url(${imageUrl || '/fallback.webp'})`,
+        }}
+      >
         <div className="back-button" onClick={() => navigate(-1)}>
           <FontAwesomeIcon icon={faArrowLeft} className="back-icon" />
-          <span className="back-arrow"></span> Back to Countries
+          Back to Countries
         </div>
         <div className="hero-overlay"></div>
         <div className="hero-content">
@@ -189,54 +189,50 @@ function CityDetailsPage() {
 
       {/* Inquiry Form Section */}
       <div className="inquiry-form-wrapper">
-            <div className="inquiry-form">
-              <h2>Interested in {city.name}?</h2>
-              <p>Get personalized guidance on the visa application process and living in {city.name}.</p>
+        <div className="inquiry-form">
+          <h2>Interested in {city.name}?</h2>
+          <p>Get personalized guidance on the visa application process and living in {city.name}.</p>
 
-              <form onSubmit={handleSubmit}>
-                <div className="input-row">
-                  <label>
-                    Your Name:
-                    <input type="text" name="name" value={formData.name} onChange={handleChange} required />
-                  </label>
-                  <label>
-                    Your Email:
-                    <input type="email" name="email" value={formData.email} onChange={handleChange} required />
-                  </label>
-                </div>
-
-                <label>
-                  Current Country:
-                  <select name="country" value={formData.country} onChange={handleChange} required>
-                    <option value="">Select your current country</option>
-                    <option value="USA">USA</option>
-                    <option value="Canada">Canada</option>
-                    <option value="UK">UK</option>
-                  </select>
-                </label>
-
-                <label>
-                  Message:
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    placeholder="Tell us about your situation and what information you need..."
-                  ></textarea>
-                </label>
-
-                <button type="submit">
-                  <FontAwesomeIcon icon={faPaperPlane} style={{ marginRight: '8px' }} />
-                  Send Inquiry
-                </button>
-
-              </form>
+          <form onSubmit={handleSubmit}>
+            <div className="input-row">
+              <label>
+                Your Name:
+                <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+              </label>
+              <label>
+                Your Email:
+                <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+              </label>
             </div>
+
+            <label>
+              Current Country:
+              <select name="country" value={formData.country} onChange={handleChange} required>
+                <option value="">Select your current country</option>
+                <option value="USA">USA</option>
+                <option value="Canada">Canada</option>
+                <option value="UK">UK</option>
+              </select>
+            </label>
+
+            <label>
+              Message:
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                required
+                placeholder="Tell us about your situation and what information you need..."
+              ></textarea>
+            </label>
+
+            <button type="submit">
+              <FontAwesomeIcon icon={faPaperPlane} style={{ marginRight: '8px' }} />
+              Send Inquiry
+            </button>
+          </form>
         </div>
-
-
-
+      </div>
     </div>
   );
 }
