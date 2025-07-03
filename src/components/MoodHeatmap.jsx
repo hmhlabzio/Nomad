@@ -31,28 +31,9 @@ function MoodHeatmap({ onClose }) {
 
   return (
     <div className="p-6 relative text-gray-800">
-      {/* Close button */}
-      {onClose && (
-        <button
-          className="absolute top-2 right-3 text-2xl font-bold text-gray-700 hover:text-gray-900"
-          onClick={onClose}
-        >
-          &times;
-        </button>
-      )}
-
-      {/* Back to Home */}
-      {showBackButton && (
-        <button
-          onClick={() => (window.location.href = "/")}
-          className="mb-4 text-white bg-blue-600 px-4 py-1 rounded hover:bg-blue-700"
-        >
-          ← Back to Home
-        </button>
-      )}
-
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-bold text-gray-800">Nomad Mood Heatmap</h2>
+      {/* Close + View aligned right */}
+      <div className="absolute top-4 right-4 flex items-center space-x-3 z-10">
+        {/* View Dropdown */}
         <div className="flex items-center space-x-2">
           <span className="text-gray-600">View:</span>
           <select
@@ -64,10 +45,33 @@ function MoodHeatmap({ onClose }) {
             <option value="Monthly">Monthly</option>
           </select>
         </div>
+
+        {/* Close Button */}
+        {onClose && (
+          <button
+            className="text-2xl font-bold text-gray-700 hover:text-gray-900"
+            onClick={onClose}
+          >
+            &times;
+          </button>
+        )}
       </div>
 
+      {/* Back Button */}
+      {showBackButton && (
+        <button
+          onClick={() => (window.location.href = "/")}
+          className="mb-4 text-white bg-blue-600 px-4 py-1 rounded hover:bg-blue-700"
+        >
+          ← Back to Home
+        </button>
+      )}
+
+      {/* Heading */}
+      <h2 className="text-3xl font-bold text-gray-800 mb-2">Nomad Mood Heatmap</h2>
       <p className="text-gray-600 mb-8">Real-time sentiment analysis of digital nomad communities.</p>
 
+      {/* City Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {moodData[filter].map((city, index) => (
           <div
@@ -89,11 +93,7 @@ function MoodHeatmap({ onClose }) {
               }`}
             >
               {city.type === "up" && (
-                <svg
-                  className="w-4 h-4 mr-1"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
+                <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                   <path
                     fillRule="evenodd"
                     d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z"
@@ -102,11 +102,7 @@ function MoodHeatmap({ onClose }) {
                 </svg>
               )}
               {city.type === "down" && (
-                <svg
-                  className="w-4 h-4 mr-1"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
+                <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                   <path
                     fillRule="evenodd"
                     d="M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L9 12.586V5a1 1 0 112 0v7.586l2.293-2.293a1 1 0 011.414 0z"
