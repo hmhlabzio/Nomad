@@ -27,7 +27,6 @@ body, .city-details-container {
   flex-direction: column;
   justify-content: flex-end;
   padding: 2rem;
-  padding-top: 6rem;
 }
 .hero-overlay {
   position: absolute;
