@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 function CostForecaster() {
   const [days, setDays] = useState(5);
   const [showFees, setShowFees] = useState(false);
-  const [place, setPlace] = useState("Bali");
+const [place, setPlace] = useState("Tokyo"); 
   const [dailyCost, setDailyCost] = useState(0);
   const [hiddenFees, setHiddenFees] = useState(0);
 
@@ -16,14 +16,13 @@ function CostForecaster() {
     "📅 Cheapest month: October",
     "🛏️ Try weekdays for cheaper stays",
   ];
+const cityData = {
+  Tokyo: { cost: 1500, hidden: 800 },
+  Lisbon: { cost: 1300, hidden: 600 },
+  London: { cost: 1600, hidden: 900 },
+  Barcelona: { cost: 1400, hidden: 700 },
+};
 
-  const cityData = {
-    Bali: { cost: 1200, hidden: 600 },
-    Tokyo: { cost: 1500, hidden: 800 },
-    Goa: { cost: 900, hidden: 500 },
-    Paris: { cost: 1800, hidden: 1000 },
-    Delhi: { cost: 1000, hidden: 450 },
-  };
 
   useEffect(() => {
     // Simulate fetching from API without backend

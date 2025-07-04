@@ -27,13 +27,13 @@ const mockCityData = {
     cost: 70, cost_basis: 'Avg $1,500/month living cost',
     community: 80, community_basis: 'Strong digital nomad scene'
   },
-  Bali: {
-    internet: 68, internet_basis: 'Variable but improving internet',
-    safety: 70, safety_basis: 'Safe but be cautious in traffic',
-    nightlife: 85, nightlife_basis: 'Beach bars & jungle clubs',
-    mental_wellness: 90, wellness_basis: 'Spiritual retreats & yoga',
-    cost: 95, cost_basis: 'Budget-friendly, avg $900/month',
-    community: 75, community_basis: 'Friendly and open expat vibe'
+  Barcelona: {
+    internet: 84, internet_basis: 'High-speed internet with fiber options',
+    safety: 75, safety_basis: 'Generally safe, be mindful of pickpockets',
+    nightlife: 92, nightlife_basis: 'Buzzing nightlife and beach clubs',
+    mental_wellness: 80, wellness_basis: 'Urban parks & fitness culture',
+    cost: 78, cost_basis: 'Approx $1,600/month for nomads',
+    community: 85, community_basis: 'Large international & tech community'
   }
 };
 
@@ -199,7 +199,7 @@ const LifestyleMeter = () => {
         <CitySelector value={city} onChange={(e) => setCity(e.target.value)}>
           <option value="Tokyo">Tokyo</option>
           <option value="Lisbon">Lisbon</option>
-          <option value="Bali">Bali</option>
+  <option value="Barcelona">Barcelona</option>
         </CitySelector>
       </Header>
 

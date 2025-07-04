@@ -1,7 +1,9 @@
+// START OF FILE: src/components/MoodHeatmap.jsx
+
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
-function MoodHeatmap({ onClose }) {
+function MoodHeatmap({ onClose }) { // onClose is still passed, but button inside is removed as App.jsx handles it
   const [filter, setFilter] = useState("Weekly");
   const location = useLocation();
   const showBackButton = location.pathname === "/mood-heatmap";
@@ -9,35 +11,38 @@ function MoodHeatmap({ onClose }) {
   const moodData = {
     Weekly: [
       { city: "Tokyo", emoji: "💚", percentage: 92, change: "+2%", type: "up", source: "1,240+ nomad surveys", tagline: "Best for remote work" },
-      { city: "Bali", emoji: "😊", percentage: 88, change: "-1%", type: "down", source: "980+ reviews", tagline: "Top for work-life balance" },
-      { city: "Goa", emoji: "😎", percentage: 80, change: "+5%", type: "up", source: "750+ reports", tagline: "Fastest growing community" },
-      { city: "Paris", emoji: "😁", percentage: 89, change: "No change", type: "neutral", source: "1,100+ ratings", tagline: "Best cultural experience" },
+      { city: "Lisbon", emoji: "🌞", percentage: 88, change: "+1%", type: "up", source: "980+ ratings", tagline: "Sunny and safe" },
       { city: "London", emoji: "😎", percentage: 90, change: "+3%", type: "up", source: "850+ votes", tagline: "Top networking hub" },
-      { city: "Barcelona", emoji: "😍", percentage: 95, change: "+1%", type: "up", source: "1,500+ reports", tagline: "Highest satisfaction rate" },
-      { city: "Gokarna", emoji: "😄", percentage: 85, change: "+2%", type: "up", source: "600+ check-ins", tagline: "Peaceful coastal retreat" },
-      { city: "Delhi", emoji: "😎", percentage: 80, change: "+1%", type: "up", source: "900+ user reports", tagline: "Tech & culture blend" },
+      { city: "Barcelona", emoji: "😍", percentage: 95, change: "+1%", type: "up", source: "1,500+ reports", tagline: "Highest satisfaction rate" }
     ],
     Monthly: [
       { city: "Tokyo", emoji: "😐", percentage: 70, change: "-5%", type: "down", source: "2,100+ surveys", tagline: "Busy but efficient" },
-      { city: "Bali", emoji: "😍", percentage: 91, change: "+4%", type: "up", source: "1,500+ reviews", tagline: "Perfect for balance" },
-      { city: "Goa", emoji: "😄", percentage: 86, change: "+3%", type: "up", source: "1,100+ reports", tagline: "Chilled beach life" },
-      { city: "Paris", emoji: "😁", percentage: 89, change: "No change", type: "neutral", source: "1,100+ ratings", tagline: "Cultural & vibrant" },
+      { city: "Lisbon", emoji: "🌞", percentage: 85, change: "+2%", type: "up", source: "1,100+ reviews", tagline: "Balanced lifestyle" },
       { city: "London", emoji: "😎", percentage: 90, change: "+2%", type: "up", source: "1,000+ votes", tagline: "Hub of innovation" },
-      { city: "Barcelona", emoji: "😍", percentage: 95, change: "+1%", type: "up", source: "1,500+ reports", tagline: "High satisfaction city" },
-      { city: "Gokarna", emoji: "😄", percentage: 85, change: "+2%", type: "up", source: "750+ entries", tagline: "Hidden gem" },
-      { city: "Delhi", emoji: "😎", percentage: 80, change: "+2%", type: "up", source: "1,200+ logs", tagline: "Dynamic urban space" },
-    ],
+      { city: "Barcelona", emoji: "😍", percentage: 95, change: "+1%", type: "up", source: "1,500+ reports", tagline: "High satisfaction city" }
+    ]
   };
 
   return (
-    <div className="p-6 relative text-gray-800">
-      {/* Close + View aligned right */}
-      <div className="absolute top-4 right-4 flex items-center space-x-3 z-10">
-        {/* View Dropdown */}
-        <div className="flex items-center space-x-2">
-          <span className="text-gray-600">View:</span>
+    <div className="p-4 sm:p-6 relative text-gray-800 w-full h-full overflow-y-auto">
+      {/* Top Controls: Back button on the left, View select on the right (slightly left) */}
+      <div className="sticky top-0 bg-white z-20 flex justify-between items-center py-2">
+        {showBackButton ? (
+          <button
+            onClick={() => (window.location.href = "/")}
+            className="text-white bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 mt-2 mb-2"
+          >
+            ← Back to Home
+          </button>
+        ) : (
+          <div></div> // Empty div to maintain flex spacing if back button isn't shown
+        )}
+
+        {/* View Select - Moved slightly to the left from the absolute right edge */}
+        <div className="flex items-center gap-2 mr-10 sm:mr-16 md:mr-20"> {/* Added right margin to move it left */}
+          <span className="text-sm text-gray-600">View:</span>
           <select
-            className="border border-gray-300 rounded-md px-3 py-1 bg-white text-gray-700"
+            className="border border-gray-300 rounded-md px-2 py-1 text-sm bg-white"
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
           >
@@ -45,46 +50,28 @@ function MoodHeatmap({ onClose }) {
             <option value="Monthly">Monthly</option>
           </select>
         </div>
-
-        {/* Close Button */}
-        {onClose && (
-          <button
-            className="text-2xl font-bold text-gray-700 hover:text-gray-900"
-            onClick={onClose}
-          >
-            &times;
-          </button>
-        )}
+        {/* The close button for the modal is handled by the parent App.jsx component's wrapper. */}
+        {/* Do NOT add an onClose button here if this component is always used within a modal wrapper */}
       </div>
 
-      {/* Back Button */}
-      {showBackButton && (
-        <button
-          onClick={() => (window.location.href = "/")}
-          className="mb-4 text-white bg-blue-600 px-4 py-1 rounded hover:bg-blue-700"
-        >
-          ← Back to Home
-        </button>
-      )}
+      <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">Nomad Mood Heatmap</h2>
+      <p className="text-sm sm:text-base text-gray-600 mb-6">
+        Real-time sentiment analysis of digital nomad communities.
+      </p>
 
-      {/* Heading */}
-      <h2 className="text-3xl font-bold text-gray-800 mb-2">Nomad Mood Heatmap</h2>
-      <p className="text-gray-600 mb-8">Real-time sentiment analysis of digital nomad communities.</p>
-
-      {/* City Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {moodData[filter].map((city, index) => (
           <div
             key={index}
-            className="bg-gray-50 rounded-lg p-5 shadow-sm border border-gray-200"
+            className="bg-gray-50 rounded-lg p-4 sm:p-5 shadow border border-gray-200"
           >
-            <div className="flex justify-between items-center mb-3">
-              <h3 className="text-xl font-semibold text-gray-800">{city.city}</h3>
-              <span className="text-2xl">{city.emoji}</span>
+            <div className="flex justify-between items-center mb-2">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-800">{city.city}</h3>
+              <span className="text-xl sm:text-2xl">{city.emoji}</span>
             </div>
-            <p className="text-2xl font-bold text-indigo-600 mb-2">{city.percentage}% Positive</p>
+            <p className="text-xl font-bold text-indigo-600 mb-1">{city.percentage}% Positive</p>
             <div
-              className={`flex items-center text-sm mb-2 ${
+              className={`flex items-center text-xs mb-2 ${
                 city.type === "up"
                   ? "text-green-500"
                   : city.type === "down"
@@ -93,7 +80,7 @@ function MoodHeatmap({ onClose }) {
               }`}
             >
               {city.type === "up" && (
-                <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
                   <path
                     fillRule="evenodd"
                     d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z"
@@ -102,7 +89,7 @@ function MoodHeatmap({ onClose }) {
                 </svg>
               )}
               {city.type === "down" && (
-                <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
                   <path
                     fillRule="evenodd"
                     d="M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L9 12.586V5a1 1 0 112 0v7.586l2.293-2.293a1 1 0 011.414 0z"
@@ -112,8 +99,8 @@ function MoodHeatmap({ onClose }) {
               )}
               {city.change}
             </div>
-            <p className="text-sm text-gray-500 mb-3">Based on {city.source}</p>
-            <p className="text-md font-medium text-gray-700">{city.tagline}</p>
+            <p className="text-xs text-gray-500 mb-1">Based on {city.source}</p>
+            <p className="text-sm font-medium text-gray-700">{city.tagline}</p>
           </div>
         ))}
       </div>
@@ -122,3 +109,5 @@ function MoodHeatmap({ onClose }) {
 }
 
 export default MoodHeatmap;
+
+// END OF FILE: src/components/MoodHeatmap.jsx
