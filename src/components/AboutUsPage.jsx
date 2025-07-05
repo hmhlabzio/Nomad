@@ -1,6 +1,9 @@
-// src/components/AboutUsPage.jsx
+// src/pages/AboutUsPage.jsx
+
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import Sparkheader from '../components/SparkHeader';
+import bg from '../assets/about-bg.jpg'; // ✅ Replace with your actual logo path
 
 function AboutUsPage() {
   const navigate = useNavigate();
@@ -10,117 +13,66 @@ function AboutUsPage() {
   };
 
   return (
-    <div className="about-us-container">
-      <style>{`
-        .about-us-container {
-          background-color: white;
-          color: black;
-          border-radius: 1rem;
-          padding: 2rem;
-          margin: 2rem auto;
-          max-width: 1000px;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-          line-height: 1.6;
-          text-align: left;
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 2rem;
-          align-items: center;
-        }
+    <>
+      <Sparkheader />
 
-        .shaded-title {
-          font-size: 2.5rem;
-          font-weight: 800;
-          text-align: center;
-          grid-column: 1 / -1;
-          background-image: linear-gradient(to right, wheat, #0f172a, #6366f1, #8b5cf6);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          color: transparent;
-          line-height: 1.3;
-          margin-bottom: 1.5rem;
-        }
+      <div className="w-full px-4 sm:px-6 md:px-12 py-10 bg-white">
+        <div
+          className="max-w-5xl mx-auto text-center bg-cover bg-center bg-no-repeat p-6 rounded-lg shadow"
+          style={{
+            backgroundImage: `url(${bg})`,
+            backgroundColor: 'rgba(5, 5, 5, 0.5)',
+            backgroundBlendMode: 'overlay',
+          }}
+        >          
+          {/* Title */}
+          <h4 className="text-2xl sm:text-4xl md:text-3xl font-bold mb-8 text-white">
+              Your Gateway to <span className="italic">Smart</span>, <span className="italic">Supported</span> Nomad Living
+          </h4>
 
-        .highlighted-word {
-          font-style: italic;
-          
-        }
 
-        .about-us-text {
-          font-size: 1.1rem;
-          color: #4a5568;
-        }
 
-        .about-us-image {
-          max-width: 100%;
-          height: auto;
-          border-radius: 0.5rem;
-        }
+            <div className="flex flex-col md:flex-row justify-center items-center gap-6 ">
+            {/* Circle 1 - Purple */}
+            <div
+              className="w-60 h-60 rounded-full shadow-md flex items-center justify-center p-6 text-sm font-medium text-white text-center"
+              style={{ backgroundColor: '#a855f7' }} // Tailwind's purple-500
+            >
+              <p><strong>Nomad</strong> is your trusted network for digital nomad visa programs worldwide.</p>
+            </div>
 
-        .explore-button {
-          background-image: linear-gradient(to right, wheat, #0f172a, #6366f1, #8b5cf6);
-          color: white;
-          padding: 0.75rem 1.5rem;
-          border-radius: 2rem;
-          font-size: 1rem;
-          font-weight: 600;
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          border: none;
-          cursor: pointer;
-          margin-top: 1.5rem;
-          grid-column: 1 / -1;
-          justify-content: center;
-          transition: all 0.3s ease-in-out;
-          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
+            {/* Circle 2 - Green */}
+            <div
+              className="w-60 h-60 rounded-full shadow-md flex items-center justify-center p-6 text-sm font-medium text-white text-center"
+              style={{ backgroundColor: '#4ade80' }} // Tailwind's green-400
+            >
+              <p>We help remote workers find verified visas, connect with fellow nomads, and discover destinations that fit their lifestyle.</p>
+            </div>
 
-        .explore-button:hover {
-          transform: scale(1.05);
-          opacity: 0.9;
-        }
+            {/* Circle 3 - Yellow */}
+            <div
+              className="w-60 h-60 rounded-full shadow-md flex items-center justify-center p-6 text-sm font-medium text-white text-center"
+              style={{ backgroundColor: '#facc15' }} // Tailwind's yellow-400
+            >
+              <p><strong>Join</strong> a global community and take your work anywhere — with confidence and support.</p>
+            </div>
+          </div>
 
-        @media (max-width: 768px) {
-          .about-us-container {
-            grid-template-columns: 1fr;
-            padding: 1.5rem;
-            margin: 1.5rem 1rem;
-            gap: 1rem;
-          }
 
-          .shaded-title {
-            font-size: 1.8rem;
-          }
 
-          .explore-button {
-            font-size: 0.95rem;
-            padding: 0.6rem 1.2rem;
-          }
-        }
-      `}</style>
 
-      <h1 className="shaded-title">
-        Your Gateway to <span className="highlighted-word">Smart</span>, <span className="highlighted-word">Supported</span> Nomad Living
-      </h1>
 
-      <div className="about-us-text">
-        <p><strong>Nomad is your trusted network for digital nomad visa programs worldwide.</strong></p>
-        <p>We help remote workers find verified visas, connect with fellow nomads, and discover destinations that fit their lifestyle.</p>
-        <p><strong>Join a global community and take your work anywhere — with confidence and support.</strong></p>
+         {/* Explore Button with Visible Gradient Border */}
+          <button
+            onClick={handleExploreClick}
+            className="mt-6 px-6 py-3 rounded-full text-white font-semibold bg-black hover:bg-gray-900 transition-all border border-white"
+          >
+            🗺️ Explore All Places
+          </button>
+
+        </div>
       </div>
-
-      <img
-        src="https://storage.googleapis.com/relocate-production-store/digital-visa-DC8gGrSzzo.webp"
-        alt="Digital Nomad Visa"
-        className="about-us-image"
-      />
-
-      <button onClick={handleExploreClick} className="explore-button">
-        <span role="img" aria-label="Map">🗺️</span> Explore All Places
-      </button>
-    </div>
+    </>
   );
 }
 
