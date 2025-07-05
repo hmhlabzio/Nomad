@@ -18,7 +18,7 @@ function ContactPage() {
         <div className="flex-grow flex justify-center items-center px-4">
           <div className="max-w-6xl w-full bg-white rounded-lg shadow-lg flex flex-col md:flex-row overflow-hidden ">
             {/* Left Section - Contact Info */}
-            <div className="w-full bg-cover bg-top bg-no-repeat md:w-1/2 p-8" style={{ backgroundImage: `url(${bgImage})` }}>
+            <div className="hidden md:block md:w-1/2 bg-cover bg-top bg-no-repeat p-8" style={{ backgroundImage: `url(${bgImage})` }}>
               
             </div>
 

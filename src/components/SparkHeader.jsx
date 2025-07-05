@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/NOMAD.png';
 
-function SparkHeader({ onContactClick }) {
+function SparkHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -55,13 +55,14 @@ function SparkHeader({ onContactClick }) {
           </button>
         </div>
       </div>
-
-      {/* Mobile Menu */}
+       
+      {/* Mobile Menu for*/}
       {isMenuOpen && (
         <div className="md:hidden bg-black px-4 py-3">
           <Link to="/" className="block py-2 text-white hover:text-blue-300">Home</Link>
           <Link to="/about-us" className="block py-2 text-white hover:text-blue-300">About</Link>
-          <a onClick={onContactClick} className="block py-2 text-white hover:text-blue-300 cursor-pointer">Contact</a>
+          <Link to="/contact" className="block py-2 text-white hover:text-blue-300">Contact</Link>
+
           <button className="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white w-full py-2 rounded-md font-semibold">
             Get Started
           </button>
@@ -72,3 +73,4 @@ function SparkHeader({ onContactClick }) {
 }
 
 export default SparkHeader;
+
