@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
-function MoodHeatmap({ onClose }) { // onClose is still passed, but button inside is removed as App.jsx handles it
+function MoodHeatmap() { // onClose is still passed, but button inside is removed as App.jsx handles it
   const [filter, setFilter] = useState("Weekly");
   const location = useLocation();
   const showBackButton = location.pathname === "/mood-heatmap";
@@ -24,7 +24,7 @@ function MoodHeatmap({ onClose }) { // onClose is still passed, but button insid
   };
 
   return (
-    <div className="p-4 sm:p-6 relative text-gray-800 w-full h-full overflow-y-auto">
+  <div className="mt-10 p-4 sm:p-6 relative text-gray-800 w-full h-full overflow-y-auto ">
       {/* Top Controls: Back button on the left, View select on the right (slightly left) */}
       <div className="sticky top-0 bg-white z-20 flex justify-between items-center py-2">
         {showBackButton ? (
@@ -39,7 +39,7 @@ function MoodHeatmap({ onClose }) { // onClose is still passed, but button insid
         )}
 
         {/* View Select - Moved slightly to the left from the absolute right edge */}
-        <div className="flex items-center gap-2 mr-10 sm:mr-16 md:mr-20"> {/* Added right margin to move it left */}
+        <div className="flex items-center gap-2 mr-10 sm:mr-16 md:mr-20">
           <span className="text-sm text-gray-600">View:</span>
           <select
             className="border border-gray-300 rounded-md px-2 py-1 text-sm bg-white"
