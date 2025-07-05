@@ -7,13 +7,14 @@ function SparkHeader({ onContactClick }) {
 
   return (
     <header
-      className="w-full z-20 py-5"
+      className="w-full z-20 py-5 bg-gradient-to-br from-black via-gray-900 to-black text-white"
       style={{
-        background: 'rgba(255, 255, 255, 0.1)', // semi-transparent white
-        backdropFilter: 'blur(12px)',           // glass effect
-        WebkitBackdropFilter: 'blur(12px)',     // Safari support
+        background: 'linear-gradient(to bottom right, rgba(0,0,0,0.17), rgba(31,41,55,0.17), rgba(0,0,0,0.17))',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
       }}
     >
+
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 flex justify-between items-center h-[72px]">
         {/* Logo */}
         <Link to="/" className="flex items-center">
@@ -24,7 +25,7 @@ function SparkHeader({ onContactClick }) {
         <nav className="hidden md:flex space-x-6 items-center">
           <Link to="/" className="text-white hover:text-yellow-400 text-sm font-medium">Home</Link>
           <Link to="/about-us" className="text-white hover:text-yellow-400 text-sm font-medium">About</Link>
-          <a onClick={onContactClick} className="text-white hover:text-yellow-400 text-sm font-medium cursor-pointer">Contact</a>
+          <Link to="/contact" className="block py-2 text-white hover:text-yellow-400">Contact</Link>
         </nav>
 
 

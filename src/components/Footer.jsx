@@ -6,7 +6,6 @@ function Footer({
   onSafetyScoreClick,
   onMoodHeatmapClick,
   onCostCalculatorClick,
-  onExploreWorldClick,
 }) {
   const currentYear = new Date().getFullYear();
 

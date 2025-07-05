@@ -19,6 +19,8 @@ import AboutUsPage from './components/AboutUsPage';
 import InsightsPage from './components/InsightsPage';
 import Lifestylemeter from './components/LifestyleMeter';
 import CityDetailsPage from './components/CityDetailsPage';
+import ContactPage from './components/Contactform';
+
 
 
 function App() {
@@ -118,6 +120,8 @@ function App() {
             <Route path="/insights" element={<InsightsPage />} />
             <Route path="/about-us" element={<AboutUsPage />} />
             <Route path="/city/:id" element={<CityDetailsPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            
 
           </Routes>
         </main>
