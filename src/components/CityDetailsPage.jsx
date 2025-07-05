@@ -7,6 +7,9 @@ import './CityDetails.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
+import emailjs from '@emailjs/browser';
+
+
 function CityDetailsPage() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -47,6 +50,31 @@ function CityDetailsPage() {
     return { level: 'Poor', color: '#ef4444' };
   };
 
+  const sendMailToAdmin = async (data, cityName) => {
+  try {
+    const response = await emailjs.send(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,     // your service ID
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,    // your template ID
+      {
+        name: data.name,
+        email: data.email,
+        country: data.country,
+        city: cityName,
+        message: data.message,
+      },
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY      // your public key
+    );
+    alert("Inquiry successfully sent !");
+    console.log('Email sent successfully!', response);
+  } catch (error) {
+    alert("Inquiry not sent !");
+    console.error('Email failed to send:', error);
+  }
+};
+
+
+
+
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -54,25 +82,62 @@ function CityDetailsPage() {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const payload = { ...formData, cityId: city.id };
+ const handleSubmit = async (e) => {
+   e.preventDefault();
+  if (!city) {
+    alert('City data is not loaded yet.');
+    return;
+  }
 
-    try {
-      const res = await fetch(`${import.meta.env.VITE_PAYLOAD_API_URL}/api/inquiries`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
+const apiUrl = import.meta.env.VITE_PAYLOAD_API_URL || 'http://localhost:3000';
+  if (!apiUrl) {
+    alert('API URL is not configured in .env file');
+    console.error('VITE_PAYLOAD_API_URL is missing');
+    return;
+  }
 
-      if (!res.ok) throw new Error('Failed to send inquiry');
-      alert('Inquiry sent successfully!');
-      setFormData({ name: '', email: '', country: '', message: '' });
-    } catch (error) {
-      alert('Failed to send inquiry. Please try again.');
-      console.error(error);
-    }
+  const payloadData = {
+    ...formData,
+    cityId: city.id,
   };
+
+  try {
+    const response = await fetch(`${apiUrl}/api/inquiries`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payloadData),
+    });
+
+    let responseData = {};
+    try {
+      responseData = await response.json();
+    } catch {
+      console.warn('Response had no JSON body');
+    }
+
+    console.log('Response:', response.status, responseData);
+
+    if (!response.ok) {
+      throw new Error('Failed to send inquiry to CMS');
+    }
+
+    console.log('Inquiry sent successfully!');
+    setFormData({ name: '', email: '', country: '', message: '' });
+
+    // OPTIONAL: Send email from frontend (not secure, but requested)
+    await sendMailToAdmin(payloadData, city.name);
+
+  } catch (error) {
+    console.error('Error:', error);
+    alert('Failed to send inquiry. Please try again.');
+  }
+};
+
+
+
+
 
   if (!city) return <div>Loading...</div>;
 

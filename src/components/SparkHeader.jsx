@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../assets/NOMAD.png';
 
-function SparkHeader({ onContactClick, onBrowseClick }) {
+function SparkHeader({ onContactClick }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -16,7 +17,7 @@ function SparkHeader({ onContactClick, onBrowseClick }) {
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 flex justify-between items-center h-[72px]">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <img className="h-12 w-auto" src="/images/logo.svg" alt="NomadNetwork Logo" />
+          <img className="h-14 w-auto" src={logo} alt="NomadNetwork Logo" />
         </Link>
 
         {/* Desktop Navigation */}
