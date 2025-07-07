@@ -4,7 +4,7 @@ import { faShieldAlt } from "@fortawesome/free-solid-svg-icons";
 import { ShieldCheck, Globe2 } from "lucide-react";
 import { Listbox } from "@headlessui/react";
 
-function SafetyTrustScore({ onClose }) {
+function SafetyTrustScore() {
   const [selectedCity, setSelectedCity] = useState("Tokyo");
 
   const cityData = {
@@ -52,16 +52,16 @@ function SafetyTrustScore({ onClose }) {
   };
 
   return (
-    <div className="p-4 sm:p-6 relative text-gray-800 bg-gradient-to-br from-blue-50 to-white rounded-xl shadow-lg w-full max-w-5xl mx-auto">
+    <div className="p-4 sm:p-6 relative text-gray-800 rounded-xl mt-5 w-full max-w-5xl mx-auto">
       {/* Close Button */}
-      {onClose && (
+      {/* {onClose && (
         <button
           className="absolute top-3 right-4 text-black bg-white w-12 h-12 flex items-center justify-center  text-lg"
           onClick={onClose}
         >
           &times;
         </button>
-      )}
+      )} */}
 
      
 

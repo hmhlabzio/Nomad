@@ -208,26 +208,28 @@ function App() {
         {/* Safety Score Popup */}
           {showSafetyScorePopup && (
             <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
-              <div className="text-black p-6 rounded-md w-full max-w-4xl relative max-h-[90vh] overflow-y-auto">
-                {/* <button
-                  className="absolute top-2 right-3 text-2xl font-bold bg-white text-black hover:text-gray-700"
+              <div className="bg-white text-black p-6 rounded-md w-full max-w-4xl relative h-[90vh] sm:max-h-[95vh] sm:h-auto overflow-y-auto">
+                <button
+                  className="absolute top-6 right-2 text-black bg-white w-12 h-12 flex items-center justify-center text-lg"
                   onClick={() => setShowSafetyScorePopup(false)}
                 >
                   &times;
-                </button> */}
+                </button>
                 <SafetyTrustScore onClose={() => setShowSafetyScorePopup(false)} />
               </div>
             </div>
           )}
 
+
+
           {/* Mood Heatmap Popup */}
           {showMoodHeatmapPopup && (
             <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-2 sm:p-4 overflow-auto">
-              <div className="relative w-full max-w-6xl bg-white text-black rounded-md max-h-[95vh] overflow-y-auto shadow-lg">
+              <div className="relative w-full max-w-6xl bg-white text-black rounded-md max-h-[95dvh] overflow-y-auto shadow-lg">
                 
                 {/* Close Button */}
                 <button
-                  className="absolute top-3 right-4 text-black bg-white w-12 h-12 flex items-center justify-center  text-lg"
+                  className="absolute top-6 right-2 text-black bg-white w-12 h-12 flex items-center justify-center  text-lg"
                   onClick={() => setShowMoodHeatmapPopup(false)}
                 >
                   &times;
@@ -246,7 +248,7 @@ function App() {
           <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
             <div className="bg-white text-black p-6 rounded-md w-full max-w-4xl relative max-h-[90vh] overflow-y-auto">
               <button
-                className="absolute top-3 right-4 text-black bg-white w-12 h-12 flex items-center justify-center  text-lg"
+                  className="absolute top-6 right-2 text-black bg-white w-12 h-12 flex items-center justify-center  text-lg"
                 onClick={() => setShowCostForecasterPopup(false)}
               >
                 &times;

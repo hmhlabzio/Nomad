@@ -38,9 +38,10 @@ function MoodHeatmap() {
       </div>
 
       <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">Nomad Mood Heatmap</h2>
-      <p className="text-sm sm:text-base text-gray-600 mb-6">
+     <p className="hidden sm:block text-sm sm:text-base text-gray-600 mb-6">
         Real-time sentiment analysis of digital nomad communities.
       </p>
+
 
       {/* Cards Grid - 2 columns on mobile */}
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -83,7 +84,9 @@ function MoodHeatmap() {
               )}
               {city.change}
             </div>
-            <p className="text-xs text-gray-500 mb-1">Based on {city.source}</p>
+            <p className="hidden sm:block text-xs text-gray-500 mb-1">
+              Based on {city.source}
+            </p>
             <p className="text-sm font-medium text-gray-700">{city.tagline}</p>
           </div>
         ))}
