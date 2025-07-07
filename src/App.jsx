@@ -208,13 +208,13 @@ function App() {
         {/* Safety Score Popup */}
           {showSafetyScorePopup && (
             <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
-              <div className="bg-white text-black p-6 rounded-md w-full max-w-4xl relative max-h-[90vh] overflow-y-auto">
-                <button
+              <div className="text-black p-6 rounded-md w-full max-w-4xl relative max-h-[90vh] overflow-y-auto">
+                {/* <button
                   className="absolute top-2 right-3 text-2xl font-bold bg-white text-black hover:text-gray-700"
                   onClick={() => setShowSafetyScorePopup(false)}
                 >
                   &times;
-                </button>
+                </button> */}
                 <SafetyTrustScore onClose={() => setShowSafetyScorePopup(false)} />
               </div>
             </div>
@@ -222,15 +222,21 @@ function App() {
 
           {/* Mood Heatmap Popup */}
           {showMoodHeatmapPopup && (
-            <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-2 sm:p-4  overflow-auto">
-              <div className="bg-white text-black p-4 sm:p-6 rounded-md w-full max-w-6xl relative max-h-[95vh] overflow-y-auto">
+            <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-2 sm:p-4 overflow-auto">
+              <div className="relative w-full max-w-6xl bg-white text-black rounded-md max-h-[95vh] overflow-y-auto shadow-lg">
+                
+                {/* Close Button */}
                 <button
-                  className="absolute top-5 right-2  text-2xl font-bold bg-white text-black hover:text-gray-700"
+                  className="absolute top-3 right-3 text-2xl font-bold bg-white text-black hover:text-gray-700 z-10"
                   onClick={() => setShowMoodHeatmapPopup(false)}
                 >
                   &times;
                 </button>
-                <MoodHeatmap onClose={() => setShowMoodHeatmapPopup(false)} />
+
+                {/* MoodHeatmap Component */}
+                <div className="p-4 sm:p-6">
+                  <MoodHeatmap onClose={() => setShowMoodHeatmapPopup(false)} />
+                </div>
               </div>
             </div>
           )}

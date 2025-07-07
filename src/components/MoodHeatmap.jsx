@@ -1,12 +1,7 @@
-// START OF FILE: src/components/MoodHeatmap.jsx
-
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
 
-function MoodHeatmap() { // onClose is still passed, but button inside is removed as App.jsx handles it
+function MoodHeatmap() {
   const [filter, setFilter] = useState("Weekly");
-  const location = useLocation();
-  const showBackButton = location.pathname === "/mood-heatmap";
 
   const moodData = {
     Weekly: [
@@ -24,22 +19,12 @@ function MoodHeatmap() { // onClose is still passed, but button inside is remove
   };
 
   return (
-  <div className="mt-10 p-4 sm:p-6 relative text-gray-800 w-full h-full overflow-y-auto ">
-      {/* Top Controls: Back button on the left, View select on the right (slightly left) */}
-      <div className="sticky top-0 bg-white z-20 flex justify-between items-center py-2">
-        {showBackButton ? (
-          <button
-            onClick={() => (window.location.href = "/")}
-            className="text-white bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 mt-2 mb-2"
-          >
-            ← Back to Home
-          </button>
-        ) : (
-          <div></div> // Empty div to maintain flex spacing if back button isn't shown
-        )}
+    <div className="mt-12 px-4 sm:px-6 md:px-10 text-gray-800 w-full h-full overflow-y-auto">
+      {/* Top Controls */}
+      <div className="sticky top-0 bg-white z-20 flex flex-col sm:flex-row justify-between items-center py-4 gap-3">
+       
 
-        {/* View Select - Moved slightly to the left from the absolute right edge */}
-        <div className="flex items-center gap-2 mr-10 sm:mr-16 md:mr-20">
+        <div className="flex items-center gap-2 sm:ml-auto">
           <span className="text-sm text-gray-600">View:</span>
           <select
             className="border border-gray-300 rounded-md px-2 py-1 text-sm bg-white"
@@ -50,8 +35,6 @@ function MoodHeatmap() { // onClose is still passed, but button inside is remove
             <option value="Monthly">Monthly</option>
           </select>
         </div>
-        {/* The close button for the modal is handled by the parent App.jsx component's wrapper. */}
-        {/* Do NOT add an onClose button here if this component is always used within a modal wrapper */}
       </div>
 
       <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">Nomad Mood Heatmap</h2>
@@ -59,11 +42,12 @@ function MoodHeatmap() { // onClose is still passed, but button inside is remove
         Real-time sentiment analysis of digital nomad communities.
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      {/* Cards Grid - 2 columns on mobile */}
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {moodData[filter].map((city, index) => (
           <div
             key={index}
-            className="bg-gray-50 rounded-lg p-4 sm:p-5 shadow border border-gray-200"
+            className="bg-white rounded-lg p-4 sm:p-5 shadow border border-gray-200"
           >
             <div className="flex justify-between items-center mb-2">
               <h3 className="text-base sm:text-lg font-semibold text-gray-800">{city.city}</h3>
@@ -109,5 +93,3 @@ function MoodHeatmap() { // onClose is still passed, but button inside is remove
 }
 
 export default MoodHeatmap;
-
-// END OF FILE: src/components/MoodHeatmap.jsx

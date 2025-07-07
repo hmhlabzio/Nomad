@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
+const cityData = {
+    Tokyo: { cost: 1500, hidden: 800 },
+    Lisbon: { cost: 1300, hidden: 600 },
+    London: { cost: 1600, hidden: 900 },
+    Barcelona: { cost: 1400, hidden: 700 },
+  };
+
 function CostForecaster() {
   const [days, setDays] = useState(5);
   const [showFees, setShowFees] = useState(false);
-const [place, setPlace] = useState("Tokyo"); 
+  const [place, setPlace] = useState("Tokyo");
   const [dailyCost, setDailyCost] = useState(0);
   const [hiddenFees, setHiddenFees] = useState(0);
 
@@ -13,19 +20,13 @@ const [place, setPlace] = useState("Tokyo");
 
   const tips = [
     "💡 Tip: Booking for 7+ days gives 10% off",
-    "📅 Cheapest month: October",
-    "🛏️ Try weekdays for cheaper stays",
+    "🗕️ Cheapest month: October",
+    "🛎️ Try weekdays for cheaper stays",
   ];
-const cityData = {
-  Tokyo: { cost: 1500, hidden: 800 },
-  Lisbon: { cost: 1300, hidden: 600 },
-  London: { cost: 1600, hidden: 900 },
-  Barcelona: { cost: 1400, hidden: 700 },
-};
 
+  
 
   useEffect(() => {
-    // Simulate fetching from API without backend
     const city = cityData[place];
     setDailyCost(city.cost);
     setHiddenFees(showFees ? city.hidden : 0);
@@ -35,157 +36,27 @@ const cityData = {
   const totalCost = baseCost + hiddenFees;
 
   return (
-    <div className="cost-container">
-      <style>{`
-        .cost-container {
-          background: linear-gradient(to right, #e0f7fa, #ffffff);
-          color: #1f2937;
-          border-radius: 1.5rem;
-          padding: 2rem;
-          width: 85%;
-          max-width: 800px;
-          margin: 2rem auto;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-          font-family: 'Segoe UI', sans-serif;
-        }
-
-        .title {
-          font-size: 2rem;
-          font-weight: 700;
-          text-align: center;
-          margin-bottom: 1.5rem;
-          color: #0f172a;
-        }
-
-        .scroll-area {
-          display: flex;
-          flex-direction: column;
-          gap: 1.5rem;
-        }
-
-        .dropdown-section,
-        .slider-box,
-        .toggle-box {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-
-        .label {
-          font-size: 1.1rem;
-          font-weight: 600;
-          color: #1e293b;
-        }
-
-        .select,
-        .slider,
-        .checkbox {
-          margin-left: 1rem;
-        }
-
-        .select {
-          font-size: 1rem;
-          padding: 0.5rem;
-          border-radius: 0.5rem;
-          border: 1px solid #cbd5e1;
-          background-color: #f9fafb;
-        }
-
-        .slider {
-          width: 60%;
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
-          background-color: #3b82f6;
-          border: none;
-        }
-
-        .checkbox {
-          width: 20px;
-          height: 20px;
-        }
-
-        .cost-breakdown {
-          background-color: #f8fafc;
-          border: 1px solid #e2e8f0;
-          border-radius: 1rem;
-          padding: 1rem;
-          margin-top: 1rem;
-          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-        }
-
-        .cost-breakdown p {
-          display: flex;
-          justify-content: space-between;
-          font-size: 1.1rem;
-          margin: 0.5rem 0;
-        }
-
-        .total-cost {
-          font-weight: bold;
-          font-size: 1.25rem;
-          color: #2563eb;
-        }
-
-        .tips-section {
-          margin-top: 2rem;
-          background-color: #ecfdf5;
-          border-left: 4px solid #10b981;
-          padding: 1rem 1.25rem;
-          border-radius: 0.75rem;
-        }
-
-        .tips-section h3 {
-          font-size: 1.2rem;
-          font-weight: 700;
-          margin-bottom: 0.75rem;
-          color: #065f46;
-        }
-
-        .tips-section ul {
-          padding-left: 1.25rem;
-        }
-
-        .tips-section li {
-          font-size: 1rem;
-          margin-bottom: 0.4rem;
-          color: #065f46;
-        }
-
-        .back-button {
-          margin-bottom: 1rem;
-          background-color: #3b82f6;
-          color: white;
-          padding: 0.5rem 1rem;
-          border-radius: 0.5rem;
-          font-weight: 500;
-          border: none;
-          cursor: pointer;
-        }
-
-        .back-button:hover {
-          background-color: #2563eb;
-        }
-      `}</style>
-
+    <div className="bg-gradient-to-r from-cyan-100 to-white text-gray-800 rounded-3xl p-6 w-[90%] max-w-3xl mx-auto mt-6  font-sans">
       {showBackButton && (
         <button
-          onClick={() => (window.location.href = '/')}
-          className="back-button"
+          onClick={() => (window.location.href = "/")}
+          className="mb-3 bg-blue-600 text-white py-2 px-4 rounded-md font-medium hover:bg-blue-700"
         >
           ← Back to Home
         </button>
       )}
 
-      <div className="scroll-area">
-        <h2 className="title">Cost Forecaster</h2>
+      <div className="flex flex-col space-y-4">
+        <h2 className="text-2xl font-bold text-center text-slate-900">
+          Cost Forecaster
+        </h2>
 
-        <div className="dropdown-section">
-          <label className="label">Place:</label>
+        <div className="flex justify-between items-center">
+          <label className="text-base font-medium text-slate-800">Place:</label>
           <select
             value={place}
             onChange={(e) => setPlace(e.target.value)}
-            className="select"
+            className="ml-4 p-1 rounded-md border border-slate-300 bg-white text-sm"
           >
             {Object.keys(cityData).map((city) => (
               <option key={city} value={city}>{city}</option>
@@ -193,45 +64,46 @@ const cityData = {
           </select>
         </div>
 
-        <div className="slider-box">
-          <label className="label">Days: {days}</label>
+        <div className="flex justify-between items-center">
+          <label className="text-base font-medium text-slate-800">Days: {days}</label>
           <input
             type="range"
             min="1"
             max="30"
             value={days}
             onChange={(e) => setDays(parseInt(e.target.value))}
-            className="slider"
+            className="ml-4 w-2/3 accent-blue-500"
           />
         </div>
 
-        <div className="toggle-box">
-          <label className="label">Show hidden fees:</label>
+        <div className="flex justify-between items-center">
+          <label className="text-base font-medium text-slate-800">Show hidden fees:</label>
           <input
             type="checkbox"
             checked={showFees}
             onChange={(e) => setShowFees(e.target.checked)}
-            className="checkbox"
+            className="ml-4 w-5 h-5 bg-white"
           />
+
         </div>
 
-        <div className="cost-breakdown">
-          <p>
+        <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 shadow-sm text-sm">
+          <p className="flex justify-between mb-1">
             <span>Base Cost:</span> <span>₹{baseCost}</span>
           </p>
           {showFees && (
-            <p>
+            <p className="flex justify-between mb-1">
               <span>Hidden Fee:</span> <span>₹{hiddenFees}</span>
             </p>
           )}
-          <p className="total-cost">
+          <p className="flex justify-between font-bold text-base text-blue-600">
             <span>Total Cost:</span> <span>₹{totalCost}</span>
           </p>
         </div>
 
-        <div className="tips-section">
-          <h3>Cost Saving Tips</h3>
-          <ul>
+        <div className="mt-4 bg-emerald-50 border-l-4 border-emerald-500 p-3 rounded-lg text-sm">
+          <h3 className="text-base font-bold text-emerald-800 mb-1">Cost Saving Tips</h3>
+          <ul className="list-disc list-inside text-emerald-800 space-y-1">
             {tips.map((tip, index) => (
               <li key={index}>{tip}</li>
             ))}
