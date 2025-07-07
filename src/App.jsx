@@ -227,7 +227,7 @@ function App() {
                 
                 {/* Close Button */}
                 <button
-                  className="absolute top-3 right-3 text-2xl font-bold bg-white text-black hover:text-gray-700 z-10"
+                  className="absolute top-3 right-4 text-black bg-white w-12 h-12 flex items-center justify-center  text-lg"
                   onClick={() => setShowMoodHeatmapPopup(false)}
                 >
                   &times;
@@ -246,7 +246,7 @@ function App() {
           <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
             <div className="bg-white text-black p-6 rounded-md w-full max-w-4xl relative max-h-[90vh] overflow-y-auto">
               <button
-                className="absolute top-2 right-3 text-2xl font-bold bg-white text-black hover:text-gray-700"
+                className="absolute top-3 right-4 text-black bg-white w-12 h-12 flex items-center justify-center  text-lg"
                 onClick={() => setShowCostForecasterPopup(false)}
               >
                 &times;
