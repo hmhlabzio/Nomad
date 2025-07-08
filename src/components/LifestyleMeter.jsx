@@ -199,58 +199,68 @@ const LifestyleMeter = () => {
         <CitySelector value={city} onChange={(e) => setCity(e.target.value)}>
           <option value="Tokyo">Tokyo</option>
           <option value="Lisbon">Lisbon</option>
-  <option value="Barcelona">Barcelona</option>
+          <option value="Barcelona">Barcelona</option>
         </CitySelector>
       </Header>
 
-      <ChartContainer>
-        <PulseCircle />
-        <ResponsiveContainer>
-          <RadarChart cx="50%" cy="50%" outerRadius="80%" data={lifestyleData}>
-            <PolarGrid stroke="#e0e3e6" gridType="circle" />
-            <PolarAngleAxis 
-              dataKey="metric" 
-              tick={{ fill: '#2d3436', fontSize: 12, fontWeight: 600 }}
-            />
-            <Radar
-              name="Score"
-              dataKey="score"
-              stroke="#6c5ce7"
-              fill="#6c5ce7"
-              fillOpacity={0.2}
-              strokeWidth={2}
-              animationDuration={1800}
-            />
-            <Tooltip 
-              contentStyle={{
-                background: 'rgba(255,255,255,0.95)',
-                borderRadius: '12px',
-                boxShadow: '0 5px 20px rgba(0,0,0,0.1)',
-                border: '1px solid rgba(0,0,0,0.05)',
-                backdropFilter: 'blur(10px)',
-                fontSize: '14px'
-              }}
-              itemStyle={{
-                color: '#6c5ce7',
-                fontWeight: 600
-              }}
-            />
-          </RadarChart>
-        </ResponsiveContainer>
-      </ChartContainer>
+      {/* Chart + All ScoreCards side-by-side */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <ChartContainer style={{ flex: '1 1 400px', minWidth: '350px' }}>
+          <PulseCircle />
+          <ResponsiveContainer>
+            <RadarChart cx="50%" cy="50%" outerRadius="80%" data={lifestyleData}>
+              <PolarGrid stroke="#e0e3e6" gridType="circle" />
+              <PolarAngleAxis 
+                dataKey="metric" 
+                tick={{ fill: '#2d3436', fontSize: 12, fontWeight: 600 }}
+              />
+              <Radar
+                name="Score"
+                dataKey="score"
+                stroke="#6c5ce7"
+                fill="#6c5ce7"
+                fillOpacity={0.2}
+                strokeWidth={2}
+                animationDuration={1800}
+              />
+              <Tooltip 
+                contentStyle={{
+                  background: 'rgba(255,255,255,0.95)',
+                  borderRadius: '12px',
+                  boxShadow: '0 5px 20px rgba(0,0,0,0.1)',
+                  border: '1px solid rgba(0,0,0,0.05)',
+                  backdropFilter: 'blur(10px)',
+                  fontSize: '14px'
+                }}
+                itemStyle={{
+                  color: '#6c5ce7',
+                  fontWeight: 600
+                }}
+              />
+            </RadarChart>
+          </ResponsiveContainer>
+        </ChartContainer>
 
-      <ScoreContainer>
-        {lifestyleData.map((item) => (
-          <ScoreCard key={item.metric} style={{ borderTop: `4px solid ${item.color}` }}>
-            <ScoreHeader>
-              <MetricIcon>{item.icon}</MetricIcon>
-              <ScoreLabel>{item.metric}</ScoreLabel>
-            </ScoreHeader>
-            <ScoreValue>{item.score}</ScoreValue>
-            <ScoreBasis>{item.basis}</ScoreBasis>
-          </ScoreCard>
-        ))}
-      </ScoreContainer>
+        <div
+          style={{
+            flex: '1 1 550px',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+            gap: '1.5rem',
+          }}
+        >
+          {lifestyleData.map((item) => (
+            <ScoreCard key={item.metric} style={{ borderTop: `4px solid ${item.color}` }}>
+              <ScoreHeader>
+                <MetricIcon>{item.icon}</MetricIcon>
+                <ScoreLabel>{item.metric}</ScoreLabel>
+              </ScoreHeader>
+              <ScoreValue>{item.score}</ScoreValue>
+              <ScoreBasis>{item.basis}</ScoreBasis>
+            </ScoreCard>
+          ))}
+        </div>
+      </div>
     </Container>
   );
 };
