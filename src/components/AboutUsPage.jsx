@@ -32,7 +32,7 @@ function AboutUsPage() {
         backgroundRepeat: 'no-repeat',
         backgroundColor: 'rgba(5, 5, 5, 0.5)',
       }}
-    >
+     >
       {/* Now Sparkheader appears over background */}
       <div className="absolute top-0 left-0 w-full z-20">
         <Sparkheader />

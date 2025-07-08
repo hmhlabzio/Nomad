@@ -11,33 +11,42 @@ function CommunityPage() {
 
   return (
     <>
-      <SparkHeader />
+      {/* Hero Section with Header Positioned on Top */}
+      <div
+  className="relative w-full h-[900px] bg-cover bg-center flex items-center justify-center"
+  style={{
+    backgroundImage:
+      "url('https://img.freepik.com/premium-photo/concept-international-collaboration-people-from-different-countries-working-together-around-world_853812-4010.jpg')",
+  }}
+>
 
-      <div className="community-page text-gray-800 font-[Poppins]">
-        {/* Hero Section */}
-        <div
-          className="relative w-full h-[600px] bg-cover bg-center flex items-center justify-center"
-          style={{
-            backgroundImage:
-              "url('https://img.freepik.com/premium-photo/concept-international-collaboration-people-from-different-countries-working-together-around-world_853812-4010.jpg')",
-          }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 to-black/30"></div>
-          <div className="relative z-10 text-center px-4 sm:px-6">
-            <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight drop-shadow-lg">
-              You’re Not Alone on This Journey.
-              <br />
-              <span className="text-teal-300">Welcome to the Network.</span>
-            </h1>
-          </div>
+        {/* Overlay behind content */}
+        <div className="absolute inset-0 bg-black bg-opacity-70 z-0" />
+
+        {/* Header on top of the background */}
+        <div className="absolute top-0 left-0 w-full z-10">
+          <SparkHeader />
         </div>
 
-        {/* Introduction */}
-        <section className="bg-white px-4 sm:px-10 md:px-16 lg:px-24 xl:px-32 py-10 text-center">
-          <p className="text-lg md:text-xl max-w-5xl mx-auto text-gray-700 leading-relaxed">
+        {/* Banner Content */}
+        <div className="relative z-20 text-center px-4 sm:px-6">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight drop-shadow-lg mt-52">
+            You’re Not Alone on This Journey.
+            <br />
+            <span className="text-teal-300">Welcome to the Network.</span>
+          </h1>
+          <section className=" px-4 sm:px-10 md:px-16 lg:px-24 xl:px-32 py-10 text-center">
+          <p className="text-lg md:text-xl max-w-5xl mx-auto text-white leading-relaxed">
             The heart of <strong className="text-teal-600">NomadNetwork</strong> is our global community of thinkers, creators, and adventurers. Here, you can connect with thousands of fellow digital nomads who are charting their own paths around the world.
           </p>
         </section>
+        </div>
+      </div>
+
+      {/* Rest of the page */}
+      <div className="community-page text-gray-800 font-[Poppins]">
+        {/* Introduction */}
+        
 
         {/* What You Can Do */}
         <section className="bg-gradient-to-b from-gray-100 to-white px-4 sm:px-10 md:px-16 lg:px-24 xl:px-32 py-10">

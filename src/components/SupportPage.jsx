@@ -1,21 +1,29 @@
 import React from 'react';
-import SparkHeader from '../components/SparkHeader'; 
+import SparkHeader from '../components/SparkHeader';
 
 function SupportPage() {
   return (
     <>
-      <SparkHeader /> 
+      {/* Hero Section with Header on Top of Background */}
+      <div className="relative w-full min-h-[80vh] flex items-center justify-center bg-gradient-to-r from-black via-gray-800 to-amber-900 text-white px-6 py-20">
+        {/* Header Overlay */}
+        <div className="absolute top-0 left-0 w-full z-10">
+          <SparkHeader />
+        </div>
 
-      <div className="bg-white text-gray-800 font-[Poppins]">
-        {/* Hero Section with Black-Brown Gradient */}
-        <div className="relative w-full py-20 px-6 bg-gradient-to-r from-black via-gray-800 to-amber-900 text-center text-white">
+        {/* Content */}
+        <div className="relative z-20 text-center max-w-3xl mt-10">
           <h1 className="text-4xl md:text-5xl font-extrabold drop-shadow-lg">
             We’re Here to Help.
           </h1>
-          <p className="text-lg mt-4 max-w-3xl mx-auto text-white/90 font-medium">
+          <p className="text-lg mt-4 text-white/90 font-medium">
             Have a question about using NomadNetwork? Encountering a technical issue? Our support team is here to ensure your experience is smooth and seamless.
           </p>
         </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="bg-white text-gray-800 font-[Poppins]">
 
         {/* FAQ Section */}
         <section className="py-12 px-4 sm:px-10 md:px-16 lg:px-24 xl:px-32 bg-gray-50">

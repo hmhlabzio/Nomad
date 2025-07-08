@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import SparkHeader from '../components/SparkHeader'; 
+import SparkHeader from '../components/SparkHeader';
 
-// Image URLs
+// Images
 const tokyoImg = "https://wallpaperaccess.com/full/417584.jpg";
 const visaImg = "https://l450v.alamy.com/450v/2k6ck4x/hand-holding-open-passport-with-republic-of-india-visa-in-british-passport-2k6ck4x.jpg";
 const productivityImg = "https://thumbs.dreamstime.com/b/minimalist-office-desk-setup-laptop-coffee-plants-341168230.jpg";
@@ -50,38 +50,43 @@ const latestArticles = [
 function BlogPage() {
   return (
     <>
-      <SparkHeader /> 
-
-      <div className="bg-white text-gray-800 px-6 md:px-10 lg:px-20 py-12 max-w-[1440px] mx-auto">
-        {/* Headline */}
-        <h1 className="text-4xl font-extrabold text-center mb-12 text-black">
-          The Nomad Ledger: <span className="text-blue-600">Your Source for Global Insights</span>
-        </h1>
-
-        {/* Featured Article */}
-        <div className="grid md:grid-cols-2 gap-8 mb-20 items-center">
-          <img
-            src={featuredArticle.image}
-            alt="Tokyo at night"
-            className="w-full h-auto rounded-xl shadow-lg object-cover"
-          />
-          <div>
-            <p className="text-sm text-blue-500 uppercase tracking-wide font-semibold mb-2">
-              {featuredArticle.category}
-            </p>
-            <h2 className="text-2xl font-bold mb-4">{featuredArticle.title}</h2>
-            <p className="text-gray-700 mb-6">{featuredArticle.excerpt}</p>
-            <Link
-              to={featuredArticle.link}
-              className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full font-medium transition"
-            >
-              Read More →
-            </Link>
-          </div>
+      {/* Banner Background with Header on Top */}
+      <div
+        className="relative w-full min-h-[80vh] flex items-center justify-center px-6 sm:px-12 py-20"
+        style={{
+          backgroundImage: `url(${featuredArticle.image})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        {/* Header Overlay */}
+        <div className="absolute top-0 left-0 w-full z-20">
+          <SparkHeader />
         </div>
 
-        {/* Section Title */}
-        <h3 className="text-2xl font-bold mb-8">Latest Articles</h3>
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black bg-opacity-60 z-10" />
+
+        {/* Content */}
+        <div className="relative z-20 text-white max-w-2xl text-center">
+          <p className="text-sm text-blue-300 uppercase tracking-wide font-semibold mt-10 mb-2">
+            {featuredArticle.category}
+          </p>
+          <h1 className="text-4xl sm:text-5xl font-bold mb-4">{featuredArticle.title}</h1>
+          <p className="text-lg mb-6">{featuredArticle.excerpt}</p>
+          <Link
+            to={featuredArticle.link}
+            className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full font-medium transition"
+          >
+            Read More →
+          </Link>
+        </div>
+      </div>
+
+      {/* Main Blog Content */}
+      <div className="bg-white text-gray-800 px-6 md:px-10 lg:px-20 py-16 max-w-[1440px] mx-auto">
+        <h3 className="text-2xl font-bold mb-8 text-center">Latest Articles</h3>
 
         {/* Article Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -93,7 +98,7 @@ function BlogPage() {
               <img
                 src={article.image}
                 alt={article.title}
-                className="w-full h-60 object-cover rounded-t-xl" // 🔼 Increased height here for better image visibility
+                className="w-full h-60 object-cover rounded-t-xl"
               />
               <div className="p-5">
                 <p className="text-xs text-blue-500 font-semibold mb-1">{article.category}</p>
