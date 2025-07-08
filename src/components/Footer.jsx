@@ -68,7 +68,7 @@ function Footer({
                 <i className="fas fa-envelope text-blue-400 group-hover:text-blue-200 text-lg"></i>
                 <Link
                   to="/contact"
-                  className="text-gray-300 group-hover:text-white font-medium underline"
+                  className="text-gray-300 group-hover:text-white font-medium "
                   onClick={(e) => e.stopPropagation()}
                 >
                   Contact Us
