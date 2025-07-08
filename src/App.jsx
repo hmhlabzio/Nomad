@@ -10,6 +10,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Hero from "./components/Hero";
 import CityPreview from "./components/CityPreview";
 import SparkHeader from './components/SparkHeader';
+import PrivacyPolicy from './components/Privacypolicy';
 import Footer from './components/Footer';
 import CostForecaster from './components/CostForecaster';
 import SafetyTrustScore from './components/SafetyScore';
@@ -121,6 +122,7 @@ function App() {
             <Route path="/about-us" element={<AboutUsPage />} />
             <Route path="/city/:id" element={<CityDetailsPage />} />
             <Route path="/contact" element={<ContactPage />} />
+             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             
 
           </Routes>

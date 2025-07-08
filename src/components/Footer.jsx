@@ -77,12 +77,13 @@ function Footer({
             </li>
             <li>
               <Link
-                to="/privacy-policy"
-                className="flex items-center space-x-3 bg-gray-800 hover:bg-gray-700 transition-colors duration-300 p-3 rounded-xl shadow-md hover:shadow-lg group"
-              >
-                <i className="fas fa-lock text-purple-400 group-hover:text-purple-200 text-lg"></i>
-                <span className="text-gray-300 group-hover:text-white font-medium">Privacy Policy</span>
-              </Link>
+  to="/privacy-policy"
+  className="flex items-center space-x-3 bg-gray-800 hover:bg-gray-700 transition-colors duration-300 p-3 rounded-xl shadow-md hover:shadow-lg group"
+>
+  <i className="fas fa-lock text-purple-400 group-hover:text-purple-200 text-lg"></i>
+  <span className="text-gray-300 group-hover:text-white font-medium">Privacy Policy</span>
+</Link>
+
             </li>
           </ul>
         </div>
