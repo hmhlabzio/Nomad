@@ -94,21 +94,21 @@ function CityPreview() {
                 />
 
                 <div className="overlay-top">
-                  <h3 className="overlay-city-name">{city.name}</h3>
-                  <p className="overlay-country">{city.country}</p>
+                  <h3 className="overlay-city-name">{city.country}</h3>
+                  {/* <p className="overlay-country">{city.country}</p> */}
                 </div>
-                <div className="internet-speed">{city.internet || '25'} Mbps</div>
+                {/* <div className="internet-speed">{city.internet || '25'} Mbps</div> */}
               </div>
 
               <div className="city-info">
                 <div className="city-meta">
                   <span className="price">{city.monthlyCost}/mon</span>
                   <span className="temp">{city.temperature}</span>
-                  <span className="aqi">{city.aqi} AQI</span>
+                  {/* <span className="aqi">{city.aqi} AQI</span> */}
                 </div>
 
                 <div className="rating-bars">
-                  {['cost', 'internet', 'safety', 'liked'].map((key) => {
+                  {['cost', 'internet', 'safety', 'Overall'].map((key) => {
                     const value = city[key] || 0;
                     const { level, color } = getRatingLevel(value);
                     return (
