@@ -136,6 +136,9 @@ function Footer({
             <i className="fas fa-phone text-green-400 mt-1 text-lg"></i>
             <p className="text-gray-300">+1 (555) 123-4567</p>
           </div>
+          <p className="text-gray-400 text-sm mt-4">
+    We aim to respond to all inquiries within 24–48 business hours.
+  </p>
         </div>
       </div>
 
