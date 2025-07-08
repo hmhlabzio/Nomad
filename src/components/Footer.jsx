@@ -32,7 +32,7 @@ function Footer({
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 text-sm sm:text-base">
+      <div className="relative z-10 max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 text-sm sm:text-base">
         
         {/* About Section */}
         <div>
@@ -66,31 +66,30 @@ function Footer({
                 className="flex items-center space-x-3 bg-gray-800 hover:bg-gray-700 transition-colors duration-300 p-3 rounded-xl shadow-md hover:shadow-lg cursor-pointer group"
               >
                 <i className="fas fa-envelope text-blue-400 group-hover:text-blue-200 text-lg"></i>
-                  <Link
-                    to="/contact"
-                    className="text-gray-300 group-hover:text-white font-medium underline"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    Contact Us
-                  </Link>             
-                  </div>
+                <Link
+                  to="/contact"
+                  className="text-gray-300 group-hover:text-white font-medium underline"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  Contact Us
+                </Link>             
+              </div>
             </li>
             <li>
               <Link
-  to="/privacy-policy"
-  className="flex items-center space-x-3 bg-gray-800 hover:bg-gray-700 transition-colors duration-300 p-3 rounded-xl shadow-md hover:shadow-lg group"
->
-  <i className="fas fa-lock text-purple-400 group-hover:text-purple-200 text-lg"></i>
-  <span className="text-gray-300 group-hover:text-white font-medium">Privacy Policy</span>
-</Link>
-
+                to="/privacy-policy"
+                className="flex items-center space-x-3 bg-gray-800 hover:bg-gray-700 transition-colors duration-300 p-3 rounded-xl shadow-md hover:shadow-lg group"
+              >
+                <i className="fas fa-lock text-purple-400 group-hover:text-purple-200 text-lg"></i>
+                <span className="text-gray-300 group-hover:text-white font-medium">Privacy Policy</span>
+              </Link>
             </li>
           </ul>
         </div>
 
-        {/* Tools & Resources */}
+        {/* Tools */}
         <div>
-          <h4 className="text-xl font-semibold mb-4 text-white">Tools & Resources</h4>
+          <h4 className="text-xl font-semibold mb-4 text-white">Tools</h4>
           <ul className="space-y-4">
             <li>
               <div
@@ -122,24 +121,62 @@ function Footer({
           </ul>
         </div>
 
-        {/* Contact Info */}
-        <div className="bg-gray-800 rounded-2xl p-6 shadow-xl border border-gray-700">
+        {/* Resources Section */}
+        <div>
+          <h4 className="text-xl font-semibold mb-4 text-white">Resources</h4>
+          <ul className="space-y-4">
+            <li>
+              <Link
+                to="/blog"
+                className="flex items-center space-x-3 bg-gray-800 hover:bg-gray-700 transition-colors duration-300 p-3 rounded-xl shadow-md hover:shadow-lg group"
+              >
+                <i className="fas fa-newspaper text-indigo-400 group-hover:text-indigo-200 text-lg"></i>
+                <span className="text-gray-300 group-hover:text-white font-medium">Blog</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/community"
+                className="flex items-center space-x-3 bg-gray-800 hover:bg-gray-700 transition-colors duration-300 p-3 rounded-xl shadow-md hover:shadow-lg group"
+              >
+                <i className="fas fa-users text-cyan-400 group-hover:text-cyan-200 text-lg"></i>
+                <span className="text-gray-300 group-hover:text-white font-medium">Community</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/support"
+                className="flex items-center space-x-3 bg-gray-800 hover:bg-gray-700 transition-colors duration-300 p-3 rounded-xl shadow-md hover:shadow-lg group"
+              >
+                <i className="fas fa-life-ring text-red-400 group-hover:text-red-200 text-lg"></i>
+                <span className="text-gray-300 group-hover:text-white font-medium">Support</span>
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        {/* Get In Touch (friend’s design + your content) */}
+        <div>
           <h4 className="text-xl font-semibold mb-6 text-white">Get In Touch</h4>
           <div className="flex items-start space-x-3 mb-4">
-            <i className="fas fa-map-marker-alt text-red-400 mt-1 text-lg"></i>
-            <p className="text-gray-300">123 Nomad Lane, Digital City, World 78901</p>
+            <i className="fas fa-map-marker-alt text-pink-400 mt-1 text-lg"></i>
+            <p className="text-gray-300 text-sm sm:text-base">
+              123 Nomad Lane,<br />Digital City, World 78901
+            </p>
           </div>
           <div className="flex items-start space-x-3 mb-4">
             <i className="fas fa-envelope text-blue-400 mt-1 text-lg"></i>
-            <p className="text-gray-300">info@nomadnetwork.com</p>
+            <p className="text-gray-300 text-sm sm:text-base break-words">
+              info@nomadnetwork.com
+            </p>
           </div>
           <div className="flex items-start space-x-3">
             <i className="fas fa-phone text-green-400 mt-1 text-lg"></i>
-            <p className="text-gray-300">+1 (555) 123-4567</p>
+            <p className="text-gray-300 text-sm sm:text-base">+1 (555) 123-4567</p>
           </div>
           <p className="text-gray-400 text-sm mt-4">
-    We aim to respond to all inquiries within 24–48 business hours.
-  </p>
+            We aim to respond to all inquiries within 24–48 business hours.
+          </p>
         </div>
       </div>
 
