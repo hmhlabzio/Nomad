@@ -13,7 +13,7 @@ function CommunityPage() {
     <>
       {/* Hero Section with Header Positioned on Top */}
       <div
-  className="relative w-full h-[900px] bg-cover bg-center flex items-center justify-center"
+      className="relative w-full min-h-[80vh] flex items-center justify-center px-6 sm:px-12 py-20 pt-28 sm:pt-20 bg-cover"
   style={{
     backgroundImage:
       "url('https://img.freepik.com/premium-photo/concept-international-collaboration-people-from-different-countries-working-together-around-world_853812-4010.jpg')",
@@ -24,13 +24,13 @@ function CommunityPage() {
         <div className="absolute inset-0 bg-black bg-opacity-70 z-0" />
 
         {/* Header on top of the background */}
-        <div className="absolute top-0 left-0 w-full z-10">
+        <div className="absolute top-0 left-0 w-full z-30">
           <SparkHeader />
         </div>
 
         {/* Banner Content */}
         <div className="relative z-20 text-center px-4 sm:px-6">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight drop-shadow-lg mt-52">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight drop-shadow-lg mt-20">
             You’re Not Alone on This Journey.
             <br />
             <span className="text-teal-300">Welcome to the Network.</span>
