@@ -52,7 +52,7 @@ function SafetyTrustScore() {
   };
 
   return (
-    <div className="p-4 sm:p-6 relative text-gray-800 rounded-xl mt-5 w-full max-w-5xl mx-auto">
+    <div className="p-4 sm:p-6 relative text-gray-800 rounded-xl mt-8 w-full max-w-5xl mx-auto">
       {/* Close Button */}
       {/* {onClose && (
         <button

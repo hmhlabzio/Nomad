@@ -168,22 +168,35 @@ function App() {
         )}
 
         {showSafetyScorePopup && (
-          <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
+          <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4 mt-5">
             <div className="bg-white text-black p-6 rounded-md w-full max-w-4xl relative h-[90vh] sm:max-h-[95vh] sm:h-auto overflow-y-auto">
-              <button className="absolute top-6 right-2 text-black bg-white w-12 h-12 flex items-center justify-center text-lg" onClick={() => setShowSafetyScorePopup(false)}>
-                &times;
+              
+              {/* Back Button */}
+              <button
+                className="absolute top-6 left-6 text-black bg-white border border-gray-300 px-4 py-2 rounded hover:bg-gray-100"
+                onClick={() => setShowSafetyScorePopup(false)}
+              >
+                ← Back
               </button>
+
               <SafetyTrustScore onClose={() => setShowSafetyScorePopup(false)} />
             </div>
           </div>
         )}
 
+
         {showMoodHeatmapPopup && (
           <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-2 sm:p-4 overflow-auto">
             <div className="relative w-full max-w-6xl bg-white text-black rounded-md max-h-[95dvh] overflow-y-auto shadow-lg">
-              <button className="absolute top-6 right-2 text-black bg-white w-12 h-12 flex items-center justify-center text-lg" onClick={() => setShowMoodHeatmapPopup(false)}>
-                &times;
+              
+              {/* Back Button */}
+              <button
+                className="absolute top-6 left-6 text-black bg-white border border-gray-300 px-4 py-2 rounded hover:bg-gray-100"
+                onClick={() => setShowMoodHeatmapPopup(false)}
+              >
+                ← Back
               </button>
+
               <div className="p-4 sm:p-6">
                 <MoodHeatmap onClose={() => setShowMoodHeatmapPopup(false)} />
               </div>
@@ -191,16 +204,24 @@ function App() {
           </div>
         )}
 
+
         {showCostForecasterPopup && (
-          <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
-            <div className="bg-white text-black p-6 rounded-md w-full max-w-4xl relative max-h-[90vh] overflow-y-auto">
-              <button className="absolute top-6 right-2 text-black bg-white w-12 h-12 flex items-center justify-center text-lg" onClick={() => setShowCostForecasterPopup(false)}>
-                &times;
-              </button>
-              <CostForecaster onClose={() => setShowCostForecasterPopup(false)} />
+            <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
+              <div className="bg-white text-black p-6 rounded-md w-full max-w-4xl relative max-h-[90vh] overflow-y-auto">
+                
+                {/* Back Button */}
+                <button
+                  className="absolute top-6 left-6 text-black bg-white border border-gray-300 px-4 py-2 rounded hover:bg-gray-100"
+                  onClick={() => setShowCostForecasterPopup(false)}
+                >
+                  ← Back
+                </button>
+
+                <CostForecaster onClose={() => setShowCostForecasterPopup(false)} />
+              </div>
             </div>
-          </div>
-        )}
+          )}
+
 
         {showExploreWorldPopup && (
           <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">

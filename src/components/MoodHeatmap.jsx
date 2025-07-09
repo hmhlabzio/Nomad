@@ -19,7 +19,7 @@ function MoodHeatmap() {
   };
 
   return (
-    <div className="mt-12 px-4 sm:px-6 md:px-10 text-gray-800 w-full h-full overflow-y-auto">
+    <div className="mt-14 px-4 sm:px-6 md:px-10 text-gray-800 w-full h-full overflow-y-auto">
       {/* Top Controls */}
       <div className="sticky top-0 bg-white z-20 flex flex-col sm:flex-row justify-between items-center py-4 gap-3">
        
