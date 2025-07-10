@@ -52,18 +52,19 @@ function BlogPage() {
     <>
       {/* Banner Background with Header on Top */}
       <div
-        className="relative w-full min-h-[80vh] flex items-center justify-center px-6 sm:px-12 py-20"
-        style={{
-          backgroundImage: `url(${featuredArticle.image})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
-          backgroundRepeat: 'no-repeat',
-        }}
-      >
-        {/* Header Overlay */}
-        <div className="absolute top-0 left-0 w-full z-20">
+      className="relative w-full min-h-[80vh] flex items-center justify-center px-6 sm:px-12 py-20 pt-28 sm:pt-20"
+      style={{
+        backgroundImage: `url(${featuredArticle.image})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+
+        <div className="absolute top-0 left-0 w-full z-30">
           <SparkHeader />
         </div>
+
 
         {/* Overlay */}
         <div className="absolute inset-0 bg-black bg-opacity-60 z-10" />

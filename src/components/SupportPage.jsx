@@ -1,22 +1,31 @@
 import React from 'react';
 import SparkHeader from '../components/SparkHeader';
+import bg from '../assets/support.jpg';
 
 function SupportPage() {
   return (
     <>
       {/* Hero Section with Header on Top of Background */}
-      <div className="relative w-full min-h-[80vh] flex items-center justify-center bg-gradient-to-r from-black via-gray-800 to-amber-900 text-white px-6 py-20">
+     <div
+        className="relative w-full h-[90vh] flex items-center justify-center px-6 sm:px-12 py-20 pt-28 sm:pt-20"
+        style={{
+          backgroundImage: `url(${bg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
         {/* Header Overlay */}
-        <div className="absolute top-0 left-0 w-full z-10">
+        <div className="absolute top-0 left-0 w-full z-30">
           <SparkHeader />
         </div>
 
         {/* Content */}
         <div className="relative z-20 text-center max-w-3xl mt-10">
-          <h1 className="text-4xl md:text-5xl font-extrabold drop-shadow-lg">
+          <h1 className="text-white text-4xl md:text-5xl font-extrabold drop-shadow-lg">
             We’re Here to Help.
           </h1>
-          <p className="text-lg mt-4 text-white/90 font-medium">
+          <p className="text-lg mt-4 text-white font-medium">
             Have a question about using NomadNetwork? Encountering a technical issue? Our support team is here to ensure your experience is smooth and seamless.
           </p>
         </div>
@@ -69,48 +78,53 @@ function SupportPage() {
         <section className="bg-white py-12 px-4 sm:px-10 md:px-16 lg:px-24 xl:px-32">
           <h2 className="text-3xl font-bold text-center text-blue-700 mb-10">Contact Us</h2>
 
-          <div className="max-w-4xl mx-auto grid gap-8 text-gray-800">
-            {[
-              {
-                title: 'For General Inquiries & Feedback',
-                email: 'info@nomadnetwork.com',
-              },
-              {
-                title: 'For Technical Support',
-                email: 'support@nomadnetwork.com',
-              },
-              {
-                title: 'For Partnership & Media Inquiries',
-                email: 'partnerships@nomadnetwork.com',
-              },
-            ].map((contact, index) => (
-              <div key={index}>
-                <h3 className="text-lg font-semibold text-blue-800 mb-1">{contact.title}</h3>
-                <p>
-                  Email us at:{' '}
-                  <a
-                    href={`mailto:${contact.email}`}
-                    className="text-blue-600 underline hover:text-blue-800"
-                  >
-                    {contact.email}
-                  </a>
-                </p>
-              </div>
-            ))}
+          <div className="max-w-6xl mx-auto text-gray-800">
+  <div className="grid gap-12 md:grid-cols-4">
+    {[
+      {
+        title: 'For General Inquiries & Feedback',
+        email: 'info@nomadnetwork.com',
+      },
+      {
+        title: 'For Technical Support',
+        email: 'support@nomadnetwork.com',
+      },
+      {
+        title: 'For Partnership & Media Inquiries',
+        email: 'partnerships@nomadnetwork.com',
+      },
+    ].map((contact, index) => (
+      <div key={index}>
+        <h3 className="text-lg font-semibold text-blue-800 mb-1">{contact.title}</h3>
+        <p>
+          Email us at:{' '}
+          <a
+            href={`mailto:${contact.email}`}
+            className="text-blue-600 underline hover:text-blue-800"
+          >
+            {contact.email}
+          </a>
+        </p>
+      </div>
+    ))}
 
-            <div>
-              <h3 className="text-lg font-semibold text-blue-800 mb-1">Business Address:</h3>
-              <p>
-                NomadNetwork <br />
-                123 Nomad Lane, Digital City, World 78901 <br />
-                +1 (555) 123-4567
-              </p>
-            </div>
+    {/* Business Address Block with Vertical Line */}
+    <div className="md:pl-6 border-gray-300">
+      <h3 className="text-lg font-semibold text-blue-800 mb-1">Business Address:</h3>
+      <p>
+        NomadNetwork <br />
+        123 Nomad Lane, Digital City, World 78901 <br />
+        +1 (555) 123-4567
+      </p>
+    </div>
+  </div>
 
-            <p className="text-sm text-gray-500 mt-2">
-              We aim to respond to all inquiries within 24–48 business hours.
-            </p>
-          </div>
+  <p className="text-sm text-gray-500 mt-6 text-center">
+    We aim to respond to all inquiries within 24–48 business hours.
+  </p>
+</div>
+
+
         </section>
       </div>
     </>
