@@ -18,7 +18,8 @@ function CityPreview() {
   const [regionFilter, setRegionFilter] = useState('');
 
   const filteredPlaces = places.filter((place) => {
-  const matchesSearch = place.countryName.toLowerCase().includes(searchTerm.toLowerCase());
+  const matchesSearch = place.countryName?.toLowerCase().includes(searchTerm.toLowerCase()) || false;
+
   const matchesVisa = visaFilter ? place.visaDuration?.includes(visaFilter) : true;
   const matchesRegion = regionFilter ? place.continent?.toLowerCase() === regionFilter.toLowerCase() : true;
   
