@@ -7,7 +7,6 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from 'recharts';
-import { fetchPlaces } from '../utils/api';
 import styled from 'styled-components';
 
 // Static mock data per city (you can later replace with API)
@@ -28,13 +27,13 @@ const mockCityData = {
     cost: 70, cost_basis: 'Avg $1,500/month living cost',
     community: 80, community_basis: 'Strong digital nomad scene'
   },
-  Barcelona: {
-    internet: 84, internet_basis: 'High-speed internet with fiber options',
-    safety: 75, safety_basis: 'Generally safe, be mindful of pickpockets',
-    nightlife: 92, nightlife_basis: 'Buzzing nightlife and beach clubs',
-    mental_wellness: 80, wellness_basis: 'Urban parks & fitness culture',
-    cost: 78, cost_basis: 'Approx $1,600/month for nomads',
-    community: 85, community_basis: 'Large international & tech community'
+  Bali: {
+    internet: 68, internet_basis: 'Variable but improving internet',
+    safety: 70, safety_basis: 'Safe but be cautious in traffic',
+    nightlife: 85, nightlife_basis: 'Beach bars & jungle clubs',
+    mental_wellness: 90, wellness_basis: 'Spiritual retreats & yoga',
+    cost: 95, cost_basis: 'Budget-friendly, avg $900/month',
+    community: 75, community_basis: 'Friendly and open expat vibe'
   }
 };
 
@@ -81,12 +80,6 @@ const CitySelector = styled.select`
   background: white;
   color: #2d3436;
   font-weight: 500;
-  max-height: 3rem;
-  overflow-y: auto;
-
-  option {
-    padding: 0.5rem;
-  }
 `;
 
 const ChartContainer = styled.div`
@@ -96,15 +89,33 @@ const ChartContainer = styled.div`
   position: relative;
 `;
 
+const ScoreContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
 const ScoreCard = styled.div`
   padding: 1.5rem;
+  width: 95%;
+  max-width: 1200px;
   background: white;
   border-radius: 16px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.05);
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   border: 1px solid rgba(0,0,0,0.03);
+
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 20px rgba(108, 92, 231, 0.15);
@@ -129,18 +140,21 @@ const ScoreValue = styled.div`
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  line-height: 1;
 `;
 
 const ScoreLabel = styled.div`
   font-size: 1.1rem;
   font-weight: 700;
   color: #2d3436;
+  margin: 0.5rem 0;
 `;
 
 const ScoreBasis = styled.div`
   font-size: 0.85rem;
   color: #636e72;
   text-align: center;
+  line-height: 1.4;
 `;
 
 const PulseCircle = styled.div`
@@ -163,125 +177,80 @@ const LifestyleMeter = () => {
     const raw = mockCityData[city];
 
     const formatted = [
-      {
-        metric: 'Internet',
-        score: raw.internetSpeed,
-        icon: '🚀',
-        color: '#FF6B6B',
-        basis: `${raw.internetSpeed} Mbps average`,
-      },
-      {
-        metric: 'Safety',
-        score: raw.safetyScore,
-        icon: '🛡️',
-        color: '#4ECDC4',
-        basis: `Crime rate: ${raw.crimerate}`,
-      },
-      {
-        metric: 'Nightlife',
-        score: raw.nightlife,
-        icon: '🍹',
-        color: '#FF9F1C',
-        basis: `Nightlife score: ${raw.nightlife}/100`,
-      },
-      {
-        metric: 'Wellness',
-        score: raw.wellness,
-        icon: '🧘',
-        color: '#A78BFA',
-        basis: `Wellness score: ${raw.wellness}/100`,
-      },
-      {
-        metric: 'Cost',
-        score: raw.costPerDay, // Lower daily cost → higher score
-        icon: '💰',
-        color: '#2ECC71',
-        basis: `Estimated monthly: ${raw.monthlyCost}`,
-      },
-      {
-        metric: 'Community',
-        score: raw.communityscore,
-        icon: '👥',
-        color: '#F9C74F',
-        basis: `Community score: ${raw.communityscore}/100`,
-      },
+      { metric: 'Internet', score: raw.internet, icon: '🚀', color: '#FF6B6B', basis: raw.internet_basis },
+      { metric: 'Safety', score: raw.safety, icon: '🛡️', color: '#4ECDC4', basis: raw.safety_basis },
+      { metric: 'Nightlife', score: raw.nightlife, icon: '🍹', color: '#FF9F1C', basis: raw.nightlife_basis },
+      { metric: 'Wellness', score: raw.mental_wellness, icon: '🧘', color: '#A78BFA', basis: raw.wellness_basis },
+      { metric: 'Cost', score: raw.cost, icon: '💰', color: '#2ECC71', basis: raw.cost_basis },
+      { metric: 'Community', score: raw.community, icon: '👥', color: '#F9C74F', basis: raw.community_basis },
     ];
 
     setLifestyleData(formatted);
-  }, [selectedCity, cities]);
+  }, [city]);
 
   return (
     <Container>
       <Header>
         <Title>Nomad Lifestyle Score</Title>
         <Subtitle>
-          Our vibrant rating system evaluates what truly matters for digital nomads —
-          combining hard data with community experiences.
+          Our vibrant rating system evaluates what truly matters for digital nomads - 
+          combining hard data with community experiences
         </Subtitle>
         <CitySelector value={city} onChange={(e) => setCity(e.target.value)}>
           <option value="Tokyo">Tokyo</option>
           <option value="Lisbon">Lisbon</option>
-          <option value="Barcelona">Barcelona</option>
+          <option value="Bali">Bali</option>
         </CitySelector>
       </Header>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-        <ChartContainer style={{ flex: '1 1 400px', minWidth: '350px' }}>
-          <PulseCircle />
-          <ResponsiveContainer>
-            <RadarChart cx="50%" cy="50%" outerRadius="80%" data={lifestyleData}>
-              <PolarGrid stroke="#e0e3e6" gridType="circle" />
-              <PolarAngleAxis
-                dataKey="metric"
-                tick={{ fill: '#2d3436', fontSize: 12, fontWeight: 600 }}
-              />
-              <Radar
-                name="Score"
-                dataKey="score"
-                stroke="#6c5ce7"
-                fill="#6c5ce7"
-                fillOpacity={0.2}
-                strokeWidth={2}
-                animationDuration={1800}
-              />
-              <Tooltip
-                contentStyle={{
-                  background: 'rgba(255,255,255,0.95)',
-                  borderRadius: '12px',
-                  boxShadow: '0 5px 20px rgba(0,0,0,0.1)',
-                  border: '1px solid rgba(0,0,0,0.05)',
-                  backdropFilter: 'blur(10px)',
-                  fontSize: '14px'
-                }}
-                itemStyle={{
-                  color: '#6c5ce7',
-                  fontWeight: 600
-                }}
-              />
-            </RadarChart>
-          </ResponsiveContainer>
-        </ChartContainer>
+      <ChartContainer>
+        <PulseCircle />
+        <ResponsiveContainer>
+          <RadarChart cx="50%" cy="50%" outerRadius="80%" data={lifestyleData}>
+            <PolarGrid stroke="#e0e3e6" gridType="circle" />
+            <PolarAngleAxis 
+              dataKey="metric" 
+              tick={{ fill: '#2d3436', fontSize: 12, fontWeight: 600 }}
+            />
+            <Radar
+              name="Score"
+              dataKey="score"
+              stroke="#6c5ce7"
+              fill="#6c5ce7"
+              fillOpacity={0.2}
+              strokeWidth={2}
+              animationDuration={1800}
+            />
+            <Tooltip 
+              contentStyle={{
+                background: 'rgba(255,255,255,0.95)',
+                borderRadius: '12px',
+                boxShadow: '0 5px 20px rgba(0,0,0,0.1)',
+                border: '1px solid rgba(0,0,0,0.05)',
+                backdropFilter: 'blur(10px)',
+                fontSize: '14px'
+              }}
+              itemStyle={{
+                color: '#6c5ce7',
+                fontWeight: 600
+              }}
+            />
+          </RadarChart>
+        </ResponsiveContainer>
+      </ChartContainer>
 
-        <div
-          style={{
-            flex: '1 1 550px',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-            gap: '1.5rem',
-          }}
-        >
-          {lifestyleData.map((item) => (
-            <ScoreCard key={item.metric} style={{ borderTop: `4px solid ${item.color}` }}>
-              <ScoreHeader>
-                <MetricIcon>{item.icon}</MetricIcon>
-                <ScoreLabel>{item.metric}</ScoreLabel>
-              </ScoreHeader>
-              <ScoreValue>{item.score}</ScoreValue>
-              <ScoreBasis>{item.basis}</ScoreBasis>
-            </ScoreCard>
-          ))}
-        </div>
-      </div>
+      <ScoreContainer>
+        {lifestyleData.map((item) => (
+          <ScoreCard key={item.metric} style={{ borderTop: `4px solid ${item.color}` }}>
+            <ScoreHeader>
+              <MetricIcon>{item.icon}</MetricIcon>
+              <ScoreLabel>{item.metric}</ScoreLabel>
+            </ScoreHeader>
+            <ScoreValue>{item.score}</ScoreValue>
+            <ScoreBasis>{item.basis}</ScoreBasis>
+          </ScoreCard>
+        ))}
+      </ScoreContainer>
     </Container>
   );
 };
