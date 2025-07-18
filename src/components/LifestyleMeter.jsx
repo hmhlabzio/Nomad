@@ -7,35 +7,11 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from 'recharts';
+import { fetchPlaces } from '../utils/api';
 import styled from 'styled-components';
 
 // Static mock data per city (you can later replace with API)
-const mockCityData = {
-  Tokyo: {
-    internet: 89, internet_basis: 'Blazing fast 89 Mbps average',
-    safety: 82, safety_basis: 'Very safe with 24/7 patrols',
-    nightlife: 83, nightlife_basis: '100+ bars & clubs rated 4.5★+',
-    mental_wellness: 74, wellness_basis: '50+ yoga studios & spas',
-    cost: 91, cost_basis: 'Only $1,200/month avg cost',
-    community: 66, community_basis: 'Growing expat community'
-  },
-  Lisbon: {
-    internet: 76, internet_basis: 'Decent 76 Mbps average',
-    safety: 88, safety_basis: 'Extremely safe at night',
-    nightlife: 90, nightlife_basis: 'Vibrant and open till 4am',
-    mental_wellness: 82, wellness_basis: 'Affordable wellness centers',
-    cost: 70, cost_basis: 'Avg $1,500/month living cost',
-    community: 80, community_basis: 'Strong digital nomad scene'
-  },
-  Barcelona: {
-    internet: 84, internet_basis: 'High-speed internet with fiber options',
-    safety: 75, safety_basis: 'Generally safe, be mindful of pickpockets',
-    nightlife: 92, nightlife_basis: 'Buzzing nightlife and beach clubs',
-    mental_wellness: 80, wellness_basis: 'Urban parks & fitness culture',
-    cost: 78, cost_basis: 'Approx $1,600/month for nomads',
-    community: 85, community_basis: 'Large international & tech community'
-  }
-};
+
 
 const Container = styled.div`
   padding: 2.5rem;
@@ -170,48 +146,106 @@ const PulseCircle = styled.div`
 `;
 
 const LifestyleMeter = () => {
-  const [city, setCity] = useState('Tokyo');
+  const [cities, setCities] = useState([]);
+  const [selectedCity, setSelectedCity] = useState('');
   const [lifestyleData, setLifestyleData] = useState([]);
 
   useEffect(() => {
-    const raw = mockCityData[city];
+    const loadCities = async () => {
+      try {
+        const data = await fetchPlaces();
+        setCities(data);
+        if (data.length > 0) setSelectedCity(data[0].countryName);
+      } catch (err) {
+        console.error('Error loading cities:', err);
+      }
+    };
+
+    loadCities();
+  }, []);
+
+  useEffect(() => {
+    if (!selectedCity || cities.length === 0) return;
+
+    const raw = cities.find((c) => c.countryName === selectedCity);
+    if (!raw) return;
 
     const formatted = [
-      { metric: 'Internet', score: raw.internet, icon: '🚀', color: '#FF6B6B', basis: raw.internet_basis },
-      { metric: 'Safety', score: raw.safety, icon: '🛡️', color: '#4ECDC4', basis: raw.safety_basis },
-      { metric: 'Nightlife', score: raw.nightlife, icon: '🍹', color: '#FF9F1C', basis: raw.nightlife_basis },
-      { metric: 'Wellness', score: raw.mental_wellness, icon: '🧘', color: '#A78BFA', basis: raw.wellness_basis },
-      { metric: 'Cost', score: raw.cost, icon: '💰', color: '#2ECC71', basis: raw.cost_basis },
-      { metric: 'Community', score: raw.community, icon: '👥', color: '#F9C74F', basis: raw.community_basis },
+      {
+        metric: 'Internet',
+        score: raw.internetSpeed,
+        icon: '🚀',
+        color: '#FF6B6B',
+        basis: `${raw.internetSpeed} Mbps average`,
+      },
+      {
+        metric: 'Safety',
+        score: raw.safetyScore,
+        icon: '🛡️',
+        color: '#4ECDC4',
+        basis: `Crime rate: ${raw.crimerate}`,
+      },
+      {
+        metric: 'Nightlife',
+        score: raw.nightlife,
+        icon: '🍹',
+        color: '#FF9F1C',
+        basis: `Nightlife score: ${raw.nightlife}/100`,
+      },
+      {
+        metric: 'Wellness',
+        score: raw.wellness,
+        icon: '🧘',
+        color: '#A78BFA',
+        basis: `Wellness score: ${raw.wellness}/100`,
+      },
+      {
+        metric: 'Cost',
+        score: raw.costPerDay, // Lower daily cost → higher score
+        icon: '💰',
+        color: '#2ECC71',
+        basis: `Estimated monthly: ${raw.monthlyCost}`,
+      },
+      {
+        metric: 'Community',
+        score: raw.communityscore,
+        icon: '👥',
+        color: '#F9C74F',
+        basis: `Community score: ${raw.communityscore}/100`,
+      },
     ];
 
     setLifestyleData(formatted);
-  }, [city]);
+  }, [selectedCity, cities]);
 
   return (
     <Container>
       <Header>
         <Title>Nomad Lifestyle Score</Title>
         <Subtitle>
-          Our vibrant rating system evaluates what truly matters for digital nomads - 
-          combining hard data with community experiences
+          Our vibrant rating system evaluates what truly matters for digital nomads —
+          combining hard data with community experiences.
         </Subtitle>
-        <CitySelector value={city} onChange={(e) => setCity(e.target.value)}>
-          <option value="Tokyo">Tokyo</option>
-          <option value="Lisbon">Lisbon</option>
-          <option value="Barcelona">Barcelona</option>
-        </CitySelector>
+
+        {cities.length > 0 && (
+          <CitySelector value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)}>
+            {cities.map((city) => (
+              <option key={city.countryName} value={city.countryName}>
+                {city.countryName}
+              </option>
+            ))}
+          </CitySelector>
+        )}
       </Header>
 
-      {/* Chart + All ScoreCards side-by-side */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <ChartContainer style={{ flex: '1 1 400px', minWidth: '350px' }}>
           <PulseCircle />
           <ResponsiveContainer>
             <RadarChart cx="50%" cy="50%" outerRadius="80%" data={lifestyleData}>
               <PolarGrid stroke="#e0e3e6" gridType="circle" />
-              <PolarAngleAxis 
-                dataKey="metric" 
+              <PolarAngleAxis
+                dataKey="metric"
                 tick={{ fill: '#2d3436', fontSize: 12, fontWeight: 600 }}
               />
               <Radar
@@ -223,7 +257,7 @@ const LifestyleMeter = () => {
                 strokeWidth={2}
                 animationDuration={1800}
               />
-              <Tooltip 
+              <Tooltip
                 contentStyle={{
                   background: 'rgba(255,255,255,0.95)',
                   borderRadius: '12px',

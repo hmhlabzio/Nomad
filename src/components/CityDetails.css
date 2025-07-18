@@ -424,7 +424,7 @@ body, .city-details-container {
     align-items: center;
     gap: 1.5rem;
   }
-
+ 
   .quality-grid {
     flex-direction: column;
   }

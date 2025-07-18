@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-
-const cityData = {
-    Tokyo: { cost: 1500, hidden: 800 },
-    Lisbon: { cost: 1300, hidden: 600 },
-    London: { cost: 1600, hidden: 900 },
-    Barcelona: { cost: 1400, hidden: 700 },
-  };
+import { fetchPlaces } from "../utils/api"; // ✅ Make sure the path is correct
 
 function CostForecaster() {
   const [days, setDays] = useState(5);
   const [showFees, setShowFees] = useState(false);
-  const [place, setPlace] = useState("Tokyo");
+  const [cities, setCities] = useState([]);
+  const [place, setPlace] = useState("");
   const [dailyCost, setDailyCost] = useState(0);
   const [hiddenFees, setHiddenFees] = useState(0);
 
@@ -24,13 +19,26 @@ function CostForecaster() {
     "🛎️ Try weekdays for cheaper stays",
   ];
 
-  
+  useEffect(() => {
+    const loadCities = async () => {
+      try {
+        const data = await fetchPlaces();
+        setCities(data);
+        if (data.length > 0) setPlace(data[0].countryName);
+      } catch (error) {
+        console.error("Failed to fetch cost data", error);
+      }
+    };
+    loadCities();
+  }, []);
 
   useEffect(() => {
-    const city = cityData[place];
-    setDailyCost(city.cost);
-    setHiddenFees(showFees ? city.hidden : 0);
-  }, [place, showFees]);
+    const selectedCity = cities.find((city) => city.countryName === place);
+    if (selectedCity) {
+      setDailyCost(selectedCity.costPerDay ?? 0);
+      setHiddenFees(showFees ? selectedCity.hidden ?? 0 : 0);
+    }
+  }, [place, showFees, cities]);
 
   const baseCost = dailyCost * days;
   const totalCost = baseCost + hiddenFees;
@@ -51,6 +59,7 @@ function CostForecaster() {
           Cost Forecaster
         </h2>
 
+        {/* Place Dropdown */}
         <div className="flex justify-between items-center">
           <label className="text-base font-medium text-slate-800">Place:</label>
           <select
@@ -58,14 +67,19 @@ function CostForecaster() {
             onChange={(e) => setPlace(e.target.value)}
             className="ml-4 p-1 rounded-md border border-slate-300 bg-white text-sm"
           >
-            {Object.keys(cityData).map((city) => (
-              <option key={city} value={city}>{city}</option>
+            {cities.map((city) => (
+              <option key={city.id} value={city.countryName}>
+                {city.countryName}
+              </option>
             ))}
           </select>
         </div>
 
+        {/* Days Slider */}
         <div className="flex justify-between items-center">
-          <label className="text-base font-medium text-slate-800">Days: {days}</label>
+          <label className="text-base font-medium text-slate-800">
+            Days: {days}
+          </label>
           <input
             type="range"
             min="1"
@@ -76,20 +90,23 @@ function CostForecaster() {
           />
         </div>
 
+        {/* Hidden Fees Toggle */}
         <div className="flex justify-between items-center">
-          <label className="text-base font-medium text-slate-800">Show hidden fees:</label>
+          <label className="text-base font-medium text-slate-800">
+            Show hidden fees:
+          </label>
           <input
             type="checkbox"
             checked={showFees}
             onChange={(e) => setShowFees(e.target.checked)}
             className="ml-4 w-5 h-5 bg-white"
           />
-
         </div>
 
+        {/* Cost Breakdown */}
         <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 shadow-sm text-sm">
           <p className="flex justify-between mb-1">
-            <span>Base Cost:</span> <span>₹{baseCost}</span>
+            <span>Base Cost:</span> <span>${baseCost}</span>
           </p>
           {showFees && (
             <p className="flex justify-between mb-1">
@@ -97,12 +114,15 @@ function CostForecaster() {
             </p>
           )}
           <p className="flex justify-between font-bold text-base text-blue-600">
-            <span>Total Cost:</span> <span>₹{totalCost}</span>
+            <span>Total Cost:</span> <span>${totalCost}</span>
           </p>
         </div>
 
+        {/* Tips */}
         <div className="mt-4 bg-emerald-50 border-l-4 border-emerald-500 p-3 rounded-lg text-sm">
-          <h3 className="text-base font-bold text-emerald-800 mb-1">Cost Saving Tips</h3>
+          <h3 className="text-base font-bold text-emerald-800 mb-1">
+            Cost Saving Tips
+          </h3>
           <ul className="list-disc list-inside text-emerald-800 space-y-1">
             {tips.map((tip, index) => (
               <li key={index}>{tip}</li>

@@ -22,11 +22,15 @@ function CityDetailsPage() {
     message: '',
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     const loadCity = async () => {
       try {
         const data = await fetchPlaces();
-        const match = data.docs.find((c) => c.id === id);
+        const match = data.find((c) => String(c.id) === id);
+        console.log('Fetched cities:', data);
+        console.log('Looking for ID:', id);
         if (!match) {
           console.error('City not found with ID:', id);
         }
@@ -59,28 +63,7 @@ function CityDetailsPage() {
     return { level: 'Poor', color: '#ef4444' };
   };
 
-  const sendMailToAdmin = async (data, cityName) => {
-    try {
-      const response = await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        {
-          name: data.name,
-          email: data.email,
-          country: data.country,
-          city: cityName,
-          message: data.message,
-        },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      );
-      alert("Inquiry successfully sent!");
-      console.log('Email sent successfully!', response);
-    } catch (error) {
-      alert("Inquiry not sent!");
-      console.error('Email failed to send:', error);
-    }
-  };
-
+ 
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -89,55 +72,40 @@ function CityDetailsPage() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!city) {
-      alert('City data is not loaded yet.');
-      return;
-    }
+  e.preventDefault();
+  setIsLoading(true);
 
-    const apiUrl = import.meta.env.VITE_PAYLOAD_API_URL || 'http://localhost:3000';
-    if (!apiUrl) {
-      alert('API URL is not configured in .env file');
-      console.error('VITE_PAYLOAD_API_URL is missing');
-      return;
-    }
+  try {
+    await emailjs.send(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+      {
+        name: formData.name,
+        email: formData.email,
+        country: formData.country,
+        message: formData.message,
+        cityId: city?.id || '',
+      },
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+    );
 
-    const payloadData = {
-      ...formData,
-      cityId: city.id,
-    };
+    alert('Inquiry sent successfully!');
+    setFormData({
+      name: '',
+      email: '',
+      country: '',
+      message: '',
+      cityId: city?.id || '',
+    });
+  } catch (error) {
+    console.error('Email send failed:', error);
+    alert('Failed to send email.');
+  } finally {
+    setIsLoading(false);
+  }
+};
 
-    try {
-      const response = await fetch(`${apiUrl}/api/inquiries`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payloadData),
-      });
 
-      let responseData = {};
-      try {
-        responseData = await response.json();
-      } catch {
-        console.warn('Response had no JSON body');
-      }
-
-      console.log('Response:', response.status, responseData);
-
-      if (!response.ok) {
-        throw new Error('Failed to send inquiry to CMS');
-      }
-
-      console.log('Inquiry sent successfully!');
-      setFormData({ name: '', email: '', country: '', message: '' });
-
-      await sendMailToAdmin(payloadData, city.name);
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Failed to send inquiry. Please try again.');
-    }
-  };
 
   // Show loading animation
   if (showAnimation || !city) {
@@ -178,7 +146,7 @@ function CityDetailsPage() {
         </div>
         <div className="hero-overlay"></div>
         <div className="hero-content">
-          <h1>{city.name}</h1>
+          <h1>{city.countryName}</h1>
           <p>{city.visaType}</p>
         </div>
       </div>
@@ -188,14 +156,24 @@ function CityDetailsPage() {
       {/* Stats Section */}
       <div className="stats-grid">
         <div className="stat-box">
+          <div className="icon">⏳</div>
+          <h3>{city.visaDuration} </h3>
+          <p>Visa Duration</p>
+        </div>
+        <div className="stat-box">
           <div className="icon">📶</div>
-          <h3>{city.internet} Mbps</h3>
+          <h3>{city.internetSpeed} Mbps</h3>
           <p>Internet Speed</p>
         </div>
         <div className="stat-box">
           <div className="icon">🌡️</div>
-          <h3>{city.temperature}</h3>
+          <h3>{city.climate}</h3>
           <p>Avg. Temperature</p>
+        </div>
+        <div className="stat-box">
+          <div className="icon">💸</div>
+          <h3>{city.visaFees} </h3>
+          <p>Visa Application Fees</p>
         </div>
       </div>
 
@@ -205,22 +183,22 @@ function CityDetailsPage() {
         <div className="quality-grid">
           <div className="cost-and-stats">
             <div className="monthly-cost">
-              <h3>{city.monthlyCost}<span>/month</span></h3>
+              <h3>${city.monthlyCost}<span>/month</span></h3>
               <p>Estimated monthly cost for nomads</p>
             </div>
             <div className="quick-stats">
-              <div className="stat"><span>🌡</span>{city.temperature}</div>
+              <div className="stat"><span>🌡</span>{city.climate}</div>
               <div className="stat"><span>🌿</span>{city.aqi} AQI</div>
-              <div className="stat"><span>🛡</span>{getRatingLevel(city.safety).level} Safety</div>
+              <div className="stat"><span>🛡</span>{getRatingLevel(city.safetyScore).level} Safety</div>
             </div>
           </div>
 
           <div className="rating-section">
             {[
               { label: '💰 Cost', value: city.cost, color: '#f97316' },
-              { label: '📶 Internet', value: city.internet, color: '#3b82f6' },
-              { label: '🛡 Safety', value: city.safety, color: '#22c55e' },
-              { label: '❤️ Liked', value: city.liked, color: '#ef4444' },
+              { label: '📶 Internet', value: city.internetSpeed, color: '#3b82f6' },
+              { label: '🛡 Safety', value: city.safetyScore, color: '#22c55e' },
+              { label: '❤️ Liked', value: city.overallScore, color: '#ef4444' },
             ].map(({ label, value, color }) => (
               <div className="rating-row" key={label}>
                 <div className="rating-label">{label}</div>
@@ -274,17 +252,17 @@ function CityDetailsPage() {
 
       {/* About Section */}
       <div className="city-about">
-        <h2 className="city-que">Why {city?.name} is Perfect for Digital Nomads</h2>
-        <p className="city-ans1">{city?.name} offers the perfect combination of tropical paradise, strong nomad community, and affordable living.</p>
+        <h2 className="city-que">Why {city?.countryName} is Perfect for Digital Nomads</h2>
+        <p className="city-ans1">{city?.countryName} offers the perfect combination of tropical paradise, strong nomad community, and affordable living.</p>
         <p className="city-ans2">With its beautiful beaches, vibrant co-working scene, and incredibly welcoming community, {city?.name} has become the ultimate destination for lifestyle-focused digital nomads.</p>
       </div>
 
       {/* Inquiry Form Section */}
       <div className="inquiry-form-wrapper">
         <div className="inquiry-form">
-          <h2>Interested in {city.name}?</h2>
+          <h2>Interested in {city.countryName}?</h2>
           <p>Get personalized guidance on the visa application process and living in {city.name}.</p>
-
+        
           <form onSubmit={handleSubmit}>
             <div className="input-row">
               <label>
@@ -318,10 +296,11 @@ function CityDetailsPage() {
               ></textarea>
             </label>
 
-            <button type="submit">
+            <button type="submit" disabled={isLoading}>
               <FontAwesomeIcon icon={faPaperPlane} style={{ marginRight: '8px' }} />
-              Send Inquiry
+              {isLoading ? 'Sending...' : 'Send Inquiry'}
             </button>
+
           </form>
         </div>
       </div>
