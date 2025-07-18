@@ -11,7 +11,32 @@ import { fetchPlaces } from '../utils/api';
 import styled from 'styled-components';
 
 // Static mock data per city (you can later replace with API)
-
+const mockCityData = {
+  Tokyo: {
+    internet: 89, internet_basis: 'Blazing fast 89 Mbps average',
+    safety: 82, safety_basis: 'Very safe with 24/7 patrols',
+    nightlife: 83, nightlife_basis: '100+ bars & clubs rated 4.5★+',
+    mental_wellness: 74, wellness_basis: '50+ yoga studios & spas',
+    cost: 91, cost_basis: 'Only $1,200/month avg cost',
+    community: 66, community_basis: 'Growing expat community'
+  },
+  Lisbon: {
+    internet: 76, internet_basis: 'Decent 76 Mbps average',
+    safety: 88, safety_basis: 'Extremely safe at night',
+    nightlife: 90, nightlife_basis: 'Vibrant and open till 4am',
+    mental_wellness: 82, wellness_basis: 'Affordable wellness centers',
+    cost: 70, cost_basis: 'Avg $1,500/month living cost',
+    community: 80, community_basis: 'Strong digital nomad scene'
+  },
+  Barcelona: {
+    internet: 84, internet_basis: 'High-speed internet with fiber options',
+    safety: 75, safety_basis: 'Generally safe, be mindful of pickpockets',
+    nightlife: 92, nightlife_basis: 'Buzzing nightlife and beach clubs',
+    mental_wellness: 80, wellness_basis: 'Urban parks & fitness culture',
+    cost: 78, cost_basis: 'Approx $1,600/month for nomads',
+    community: 85, community_basis: 'Large international & tech community'
+  }
+};
 
 const Container = styled.div`
   padding: 2.5rem;
@@ -56,6 +81,12 @@ const CitySelector = styled.select`
   background: white;
   color: #2d3436;
   font-weight: 500;
+  max-height: 3rem;
+  overflow-y: auto;
+
+  option {
+    padding: 0.5rem;
+  }
 `;
 
 const ChartContainer = styled.div`
@@ -65,33 +96,15 @@ const ChartContainer = styled.div`
   position: relative;
 `;
 
-const ScoreContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin-top: 3rem;
-  @media (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 640px) {
-    grid-template-columns: 1fr;
-  }
-`;
-
 const ScoreCard = styled.div`
   padding: 1.5rem;
-  width: 95%;
-  max-width: 1200px;
   background: white;
   border-radius: 16px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.05);
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   border: 1px solid rgba(0,0,0,0.03);
-
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 20px rgba(108, 92, 231, 0.15);
@@ -116,21 +129,18 @@ const ScoreValue = styled.div`
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  line-height: 1;
 `;
 
 const ScoreLabel = styled.div`
   font-size: 1.1rem;
   font-weight: 700;
   color: #2d3436;
-  margin: 0.5rem 0;
 `;
 
 const ScoreBasis = styled.div`
   font-size: 0.85rem;
   color: #636e72;
   text-align: center;
-  line-height: 1.4;
 `;
 
 const PulseCircle = styled.div`
@@ -146,29 +156,11 @@ const PulseCircle = styled.div`
 `;
 
 const LifestyleMeter = () => {
-  const [cities, setCities] = useState([]);
-  const [selectedCity, setSelectedCity] = useState('');
+  const [city, setCity] = useState('Tokyo');
   const [lifestyleData, setLifestyleData] = useState([]);
 
   useEffect(() => {
-    const loadCities = async () => {
-      try {
-        const data = await fetchPlaces();
-        setCities(data);
-        if (data.length > 0) setSelectedCity(data[0].countryName);
-      } catch (err) {
-        console.error('Error loading cities:', err);
-      }
-    };
-
-    loadCities();
-  }, []);
-
-  useEffect(() => {
-    if (!selectedCity || cities.length === 0) return;
-
-    const raw = cities.find((c) => c.countryName === selectedCity);
-    if (!raw) return;
+    const raw = mockCityData[city];
 
     const formatted = [
       {
@@ -226,16 +218,11 @@ const LifestyleMeter = () => {
           Our vibrant rating system evaluates what truly matters for digital nomads —
           combining hard data with community experiences.
         </Subtitle>
-
-        {cities.length > 0 && (
-          <CitySelector value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)}>
-            {cities.map((city) => (
-              <option key={city.countryName} value={city.countryName}>
-                {city.countryName}
-              </option>
-            ))}
-          </CitySelector>
-        )}
+        <CitySelector value={city} onChange={(e) => setCity(e.target.value)}>
+          <option value="Tokyo">Tokyo</option>
+          <option value="Lisbon">Lisbon</option>
+          <option value="Barcelona">Barcelona</option>
+        </CitySelector>
       </Header>
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', justifyContent: 'space-between', alignItems: 'flex-start' }}>
